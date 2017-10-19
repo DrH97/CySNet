@@ -1,5 +1,6 @@
 <?php
 
+require_once '';
 require 'app/start.php';
 
 $HardwareProducts = $db->query("

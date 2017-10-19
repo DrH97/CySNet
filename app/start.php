@@ -11,3 +11,6 @@ $db = new PDO('mysql:host=127.0.0.1;dbname=tech-e', 'root', '');
 $db1 = mysqli_connect('localhost','root','');
     mysqli_select_db($db1, 'tech-e');
 require 'functions.php';
+
+$dbt = new DatabaseSchema('localhost', 'root', '', 'techcrowd');
+
