@@ -1,10 +1,9 @@
-@extends('layouts.appheader')
-@include('inc.navbar')
-
-{{-- @section('bluebar') --}}
+<?php
+include_once '../start.php';
+include VIEW_ROOT . '/layouts/navbar.php'; ?>
 
     <div class="description">
-        <center>
+        <div style="text-align: center;">
             <div>
                 <form method="post" action="#">
                     <input type="search" placeholder="Hey there, Who are you looking for?">
@@ -19,12 +18,8 @@
                     <input type="submit" value="FIND">
                 </form>
             </div>
-        </center>
+        </div>
     </div>
-{{--     
-@endsection --}}
-
-@section('content')
 
     <!-- CONTENT -->
     <div class="content">
@@ -34,7 +29,7 @@
         <center>
             <div class="r-card">
                 <div class="image">
-                    <img src="{!! asset('images/sample.jpg') !!}"/>
+                    <img src="<?php echo ASSETS . 'images/defaultprofile.png'?>"/>
                 </div>
                 <div class="more">
                     <h3>Name of person</h3>

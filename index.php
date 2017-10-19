@@ -19,4 +19,4 @@ require 'app/start.php';
 
 //require VIEW_ROOT . '/templates/pageloader.php';
 
-require VIEW_ROOT . '/home.php';
+require VIEW_ROOT . '/shop.php';

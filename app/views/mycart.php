@@ -1,22 +1,15 @@
-@extends('layouts.appheader')
-@include('inc.navbar')
-
-@section('bluebar')
-    <h3>You have no items on your cart</h3>
-    <a href="/"><button>GET STARTED</button></a>
-@endsection
-
-
-@section('content')
+<?php
+include_once '../start.php';
+include VIEW_ROOT . '/layouts/navbar.php'; ?>
 
     <!-- DESCRIPTION -->
     <div class="description">
-        <center>
+        <div style="text-align: center;">
             <div>
                 <h3>You have no items on your cart</h3>
                 <a href="/"><button>GET STARTED</button></a>
             </div>
-        </center>
+        </div>
     </div>
 
     <!-- CONTENT -->
@@ -51,5 +44,3 @@
         </form>
 
     </div>
-
-@endsection

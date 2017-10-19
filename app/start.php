@@ -4,9 +4,10 @@
 ini_set('display_errors', 'On');
 
 define('APP_ROOT', __DIR__);
-define('VIEW_ROOT', APP_ROOT . '/views');
-define('BASE_URL', 'http://localhost/tech-e');
-define('IMAGES', BASE_URL . '/images' . '/');
+define('VIEW_ROOT', APP_ROOT . '/views/');
+define('BASE_URL', 'http://localhost/CS-Project/');
+define('VIEW_URL', BASE_URL .'app/views/');
+define('ASSETS', BASE_URL . 'assets' . '/');
 
 $host = 'localhost';
 $username = 'root';

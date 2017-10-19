@@ -1,0 +1,836 @@
+html{
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+}
+
+body{
+    width: inherit;
+    height: inherit;
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+    font-family: 'Quicksand', "Arial Regular", sans-serif;
+    background-color: white;
+}
+
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+
+/* this targets the default scrollbar (compulsory) */
+
+::-webkit-scrollbar:horizontal {
+    height: 8px;
+}
+
+
+/* this targets the default scrollbar (compulsory) */
+
+::-webkit-scrollbar-track {
+    background-color: #f4f4f4;
+}
+
+
+/* the new scrollbar will have a flat appearance with the set background color */
+
+::-webkit-scrollbar-thumb {
+    background-color: cornflowerblue;
+    border-radius: 5px;
+}
+
+
+
+
+
+
+/* HEADER */
+
+header{
+    width: inherit;
+    height: 4em;
+    background-color: white;
+    overflow: hidden;
+    display: inline-block;
+    border-bottom: 2px solid skyblue;
+    position: fixed;
+    z-index: 1;
+}
+
+/* Style the links inside the navigation bar */
+header #title {
+    width: auto;
+    height: inherit;
+    float: left;
+    display: block;
+    color: darkslategray;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 1.8em;
+    margin-left: 0.8em;
+}
+
+header #links{
+    float: left;
+    height: inherit;
+    display: inline;
+}
+
+header #links a{
+    width: auto;
+    height: inherit;
+    display: inline-flex;
+    color: deepskyblue;
+    text-align: center;
+    padding: 20px 16px 14px 16px;
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+/* Change the color of links on hover */
+header #links a:hover {
+    background-color: skyblue;
+    color: black;
+}
+
+header .account{
+    height: inherit;
+    float: right;
+    display: inline-flex;
+    padding-top: 0.5em;
+}
+
+header .account a:hover{
+    background-color: paleturquoise;
+    cursor: pointer;
+}
+
+header .account div{
+    height: inherit;
+    display: inline-block;
+}
+
+header .account p{
+    color: darkslategray;
+    font-weight: bold;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+header .account img{
+    width: 3em;
+    height: 3em;
+    border-radius: 50%;
+    margin-right: 2.5em;  
+}
+
+
+
+
+
+/* SHOP */
+
+/* description */
+.description{
+    width: 100%;
+    height: auto;
+    background-color: skyblue;
+    padding: 5em 0em 1em 0em;
+}
+
+.description div{
+    width: 70%;
+    height: auto;
+    display: inline-block;
+}
+
+.description div input[type="search"]{
+    width: 55%;
+    height: 3em;
+    border-style: none;
+    color: black;
+    font-size: 1em;
+    padding: 1em;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.description div input[type="search"]:hover{
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.description div select{
+    width: 30%;
+    height: 4em;
+    border-style: none;
+    font-size: 0.8em;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.description div select:hover{
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.description div input[type='submit']{
+    width: 10%;
+    height: 4em;
+    border-style: none;
+    font-size: 0.8em;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.description div input[type='submit']:hover{
+    width: 10%;
+    height: 4em;
+    border-style: none;
+    font-size: 0.8em;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* content */
+.content{
+    height: 50em;
+    width: 70%;
+    padding-top: 2em;
+    margin: auto;
+    background-color: transparent;
+}
+
+/* for hardware items card */
+
+.h-card{
+    background-color: white;
+    width: 60%;
+    height: auto;
+    display: inline-flex;
+    box-shadow: 0px 0px 10px gray;
+    margin: 0.4em auto;
+    text-align: left;
+}
+
+.h-card:hover{
+    background-color: ghostwhite;
+}
+
+.h-card .image{
+    width: 30%;
+    min-width: 10em;
+    height: 10em;
+    padding: 1em;
+}
+
+.h-card .image img{
+    width: 100%;
+    height: 100%;
+    border-radius: 10%;
+}
+
+.h-card .more{
+    width: 80%;
+    height: 10em;
+    padding: 1em;
+    display: block;
+}
+
+.h-card .more h3{
+    margin: 5px;
+    padding: 0;
+}
+
+.h-card .more p{
+    height: 5.5em;
+    overflow-y: scroll;
+    margin: 5px;
+    padding: 0;
+}
+
+.h-card .more .bottom{
+    position: relative;
+    bottom: 0;
+}
+
+.h-card .more .bottom button{
+    padding: 8px 15px;
+    color: dodgerblue;
+    background-color: white;
+    border: 1px solid skyblue;
+}
+
+.h-card .more .bottom button:hover{
+    color: white;
+    background-color: skyblue;
+}
+
+.h-card .more .bottom #cart:hover{
+    color: white;
+    border: 1px solid seagreen;
+    background-color: seagreen;
+}
+
+
+
+
+/* REPAIRS */
+
+/* for repairers card */
+
+.r-card{
+    background-color: white;
+    width: 60%;
+    height: auto;
+    display: inline-flex;
+    box-shadow: 0px 0px 10px gray;
+    margin: 0.4em auto;
+}
+
+.r-card:hover{
+    background-color: ghostwhite;
+}
+
+.r-card .image{
+    width: 30%;
+    min-width: 10em;
+    height: 10em;
+    padding: 1em;
+}
+
+.r-card .image img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.r-card .more{
+    width: 80%;
+    height: 10em;
+    padding: 1em;
+    display: block;
+}
+
+.r-card .more h3, .r-card .more p{
+    margin: 5px;
+    padding: 5px;
+}
+
+.r-card .more .bottom{
+    width: auto;
+    height: auto;
+    display: inline-flex;
+}
+
+.r-card .more .bottom p{
+    width: 5em;
+    color: white;    
+}
+
+.r-card .more .bottom button{
+    padding: 8px 15px;
+    color: dodgerblue;
+    background-color: white;
+    border: 1px solid skyblue;
+    margin: 0 10px 0 10px;
+}
+
+.r-card .more .bottom button:hover{
+    color: white;
+    background-color: skyblue;    
+}
+
+
+/* MODAL */
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: hidden; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* repairer modal */
+
+.modal-content h3{
+    color: skyblue;
+    text-align: center;
+}
+
+.modal-content table{
+    padding-top: 0;
+}
+
+.modal-content table td{
+    text-align: left;
+    padding-left: 1em;
+}
+
+.modal-content table .info{
+    text-align: right;
+    font-weight: bold;
+}
+
+/* for seller himself div */
+
+.modal-content .person{
+    display: inline-flex;
+    height: 3em;
+    width: 50%;
+    padding: 0.5em;
+    background-color: aliceblue;
+    margin-bottom: 1em;
+}
+
+.modal-content .person img{
+    width: 3em;
+    height: inherit;
+    border-radius: 50%;
+}
+
+.modal-content .person div{
+    height: auto;
+    display: block;
+    font-size: 0.9em;
+    padding-left: 1.5em;
+}
+
+.modal-content .person div h3{
+    margin: 0;
+    padding: 0 0 5px 0;
+}
+
+.modal-content .person div div{
+    padding-left: 0;
+}
+
+
+
+
+
+/* MYCART */
+.description h3{
+    padding: 0;
+}
+
+.description button{
+    padding: 15px 20px;
+    text-transform: capitalize;
+    background-color: skyblue;
+    color: white;
+    border: 1px solid white;
+}
+
+.description button:hover{
+    background-color: white;
+    color: deepskyblue;
+}
+
+table{
+    padding-top: 5em;
+    width: 100%;
+    height: auto;
+    text-align: center;
+}
+
+table th{
+    padding: 10px 15px;
+    background-color: skyblue;
+    color: darkslategray;
+}
+
+.content input[type='submit']{
+    padding: 10px 20px;
+    margin: 1em;
+    border-style: none;
+    background-color: darkslategray;
+    color: white;
+    float: right;
+}
+
+.content input[type='submit']:hover{
+    color: white;
+    background-color: tomato;
+}
+
+
+
+
+/* USER-ACCOUNT */
+
+/* subtitle */
+#subtitle{
+    font-size: 0.6em;
+}
+
+/* Change the color of log-out on hover */
+header #links #logout:hover {
+    background-color: tomato;
+    color: white;
+}
+
+/* profile-box */
+.profile-box{
+    padding-top: 5em;
+    height: auto;
+    width: 100%;
+    background-color: skyblue;
+}
+
+.profile-box img{
+    width: 10em;
+    height: 10em;
+    border-radius: 50%;
+}
+
+.profile-box h3{
+    padding: 10px 20px;
+    color: white;
+    margin: 0;
+}
+
+/* for tabs */
+
+/* Style the tab */
+div.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    padding: 0 32.6% 0 32.6%;
+}
+
+/* Style the buttons inside the tab */
+div.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+div.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+div.tab button.active, a.active, {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 2em 1em;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+.tabcontent {
+    -webkit-animation: fadeEffect 1s;
+    animation: fadeEffect 1s; /* Fading effect takes 1 second */
+}
+
+@-webkit-keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+
+
+/* about tab */
+
+#about table{
+    padding-top: 0;
+}
+
+#about table td{
+    text-align: left;
+    padding-left: 1em;
+}
+
+#about table .info{
+    text-align: right;
+    font-weight: bold;
+}
+
+
+/* rating tab */
+
+#rating{
+    text-align: center;
+}
+
+.checked {
+    color: deepskyblue;
+}
+
+
+/* store tab */
+
+.tabcontent .upload{
+    width: 50%;
+    height: auto;
+    display: block;
+    margin: auto;
+    background-color: gainsboro;
+    padding: 1em;
+    text-align: center;
+}
+
+.tabcontent .upload h4{
+    margin-top: 0;
+}
+
+.tabcontent .upload input[type='text'], .tabcontent .upload input[type='number']{
+    width: 80%;
+    height: auto;
+    padding: 1em 1em;
+    margin: 0.25em 0.5em;
+    background-color: white;
+    border-style: none;
+}
+
+.tabcontent .upload input[type='submit']{
+    float: none;
+}
+
+
+
+/* repair tab */
+
+#repairs{
+    text-align: center;
+}
+
+/*for toggle switch*/
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+#repairs input[type='submit']{
+    float: none;
+}
+
+
+
+
+
+/* USER-ACCOUNT-UPDATE */
+.update{
+    width: 60%;
+    text-align: center;
+    margin: auto;
+}
+
+.update fieldset legend{
+    color: dodgerblue;
+    padding: 0 1em;
+}
+
+.update input[type='text'],
+.update input[type='number'],
+.update input[type='email'],
+.update input[type='password']{
+    width: 70%;
+    height: auto;
+    padding: 1em 1em;
+    margin: 0.25em 0.5em;
+    background-color: paleturquoise;
+    border-style: none;
+}
+
+
+
+/* ADMIN-ACCOUNT */
+
+/* style persons box */
+.tabcontent div{
+    display: inline-flex;
+    height: 3.5em;
+    background-color: gainsboro;
+    padding: 0.4em 1em;
+}
+
+.tabcontent div img{
+    width: 3em;
+    height: 3em;
+    padding-top: 3px;
+}
+
+.tabcontent div p{
+    color: darkslategray;
+    width: 15em;
+    font-size: 1em;
+    display: table-cell;
+    vertical-align: middle;
+    margin-left: 1em;
+    margin-right: 2em;
+}
+
+.tabcontent div button{
+    width: auto;
+    height: auto;
+    padding: 10px 15px;
+    border-style: none;
+    background-color: white;
+    border: 1px solid deepskyblue;
+    color: deepskyblue;
+    margin: 0.5em;
+}
+
+.tabcontent div button:hover{
+    background-color: skyblue;
+    color: white;
+}
+
+
+
+
+
+/* RATING */
+
+#rating h3{
+    margin-top: 4em;
+}
+
+#rating table{
+    padding-top: 0;
+    width: 100%;
+    height: auto;
+    text-align: center;
+}
+
+
+
+
+
+
+/* LOGIN & SIGNUP */
+
+#login input[type='text'],
+#login input[type='number'],
+#login input[type='email'],
+#login input[type='password'],
+#signup input[type='text'],
+#signup input[type='number'],
+#signup input[type='email'],
+#signup input[type='password']{
+    width: 40%;
+    height: auto;
+    padding: 1em 1em;
+    margin: 0.25em 0.5em;
+    background-color: paleturquoise;
+    border-style: none;
+}
+
+#login input[type='submit'],
+#signup input[type='submit']{
+    float: none;
+    text-align: center;
+    margin: 0;
+}
+
+#signup form div{
+    background-color: transparent;
+    margin: 0;
+}
+
+.footer{
+    height: 20px;
+    margin-top: 4px solid blue;
+}
+
+
+
+

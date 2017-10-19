@@ -1,9 +1,7 @@
-@extends('layouts.appheader')
-@include('inc.navbar')
+<?php include VIEW_ROOT . '/layouts/navbar.php'; ?>
 
-{{-- @section('bluebar') --}}
     <div class="description">
-        <center>
+        <div style="text-align: center;">
             <div>
                 <form method="post" action="#">
                     <input type="search" placeholder="Hey there, What are you looking for?">
@@ -19,12 +17,8 @@
                 </form>
                 
             </div>
-        </center>
+        </div>
     </div> 
-    
-{{-- @endsection --}}
-
-@section('content')
 
     <!-- CONTENT -->
     <div class="content">
@@ -34,7 +28,7 @@
         <center>
             <div class="h-card">
                 <div class="image">
-                    <img src="{!! asset('images/sample.jpg') !!}" />
+                    <img src="<?php echo ASSETS . 'images/sample.jpg'?>" />
                 </div>
                 <div class="more">
                     <h3>Name of hardware item</h3>
@@ -59,7 +53,7 @@
 
                 <center>
                 <div class="person">
-                    <img src="assets/images/default-profile.png">
+                    <img src="<?php echo ASSETS . 'images/defaultprofile.png'?>">
                     <div>
                         <h3>Name of seller</h3>
                         <div>
@@ -104,8 +98,6 @@
 
 
         <!-- loop to display hardware items, happens here -->
-
-
 
     </div>
 
