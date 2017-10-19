@@ -4,12 +4,12 @@ include VIEW_ROOT . '/layouts/navbar.php'; ?>
 
     <!-- DESCRIPTION -->
     <div class="description">
-        <div style="text-align: center;">
+        <center>
             <div>
                 <h3>You have no items on your cart</h3>
                 <a href="/"><button>GET STARTED</button></a>
             </div>
-        </div>
+        </center>
     </div>
 
     <!-- CONTENT -->
@@ -44,3 +44,5 @@ include VIEW_ROOT . '/layouts/navbar.php'; ?>
         </form>
 
     </div>
+
+<?php include 'layouts/footer.php'; ?>

@@ -3,12 +3,12 @@ include_once '../start.php';
 include VIEW_ROOT . '/layouts/navbar.php'; ?>
 
     <div class="description">
-        <div style="text-align: center;">
+        <center>
             <div>
                 <form method="post" action="#">
                     <input type="search" placeholder="Hey there, Who are you looking for?">
                     <select>
-                      <option selected="true" disabled="disabled">Category</option>
+                      <option selected="true" disabled>Category</option>
                       <option value="Cables">Cables</option>
                       <option value="Hard drive">Hard drive</option>
                       <option value="Flash drive">Flash drive</option>
@@ -18,7 +18,7 @@ include VIEW_ROOT . '/layouts/navbar.php'; ?>
                     <input type="submit" value="FIND">
                 </form>
             </div>
-        </div>
+        </center>
     </div>
 
     <!-- CONTENT -->
@@ -126,4 +126,4 @@ include VIEW_ROOT . '/layouts/navbar.php'; ?>
     </script>
 
 
-@endsection
+<?php include 'layouts/footer.php'; ?>

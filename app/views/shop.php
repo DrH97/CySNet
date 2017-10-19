@@ -1,7 +1,7 @@
 <?php include VIEW_ROOT . '/layouts/navbar.php'; ?>
 
     <div class="description">
-        <div style="text-align: center;">
+        <center>
             <div>
                 <form method="post" action="#">
                     <input type="search" placeholder="Hey there, What are you looking for?">
@@ -17,7 +17,7 @@
                 </form>
                 
             </div>
-        </div>
+        </center>
     </div> 
 
     <!-- CONTENT -->
@@ -132,4 +132,4 @@
     </script>
 
     
-@endsection
+<?php include 'layouts/footer.php'; ?>

@@ -547,7 +547,7 @@ div.tab button:hover {
 }
 
 /* Create an active/current tablink class */
-div.tab button.active, a.active, {
+div.tab button.active, a.active, .active{
     background-color: #ccc;
 }
 
