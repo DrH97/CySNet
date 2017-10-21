@@ -1,7 +1,13 @@
-@extends('layouts.appheader')
-{{-- @include('inc.navbar') --}}
+<?php
+    require_once '../start.php';
+    require_once VIEW_ROOT . 'layouts/appheader.php';
+    session_start();
 
-@section('content')
+    $id = $_SESSION['user']['3'];
+    $userq = $db->query("SELECT * FROM users WHERE id = '$id'");
+
+    $userdeets = $userq->fetch_assoc();
+?>
     <style>
         
         header {
@@ -15,23 +21,24 @@
 
         <a href="#" id="title">TechCrowd <span id="subtitle">ACCOUNT</span></a>
         <div id="links">
-            <a href="/" style="color: black;background-color: skyblue;">Profile</a>
-            <a href="profile/update">Update</a>
-            {{-- <a href="{{ route(logout) }}" id="logout" >Log out</a> --}}
-            <a id="logout" href="{{ route('logout') }}"
-                onclick="event.preventDefault();
-                         document.getElementById('logout-form').submit();">
-                Logout
-            </a>
+            <a href="#" style="color: black;background-color: skyblue;">Profile</a>
+            <a href="user_account_update.php">Update</a>
+<!--            --><?php //echo VIEW_URL . 'user_account.php'; ?>
+            <a href="<?php echo BASE_URL . 'auth/auth.php?logout=true' ?>" id="logout" >Log out</a>
+<!--            <a id="logout" href="{{ route('logout') }}"-->
+<!--                onclick="event.preventDefault();-->
+<!--                         document.getElementById('logout-form').submit();">-->
+<!--                Logout-->
+<!--            </a>-->
 
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                {{ csrf_field() }}
-            </form>
+<!--            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">-->
+<!--                {{ csrf_field() }}-->
+<!--            </form>-->
         </div>
-        {{-- <div class="account">
-            <p>{{ Auth::user()->email }}</p>
-            <img src="assets/images/sample.jpg" />
-        </div> --}}
+<!--        {{-- <div class="account">-->
+<!--            <p>{{ Auth::user()->email }}</p>-->
+<!--            <img src="assets/images/sample.jpg" />-->
+<!--        </div> --}}-->
 
     </header>
 
@@ -39,12 +46,12 @@
     <div class="profile-box">
         <center>
             <div>
-                <img src="{!! asset('images/sample.jpg') !!}" />
-                @guest
-                    {{ route('login') }}
-                @else
-                    <h3>{{ Auth::user()->firstname . " " . Auth::user()->lastname}}</h3>
-                @endguest
+                <?php if ($userdeets['image'] !== null) : ?>
+                    <img src="<?php echo BASE_URL . 'public/uploads/' . $userdeets['image']; ?>" />
+                <?php else : ?>
+                    <img src="<?php echo ASSETS . 'images/defaultprofile.png'; ?>" />
+                <?php endif; ?>
+                <h3><?php echo $_SESSION['user'][1] . $_SESSION['user'][2]; ?></h3>
             </div>
         </center>
     </div>
@@ -67,7 +74,7 @@
             <table>
                 <tr>
                     <td class="info">Gender:</td>
-                    <td>Male</td>
+                    <td><?php echo $userdeets['gender']; ?></td>
                 </tr>
                 <tr>
                     <td class="info">Institution:</td>
@@ -110,7 +117,6 @@
 
             <div class="upload">
                 <form method="post" action="/addProduct">
-                    {{ csrf_field() }}
                     <h4>Upload to sell hardware</h4>
                     <input type="number" name="sellerid" hidden value="{!! Auth::user()->id !!}">
                     <input type="file" name="image" required><br><br>
@@ -192,5 +198,6 @@
         
     </script>
 
-
-@endsection
+<?php
+    include 'layouts/footer.php'
+?>

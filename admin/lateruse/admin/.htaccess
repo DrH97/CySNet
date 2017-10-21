@@ -1,0 +1,4 @@
+AuthName "Admin's Area Name"
+AuthUserFile /localhost/CS-Project/admin/.htpasswd
+AuthType Basic
+require valid-user

@@ -17,6 +17,6 @@ require 'app/start.php';
 //	FROM products
 //")->fetchAll(PDO::FETCH_ASSOC);
 
-//require VIEW_ROOT . '/templates/pageloader.php';
+//require VIEW_ROOT . 'layouts/navbar.php';
 
 require VIEW_ROOT . '/shop.php';

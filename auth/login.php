@@ -1,6 +1,7 @@
 <?php
-require_once '../app/start.php';
+require '../app/start.php';
 require VIEW_ROOT . 'layouts/appheader.php'; ?>
+
 
 <style>
         
@@ -72,7 +73,7 @@ require VIEW_ROOT . 'layouts/appheader.php'; ?>
 
     </header>
 
-<div class="body">
+<div class="body" style="height: 93vh; overflow: scroll;">
     <!-- CONTENT -->
     <div class="content">
 
@@ -89,16 +90,19 @@ require VIEW_ROOT . 'layouts/appheader.php'; ?>
 
             <center>
 
-            <form method="POST" action="?login=true">
+            <form method="post" action="auth.php?login=true">
 
                 <input id="email" type="email" placeholder="Email" name="email" value="" required autofocus>
                 <br>
 
                 <input id="password" type="password" placeholder="Password" name="password" required><br><br>
 
-                <input type="checkbox" name="remember"> Remember Me
-                
-                <input type="submit" value="LOG IN"><br>
+                <label>
+                    <input type="checkbox" name="remember">
+                    Remember Me
+                </label><br><br>
+
+                <input type="submit" value="LOG IN" name="login"><br>
 
                 <a href="">
                     Forgot Your Password?
@@ -115,7 +119,7 @@ require VIEW_ROOT . 'layouts/appheader.php'; ?>
 
             <center>
 
-            <form method="post" action="?register=true">
+            <form method="post" action="auth.php?register=true">
 
                 <div display="inline-flex">
                     <input id="firstname" type="text" placeholder="First Name" name="firstname" required autofocus>
@@ -128,9 +132,9 @@ require VIEW_ROOT . 'layouts/appheader.php'; ?>
                 <div display="inline-flex">
                     <label style="margin-right: 2em;">Gender:  </label>
 
-                    <input id="male" type="radio" name="gender" value="male" required><label for="male" style="margin-right: 2em;">Male</label>
+                    <input id="male" type="radio" name="gender" value="Male" required><label for="male" style="margin-right: 2em;">Male</label>
                     
-                    <input id="female" type="radio" name="gender" value="female" required><label for="female">Female</label>
+                    <input id="female" type="radio" name="gender" value="Female" required><label for="female">Female</label>
 
                 </div><br>
 

@@ -1,5 +1,8 @@
 <?php
 
+$db = null;
+
+
 
 ini_set('display_errors', 'On');
 
@@ -18,8 +21,7 @@ $database = 'techcrowd2';
 //$db1 = mysqli_connect('localhost','root','');
 //    mysqli_select_db($db1, 'tech-e');
 //require 'functions.php';
-require_once 'DatabaseSchema.php';
-global $db;
+require 'DatabaseSchema.php';
 $db = new DatabaseSchema($host, $username, $password, $database);
 
 require_once 'DatabaseTables.php';

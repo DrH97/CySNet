@@ -1,4 +1,0 @@
-AuthName "Member's Area Name"
-AuthUserFile /localhost/tech-e/admin/.htpasswd
-AuthType Basic
-require valid-user

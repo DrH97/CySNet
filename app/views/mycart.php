@@ -7,7 +7,7 @@ include VIEW_ROOT . '/layouts/navbar.php'; ?>
         <center>
             <div>
                 <h3>You have no items on your cart</h3>
-                <a href="/"><button>GET STARTED</button></a>
+                <a href="<?php echo BASE_URL; ?>"><button>GET STARTED</button></a>
             </div>
         </center>
     </div>

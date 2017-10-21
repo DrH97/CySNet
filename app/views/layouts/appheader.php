@@ -21,6 +21,9 @@
     <!-- custom font plugin -->
     <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
 
+    <!--  chart   -->
+    <link href="<?php echo ASSETS . 'css/chartist.min.css' ?>" type="text/css" rel="stylesheet" media="screen,projection">
+
 </head>
 
 <body>

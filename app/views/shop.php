@@ -1,12 +1,13 @@
-<?php include VIEW_ROOT . '/layouts/navbar.php'; ?>
+<?php
+include VIEW_ROOT . '/layouts/navbar.php'; ?>
 
     <div class="description">
         <center>
             <div>
                 <form method="post" action="#">
                     <input type="search" placeholder="Hey there, What are you looking for?">
-                    <select>
-                      <option selected="true" disabled="disabled">Category</option>
+                    <select title="categories">
+                      <option selected disabled="disabled">Category</option>
                       <option value="Cables">Cables</option>
                       <option value="Hard drive">Hard drive</option>
                       <option value="Flash drive">Flash drive</option>
@@ -22,7 +23,6 @@
 
     <!-- CONTENT -->
     <div class="content">
-
 
         <!-- hardware items card -->
         <center>
@@ -112,19 +112,19 @@
         // Get the <span> element that closes the modal
         var span = document.getElementsByClassName("close")[0];
 
-        // When the user clicks on the button, open the modal 
+        // When the user clicks on the button, open the modal
         btn.onclick = function() {
             modal.style.display = "block";
-        }
+        };
 
         // When the user clicks on <span> (x), close the modal
         span.onclick = function() {
             modal.style.display = "none";
-        }
+        };
 
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
-            if (event.target == modal) {
+            if (event.target === modal) {
                 modal.style.display = "none";
             }
         }

@@ -1,4 +1,4 @@
-<?php require 'appheader.php'; ?>
+<?php //require 'appheader.php'; ?>
     <!-- FOOTER -->
     <div class="footer">
         <div style="text-align: center;">
