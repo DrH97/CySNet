@@ -1,7 +1,6 @@
 <?php
     require_once '../start.php';
-    require_once VIEW_ROOT . 'layouts/appheader.php';
-    session_start();
+    include VIEW_ROOT . 'layouts/usernavbar.php';
 
     $id = $_SESSION['user']['3'];
     $userq = $db->query("SELECT * FROM users WHERE id = '$id'");
@@ -10,37 +9,6 @@
 
     //var_dump(BASE_URL . 'public/uploads/' . $userdeets['image']);
 ?>
-    <!-- TOP NAVIGATION BAR -->
-    <header>
-
-        <a href="#" id="title">TechCrowd <span id="subtitle">ACCOUNT</span></a>
-        <div id="links">
-            <a href="user_account.php" >Profile</a>
-            <a href="#" style="color: black;background-color: skyblue;">Update</a>
-            <!--            --><?php //echo VIEW_URL . 'user_account.php'; ?>
-            <a href="<?php echo BASE_URL . 'auth/auth.php?logout=true' ?>" id="logout" >Log out</a>
-        </div>
-<!--        <div class="account">-->
-<!--            <p>John Doe</p>-->
-<!--            <img src="assets/images/sample.jpg" />-->
-<!--        </div> -->
-
-    </header>
-
-    <!-- PROFILE BOX -->
-    <div class="profile-box">
-        <center>
-            <div>
-                <?php if ($userdeets['image'] !== null) : ?>
-                    <img src="<?php echo BASE_URL . 'public/uploads/' . $userdeets['image']; ?>" />
-                <?php else : ?>
-                    <img src="<?php echo ASSETS . 'images/defaultprofile.png'; ?>" />
-                <?php endif; ?>
-                <h3>Ensure your profile is always up-to-date</h3>
-            </div>
-        </center>
-    </div>
-
     <!-- CONTENT -->
     <div class="content">
 

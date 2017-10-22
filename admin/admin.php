@@ -1,5 +1,8 @@
 <?php
 include_once '../app/start.php';
+include VIEW_ROOT . 'layouts/appheader.php';
+
+session_start();
 if (null !== ($_SESSION['admin'][0])) { ?>
 
     <script src="<?php echo '../assets/js/fusioncharts.js'; ?>"></script>
@@ -20,10 +23,17 @@ if (null !== ($_SESSION['admin'][0])) { ?>
 
     $admindeets = $adminq->fetch_assoc();
 
-    $users = $db->query("SELECT EXTRACT(YEAR FROM created_at) AS year, EXTRACT(MONTH FROM created_at) AS month, COUNT(id) AS registeredUsers FROM users GROUP BY MONTH(created_at)");
+//    version 1
+//    $usersAnalytics = $db->query("SELECT EXTRACT(YEAR FROM created_at) AS year,
+//                        EXTRACT(MONTH FROM created_at) AS month, COUNT(id) AS registeredUsers
+//                        FROM users GROUP BY MONTH(created_at)");
 
-    foreach ($users as $userrs)
-        $totalUsers += $userrs['registeredUsers'];
+//    version 2
+    $usersAnalytics = $db->query("SELECT EXTRACT(YEAR FROM created_at) AS year,
+                        MONTHNAME(created_at) AS month, COUNT(id) AS registeredUsers
+                        FROM users GROUP BY MONTH(created_at)");
+
+    //var_dump($usersAnalytics->fetch_assoc());
 
     $arrayData = array(
         "chart" => array(
@@ -43,9 +53,10 @@ if (null !== ($_SESSION['admin'][0])) { ?>
 
     $arrayData["data"] = array();
 
-    while ($usersRow = mysqli_fetch_array($users)) {
+    while ($usersRow = mysqli_fetch_array($usersAnalytics)) {
+        //var_dump($usersRow);
         array_push($arrayData["data"], array(
-                "label" => $usersRow['month'] . ' ' . $usersRow['year'],
+                "label" => $usersRow['month'],
                 "value" => $usersRow["registeredUsers"]
             )
         );
@@ -55,9 +66,11 @@ if (null !== ($_SESSION['admin'][0])) { ?>
 
     //var_dump($encodedData);
 
-    $chart = new FusionCharts("doughnut3D", "Users", 600, 400, "user-chart", "json", "$encodedData");
+    $chart = new FusionCharts("doughnut3D", "Users", 600, 300, "user-chart", "json", "$encodedData");
     $chart->render();
 
+    foreach ($usersAnalytics as $userrs)
+        $totalUsers += $userrs['registeredUsers'];
 
     ?>
 
@@ -81,7 +94,7 @@ if (null !== ($_SESSION['admin'][0])) { ?>
     <!-- TOP NAVIGATION BAR -->
     <header>
 
-        <a href="#" id="title">TechCrowd <span id="subtitle">ADMIN</span></a>
+        <a href="<?php echo BASE_URL; ?>" id="title">TechCrowd <span id="subtitle">ADMIN</span></a>
         <div id="links">
             <a href="#" style="color: black;background-color: skyblue;">Verify</a>
             <a href="<?php echo BASE_URL . 'auth/auth.php?logout=true' ?>" id="logout">Log out</a>
@@ -137,17 +150,19 @@ if (null !== ($_SESSION['admin'][0])) { ?>
 
             </table>
 
+            <center><div id="user-chart"></div></center>
+
         </div>
 
         <div id="sellers" class="tabcontent">
 
             <center>
-                <div>
+                <div class='view'>
                     <img src="<?php echo ASSETS . 'images/defaultprofile.png'; ?>"/>
                     <p>John a guy with long-ass name</p>
                     <button id="view">View Profile</button>
-                    <button id="accept">Accept</button>
-                    <button id="deny">Deny</button>
+                    <button id="accept" style="background-color: rgba(20,150,120,.7); color: #fff;">Accept</button>
+                    <button id="deny" style="background-color: rgba(120,50,20,.7); color: #fff;">Deny</button>
                 </div>
             </center>
 
@@ -156,18 +171,16 @@ if (null !== ($_SESSION['admin'][0])) { ?>
         <div id="repairers" class="tabcontent">
 
             <center>
-                <div>
+                <div class='view'>
                     <img src="<?php echo ASSETS . 'images/defaultprofile.png'; ?>"/>
                     <p>John Doe</p>
                     <button id="view">View Profile</button>
-                    <button id="accept">Accept</button>
-                    <button id="deny">Deny</button>
+                    <button id="accept" style="background-color: rgba(20,150,120,.7); color: #fff;">Accept</button>
+                    <button id="deny" style="background-color: rgba(120,50,20,.7); color: #fff;">Deny</button>
                 </div>
             </center>
 
         </div>
-
-        <div id="user-chart"></div>
 
 
     </div>

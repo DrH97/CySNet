@@ -4,7 +4,7 @@ session_start();
 <!-- TOP NAVIGATION BAR -->
     <header>
 
-        <a href="/?It'sTechCrowdYooo" id="title">TechCrowd</a>
+        <a href="?It'sTechCrowdYooo" id="title">TechCrowd</a>
         <div id="links">
             <a class="tablinks" href=" <?php echo BASE_URL; ?> " id="defaultOpen">Shop</a>
             <a id="repairs" class="tablinks" href="<?php echo VIEW_URL . 'repairs.php'; ?>" >Repairs</a>
@@ -18,48 +18,39 @@ session_start();
 
             <a href="<?php echo VIEW_URL . 'user_account.php'?>" style="height: 100%; margin-top: -8px; padding-top: 5px; text-decoration: none; display: inline-flex;">
                 <p><?php echo $_SESSION['user'][2]; ?></p>
-                <img src="<?php echo ASSETS . 'images/defaultprofile.png'?>"/>
+                <img src="<?php echo ASSETS . 'images/defaultprofile.png'; ?>"/>
             </a>
         <?php } ?>
         </div>
 
     </header>
 
-    <!-- DESCRIPTION -->
-<!--    <div class="description">-->
-<!--        <center>-->
-<!--            <div>-->
-<!---->
-<!--                -->
-<!--            </div>-->
-<!--        </center>-->
-<!--    </div>-->
+<!-- MINIFIED NAVIGATION BAR -->
+<div class="minNav" id="min-nav">
+    <a href="?It'sTechCrowdYooo" id="min-title">TechCrowd</a>
+    <a href=" <?php echo BASE_URL; ?> " style="color: black;background-color: skyblue;">Shop</a>
+    <a href="<?php echo VIEW_URL . 'repairs.php'; ?>">Repairs</a>
+    <a href="<?php echo VIEW_URL . 'mycart.php' ?>">MyCart</a>
+     <?php if(!isset($_SESSION['user'][0])) { ?>
+        <a href="<?php echo BASE_URL . 'auth/login.php'?>"><p>LOGIN</p></a>
+    <?php } else { ?>
+        <a href="<?php echo VIEW_URL . 'user_account.php'?>">
+            <p><?php echo $_SESSION['user'][2]; ?></p>
+        </a>
+    <?php } ?>
+    <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="navToggleFunction()">&#9776;</a>
+</div>
 
-<!--<script>-->
-<!--        function openTabsnav(evt, tabName) {-->
-<!--            // Declare all variables-->
-<!--            var i, tablinks;-->
-<!---->
-<!--             //Get all elements with class="tabcontent" and hide them-->
-<!--//            tabcontent = document.getElementsByClassName("tabcontent");-->
-<!--//            for (i = 0; i < tabcontent.length; i++) {-->
-<!--//                tabcontent[i].style.backgroundColor = "";-->
-<!--//                tabcontent[i].style.color = "";-->
-<!--//            }-->
-<!---->
-<!--            // Get all elements with class="tablinks" and remove the class "active"-->
-<!--            tablinks = document.getElementsByClassName("tablinks");-->
-<!--            for (i = 0; i < tablinks.length; i++) {-->
-<!--                tablinks[i].className = tablinks[i].className.replace(" active", "");-->
-<!--            }-->
-<!---->
-<!--            // Show the current tab, and add an "active" class to the button that opened the tab-->
-<!--            document.getElementById(tabName).style.display = "block";-->
-<!--            document.getElementById(tabName).style.color = "black";-->
-<!--            document.getElementById(tabName).style.backgroundColor = "skyblue";-->
-<!--            evt.currentTarget.className += " active";-->
-<!--        }-->
-<!---->
-<!--        // Get the element with id="defaultOpen" and click on it-->
-<!--        document.getElementById('defaultOpen').click();-->
-<!--    </script>-->
+<script>
+
+    //make navigation bar responsive
+    function navToggleFunction() {
+        var x = document.getElementById("min-nav");
+        if (x.className === "minNav") {
+            x.className += " responsive";
+        } else {
+            x.className = "minNav";
+        }
+    }
+
+    </script>

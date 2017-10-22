@@ -32,6 +32,33 @@
         }
     }
 
+if (isset($_GET['adminlogin'])){
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    $sql = "SELECT * FROM admins WHERE email = '$email'";
+
+    $loginresult = $db->query($sql);
+
+    if($loginresult != null){
+        //var_dump($loginresult);
+        $userpass = $loginresult->fetch_assoc();
+        if (password_verify($password, $userpass['password'])){
+            $_SESSION['admin'][0] = $userpass['email'];
+            $_SESSION['admin'][1] = $userpass['firstname'];
+            $_SESSION['admin'][2] = $userpass['lastname'];
+            $_SESSION['admin'][3] = $userpass['id'];
+
+            header("LOCATION: ../admin/admin.php");
+
+        } else {
+            header("LOCATION: " . BASE_URL . 'auth/adminlogin.php');
+            ?><script>alert("Wrong password or username");</script> <?php
+
+        }
+    }
+}
+
     if (isset($_GET['register'])){
         $firstname = $_POST['firstname'];
         $lastname = $_POST['lastname'];
