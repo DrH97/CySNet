@@ -1,6 +1,8 @@
 <?php
 include_once '../start.php';
-include VIEW_ROOT . '/layouts/navbar.php'; ?>
+include VIEW_ROOT . '/layouts/navbar.php';
+//var_dump(VIEW_ROOT . 'layouts/navbar.php');
+?>
 
 <!-- DESCRIPTION -->
 <div class="description">
@@ -153,6 +155,27 @@ include VIEW_ROOT . '/layouts/navbar.php'; ?>
             </div>
         </div>
 
+        <div class="r-card">
+            <div class="image">
+                <img src="<?php echo ASSETS . 'images/sample.jpg'?>" />
+            </div>
+            <div class="more">
+                <h3>Name of person</h3>
+                <div>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                </div>
+                <p>0705 XXX 548</p>
+                <div class="bottom">
+                    <p style="background-color: green;">Available</p>
+                    <button id="aboutBtn">About Repairer</button>
+                </div>
+            </div>
+        </div>
+
 
         <!-- loop to display student repairers -->
 
@@ -216,7 +239,7 @@ include VIEW_ROOT . '/layouts/navbar.php'; ?>
     //for sticky tab bar
     // Cache selectors outside callback for performance.
     var $window = $(window),
-        $stickyEl = $('#repair-tab'),
+        $stickyEl = $('.tab'),
         elTop = $stickyEl.offset().top;
 
     $window.scroll(function() {
@@ -246,7 +269,7 @@ include VIEW_ROOT . '/layouts/navbar.php'; ?>
     }
 
     // Get the element with id="defaultOpen" and click on it
-    document.getElementById("defaultOpen").click();
+   // document.getElementById("defaultOpen").click();
 
 
     // Get the modal

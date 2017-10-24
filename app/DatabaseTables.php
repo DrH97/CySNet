@@ -8,12 +8,18 @@
 
 class DatabaseTables extends DatabaseSchema
 {
+    var $usersset;
+
     var $users = "CREATE TABLE users (
         id int(10) unsigned NOT NULL AUTO_INCREMENT,
         username varchar(191) DEFAULT NULL,
         firstname varchar(191) NOT NULL,
         lastname varchar(191) NOT NULL,
         gender varchar(191) NOT NULL,
+        institution varchar(191) NOT NULL,
+        course varchar(191) NOT NULL,
+        year int(4) NOT NULL,
+        admno int(191) NOT NULL,
         repairer BOOLEAN DEFAULT NULL,
         active BOOLEAN DEFAULT NULL,
         mobile int(11) NOT NULL,
@@ -78,11 +84,27 @@ class DatabaseTables extends DatabaseSchema
     )";
 
     function createTables(){
+        $usersset;
         $table1 = DatabaseSchema::class.$this->create_table($this->users);
         $table1 = DatabaseSchema::class.$this->create_table($this->admins);
         $table1 = DatabaseSchema::class.$this->create_table($this->password_resets);
         $table1 = DatabaseSchema::class.$this->create_table($this->categories);
         $table1 = DatabaseSchema::class.$this->create_table($this->hardware_products);
 
+
+//    $user1 = 'INSERT INTO users (username, firstname, lastname, gender, mobile, email, password, created_at)
+//          VALUES ("VSOL", "Lynn", "Sabwa", "Female", 0712849129, "lynnsabwa@gmail.com", "$2y$10$yro.IV78C.aiqXielIWnqOXS4yhDhJtjt1CL1EvHxukoCCpnaSGYK", NOW())';
+//
+//    $user2 = 'INSERT INTO users (username, firstname, lastname, gender, mobile, email, password, created_at)
+//          VALUES ("ak073ng", "Andrew", "Koteng", "Male", 0732456788, "akoteng@gmail.com" , "$2y$10$1tB1cC64/K9SaADEwKkEK./byicp1DGZbSmTlf7FuYGfO1MNIi8Xi", NOW())';
+//
+//    $user3 = 'INSERT INTO users (username, firstname, lastname, gender, mobile, email, password, created_at)
+//          VALUES ("DR H", "Dr", "H", "Male", 0714611696, "josenabz@gmail.com", "$2y$10$IMctpZQ6EviJqbcdJpTBOewLvkoK1SksjjW5IPX0dfcZdQt/SeyL2", NOW())';
+//
+//    $user1 = DatabaseSchema::class . $this->query($user1);
+//    $user2 = DatabaseSchema::class . $this->query($user2);
+//    $user3 = DatabaseSchema::class . $this->query($user3);
+
     }
+
 }

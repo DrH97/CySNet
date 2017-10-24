@@ -39,7 +39,7 @@ $userdeets = $userq->fetch_assoc();
     <a href="/" id="min-title">TechCrowd</a>
     <a href="user_account.php">Profile</a>
     <a href="user_account_update.php">Update</a>
-    <a href="#" id="logout">Log out</a>
+    <a href="<?php echo BASE_URL . 'auth/auth.php?logout=true' ?>" id="logout">Log out</a>
     <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="navToggleFunction()">&#9776;</a>
 </div>
 

@@ -947,7 +947,7 @@ div.tab button.active {
 }
 
 .tabcontent .upload input[type='text'],
-.tabcontent .upload input[type='number'] {
+.tabcontent .upload input[type='number'], textarea {
     width: 80%;
     height: auto;
     padding: 1em 1em;
@@ -977,7 +977,7 @@ div.tab button.active {
         width: 90%;
     }
     .tabcontent .upload textarea {
-        width: 95%;
+        width: 90%;
     }
 }
 

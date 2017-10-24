@@ -6,6 +6,10 @@ $id = $_SESSION['user']['3'];
 $userq = $db->query("SELECT * FROM users WHERE id = '$id'");
 
 $userdeets = $userq->fetch_assoc();
+
+$usersprod = $db->query("SELECT * FROM hardware_products WHERE sellerid = '$id'");
+
+$userproddeets = $usersprod->fetch_assoc();
 ?>
 
 
@@ -23,7 +27,6 @@ $userdeets = $userq->fetch_assoc();
 
     <!-- ABOUT -->
     <div id="about" class="tabcontent">
-
         <table>
             <tr>
                 <td class="info">Gender:</td>
@@ -31,19 +34,23 @@ $userdeets = $userq->fetch_assoc();
             </tr>
             <tr>
                 <td class="info">Institution:</td>
-                <td>Strathmore University</td>
+                <td><?php if (isset($userdeets['institution'])) echo $userdeets['institution'];
+                            else echo 'Unkown institution'; ?></td>
             </tr>
             <tr>
                 <td class="info">Course:</td>
-                <td>Bachelors in Informatics and Computer Science</td>
+                <td><?php if (isset($userdeets['course'])) echo $userdeets['course'];
+                        else echo 'Unkown course'; ?></td>
             </tr>
             <tr>
                 <td class="info">Year:</td>
-                <td>2</td>
+                <td><?php if (isset($userdeets['year'])) echo $userdeets['year'];
+                        else echo 'Unkown year'; ?></td>
             </tr>
             <tr>
                 <td class="info">Admission number:</td>
-                <td>095242</td>
+                <td><?php if (isset($userdeets['admno'])) echo $userdeets['admno'];
+                        else echo 'Unkown admission number'; ?></td>
             </tr>
 
 
@@ -69,14 +76,14 @@ $userdeets = $userq->fetch_assoc();
     <div id="store" class="tabcontent">
 
         <div class="upload">
-            <form method="post" action="/addProduct">
+            <form method="post" action="products.php">
                 <h4>Upload to sell hardware</h4>
-                <input type="file" name="item" required><br><br>
-                <input type="text" placeholder="Hardware name" name="name" required><br><br>
-                <textarea rows="10" cols="52" placeholder="Enter hardware description as list" name="description" required></textarea><br><br>
-                <input type="number" placeholder="Price in KES" name="price" required><br>
-                <input type="number" placeholder="Quantity in stock" name="quantity" required><br>
-                <input type="submit" value="UPLOAD" name="submit">
+                <input type="file" name="itemimage" required><br><br>
+                <input type="text" placeholder="Hardware name" name="itemname" required><br><br>
+                <textarea rows="10" cols="52" placeholder="Enter hardware description as list" name="itemdescription" required></textarea><br><br>
+                <input type="number" placeholder="Price in KES" name="itemprice" required><br>
+                <input type="number" placeholder="Quantity in stock" name="itemquantity" required><br>
+                <input type="submit" value="UPLOAD" name="submititem">
             </form>
         </div>
 
@@ -87,7 +94,7 @@ $userdeets = $userq->fetch_assoc();
 
         <!-- display table of upload items here -->
         <form method='post' action='#'>
-            <table style='padding: 0;'>
+            <table style=" padding: 0;">
                 <tr>
                     <th>Image</th>
                     <th>Hardware Description</th>

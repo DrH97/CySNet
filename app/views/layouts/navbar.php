@@ -32,7 +32,7 @@ session_start();
     <a href="<?php echo VIEW_URL . 'repairs.php'; ?>">Repairs</a>
     <a href="<?php echo VIEW_URL . 'mycart.php' ?>">MyCart</a>
      <?php if(!isset($_SESSION['user'][0])) { ?>
-        <a href="<?php echo BASE_URL . 'auth/login.php'?>"><p>LOGIN</p></a>
+        <a href="<?php echo BASE_URL . 'auth/login.php'?>"><p>LOGIN / SIGNUP</p></a>
     <?php } else { ?>
         <a href="<?php echo VIEW_URL . 'user_account.php'?>">
             <p><?php echo $_SESSION['user'][2]; ?></p>
@@ -53,4 +53,4 @@ session_start();
         }
     }
 
-    </script>
+</script>

@@ -1,5 +1,6 @@
 <?php
-include VIEW_ROOT . '/layouts/navbar.php'; ?>
+include VIEW_ROOT . 'layouts/navbar.php';
+?>
 
 <!-- DESCRIPTION -->
 <div class="description">
@@ -7,7 +8,7 @@ include VIEW_ROOT . '/layouts/navbar.php'; ?>
         <div>
             <form method="get" action="<?php echo BASE_URL . 'index.php'; ?>">
                 <input name="search" type="search" placeholder="Hey there, What are you looking for?">
-                <select>
+                <select name="cat">
                     <option selected disabled="disabled">Category</option>
                     <option value="Cables">Cables</option>
                     <option value="Hard drive">Hard drive</option>
