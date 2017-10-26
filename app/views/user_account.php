@@ -10,6 +10,7 @@ $userdeets = $userq->fetch_assoc();
 $usersprod = $db->query("SELECT * FROM hardware_products WHERE sellerid = '$id'");
 
 $userproddeets = $usersprod->fetch_assoc();
+
 ?>
 
 
@@ -34,22 +35,22 @@ $userproddeets = $usersprod->fetch_assoc();
             </tr>
             <tr>
                 <td class="info">Institution:</td>
-                <td><?php if (isset($userdeets['institution'])) echo $userdeets['institution'];
+                <td><?php if (!empty($userdeets['institution'])) echo $userdeets['institution'];
                             else echo 'Unkown institution'; ?></td>
             </tr>
             <tr>
                 <td class="info">Course:</td>
-                <td><?php if (isset($userdeets['course'])) echo $userdeets['course'];
+                <td><?php if (!empty($userdeets['course'])) echo $userdeets['course'];
                         else echo 'Unkown course'; ?></td>
             </tr>
             <tr>
                 <td class="info">Year:</td>
-                <td><?php if (isset($userdeets['year'])) echo $userdeets['year'];
+                <td><?php if ($userdeets['year'] > 0) echo $userdeets['year'];
                         else echo 'Unkown year'; ?></td>
             </tr>
             <tr>
                 <td class="info">Admission number:</td>
-                <td><?php if (isset($userdeets['admno'])) echo $userdeets['admno'];
+                <td><?php if ($userdeets['admno'] > 0) echo $userdeets['admno'];
                         else echo 'Unkown admission number'; ?></td>
             </tr>
 
@@ -74,16 +75,25 @@ $userproddeets = $usersprod->fetch_assoc();
 
     <!-- STORE -->
     <div id="store" class="tabcontent">
-
         <div class="upload">
-            <form method="post" action="products.php">
+            <form method="post" action="products.php?addprod=true" enctype="multipart/form-data">
                 <h4>Upload to sell hardware</h4>
                 <input type="file" name="itemimage" required><br><br>
-                <input type="text" placeholder="Hardware name" name="itemname" required><br><br>
+                <input type="text" placeholder="Hardware name" name="itemname" required><br>
+                <select>
+                    <option selected disabled="disabled">Category</option>
+                    <?php
+                    $categories = $db->query("SELECT * FROM categories");
+
+                    while($cat = $categories->fetch_assoc()):
+                    ?>
+                    <option value="<?php echo $cat['id']; ?>"><?php echo $cat['category']; ?></option>
+                    <?php endwhile; ?>
+                </select>
                 <textarea rows="10" cols="52" placeholder="Enter hardware description as list" name="itemdescription" required></textarea><br><br>
                 <input type="number" placeholder="Price in KES" name="itemprice" required><br>
                 <input type="number" placeholder="Quantity in stock" name="itemquantity" required><br>
-                <input type="submit" value="UPLOAD" name="submititem">
+                <input type="submit" name="submititem">
             </form>
         </div>
 
@@ -94,6 +104,10 @@ $userproddeets = $usersprod->fetch_assoc();
 
         <!-- display table of upload items here -->
         <form method='post' action='#'>
+            <?php
+                $categories = $db->query("SELECT * FROM hardware_products WHERE sellerid = $id");
+
+            ?>
             <table style=" padding: 0;">
                 <tr>
                     <th>Image</th>
@@ -102,13 +116,16 @@ $userproddeets = $usersprod->fetch_assoc();
                     <th>Quantity</th>
                     <th>Remove?</th>
                 </tr>
+
+                <?php foreach ($categories as $cat): ?>
                 <tr>
-                    <td><img src='<?php echo BASE_URL . 'public/uploads/' . $userdeets['image']; ?>'></td>
-                    <td>sth</td>
-                    <td>sth</td>
-                    <td>sth</td>
+                    <td><img src="<?php echo BASE_URL . 'public/uploads/hardwareproducts/' . $cat['image']; ?>"></td>
+                    <td><?php echo $cat['description']; ?></td>
+                    <td><?php echo $cat['price']; ?></td>
+                    <td><?php echo $cat['quantity']; ?></td>
                     <td><input type='checkbox' name='remove' value='#'></td>
                 </tr>
+                <?php endforeach; ?>
             </table>
         </form>
 
@@ -122,11 +139,11 @@ $userproddeets = $usersprod->fetch_assoc();
 
         <form method="post" action="#">
 
-            <h3>Register as a repairer. Untoggle to unregister.</h3>
+            <h3>Register as a repairer.</h3>
 
             <!-- Rounded switch -->
             <label class="switch">
-                <input type="checkbox" name="availability">
+                <input type="checkbox" id="repairset" name="repairset" onchange="repairer()">
                 <span class="slider round"></span>
             </label> <br>
 
@@ -152,6 +169,11 @@ $userproddeets = $usersprod->fetch_assoc();
 
 
 <script>
+
+    function repairer() {
+        document.getElementById("repairset").setAttribute("disabled", true);
+        alert("We have received your request, Give us a while to verify it.");
+    }
 
 
     //for sticky tab bar
@@ -187,7 +209,7 @@ $userproddeets = $usersprod->fetch_assoc();
     }
 
     // Get the element with id="defaultOpen" and click on it
-    document.getElementById("defaultOpen").click();
+    window.onload.document.getElementById("defaultOpen").click();
 
 </script>
 

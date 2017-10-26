@@ -156,6 +156,6 @@ require VIEW_ROOT . 'layouts/appheader.php'; ?>
     </div>
 
 
-</div>g
+</div>
 
 <?php include VIEW_ROOT . 'layouts/footer.php'; ?>

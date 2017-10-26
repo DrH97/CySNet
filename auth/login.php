@@ -164,7 +164,7 @@ require VIEW_ROOT . 'layouts/appheader.php'; ?>
                 </div><br>
                 <div>
                     <label style="margin-right: 2em;">Gender:  </label>
-                    <input id="male" type="radio" name="gender" value="Male" required><label for="male" style="margin-right: 2em;">Male</label>
+                    <input id="male" type="radio" name="gender" value="Male" required><label for="male" style="margin-right: 2em;">Male</label><span><i href=""></i></span>
                     <input id="female" type="radio" name="gender" value="Female" required><label for="female">Female</label>
                 </div><br>
                 <input id="mobile" type="number" placeholder="Mobile Number" name="mobile" required><br>

@@ -27,23 +27,23 @@
 
                 <fieldset>
                     <legend>Yourself in institution</legend>
-                    <br><input type="text" placeholder="Institution" name="institution"><br>
-                    <input type="text" placeholder="Course" name="course"><br>
-                    <input type="text" placeholder="Year" name="year"><br>
-                    <input type="number" placeholder="Admission number" name="studentId"><br>
+                    <br><input type="text" placeholder="Institution" name="institution" value="<?php echo $userdeets['institution']; ?>"><br>
+                    <input type="text" placeholder="Course" name="course" value="<?php echo $userdeets['course']; ?>"><br>
+                    <input type="text" placeholder="Year" name="year" value="<?php if($userdeets['year'] > 0) echo $userdeets['year']; else echo ''; ?>"><br>
+                    <input type="number" placeholder="Admission number" name="admno" value="<?php if($userdeets['admno'] > 0) echo $userdeets['admno']; else echo ''?>"><br>
                 </fieldset>
 
                 <input type="submit" value="UPDATE PROFILE" name="submit"><br>
 
             </form><br>
 
-            <form method="post" action="#">
+            <form method="post" action="<?php echo BASE_URL . 'auth/auth.php?updatepass=true'; ?>">
 
                 <br><br>
                 <fieldset style="width: 95%;">
                     <legend>Change account credential</legend>
-                    <br><input type="email" placeholder="Email" name="email" value="<?php echo $_SESSION['user'][0]; ?>"><br>
-                    <input type="password" placeholder="Password" name="password"><br>
+                    <br><input type="email" placeholder="Email" name="email" value="<?php echo $_SESSION['user'][0]; ?>" required><br>
+                    <input type="password" placeholder="Password" name="password" required><br>
                     <input type="password" placeholder="Re-type password" name="re_password"><br>
                 </fieldset>
                 

@@ -95,14 +95,30 @@ if (isset($_GET['adminlogin'])){
         header("LOCATION: ../index.php");
     }
 
+
+
     if (isset($_GET['updateaccount'])) {
         $firstname = $_POST['firstname'];
         $lastname = $_POST['lastname'];
-        //$gender = $_POST['gender'];
-        //$mobile = $_POST['mobile'];
-        //$email = $_POST['email'];
-        $password = $userpass['password'];
+        $institution = $_POST['institution'];
+        $course = $_POST['course'];
+        $year = $_POST['year'];
+        $admno = $_POST['admno'];
 //        $image = '';
+
+        $id = $_SESSION['user'][3];
+
+        $sql =  "UPDATE users SET username = '', firstname = '$firstname', lastname = '$lastname', institution = '$institution',
+                course = '$course', year = '$year', admno = '$admno', updated_at = NOW() WHERE id = '$id'";
+
+        var_dump($sql);
+
+        if (isset($_POST['password-sign'])) {
+            $password = password_hash($_POST['password-sign'], PASSWORD_BCRYPT);
+            $sql = "UPDATE users SET username = '', firstname = '$firstname', lastname = '$lastname',
+                                     institution = '$institution', course = '$course', year = '$year', admno = '$admno', 
+                                      password = '$password', updated_at = NOW() WHERE id = '$id'";
+        }
 
         if (isset($_FILES['profile_image']['name'])) {
             $target_dir = "../public/uploads/";
@@ -148,6 +164,18 @@ if (isset($_GET['adminlogin'])){
                 if (move_uploaded_file($_FILES["profile_image"]["tmp_name"], $target_file)) {
                     $image = time() . basename($_FILES["profile_image"]["name"]);
                     echo "The file " . $image . " has been uploaded.";
+                    $_FILES = null;
+                    unset($_FILES);
+
+                    $sql =  "UPDATE users SET username = '', firstname = '$firstname', lastname = '$lastname', institution = '$institution',
+                                course = '$course', year = '$year', admno = '$admno', image = '$image', updated_at = NOW() WHERE id = '$id'";
+
+                    if (isset($_POST['password-sign'])) {
+                        $password = password_hash($_POST['password-sign'], PASSWORD_BCRYPT);
+                        $sql = "UPDATE users SET username = '', firstname = '$firstname', lastname = '$lastname',
+                                 institution = '$institution', course = '$course', year = '$year', admno = '$admno', 
+                                  password = '$password', image = '$image', updated_at = NOW() WHERE id = '$id'";
+                    }
 
                 } else {
                     ?> <script> <?php echo "Sorry, there was an error uploading your file."; ?></script> <?php
@@ -155,27 +183,39 @@ if (isset($_GET['adminlogin'])){
             }
         }
 
-        $id = $_SESSION['user'][3];
-
-        $sql =  "UPDATE users SET username = '', firstname = '$firstname', lastname = '$lastname', 
-                 image = '$image', updated_at = NOW() WHERE id = '$id'";
-
-        if (isset($_POST['password-sign'])) {
-            $password = password_hash($_POST['password-sign'], PASSWORD_BCRYPT);
-            $sql = "UPDATE users SET username = '', firstname = '$firstname', lastname = '$lastname', 
-                  password = '$password', image = '$image', updated_at = NOW() WHERE id = '$id'";
-        }
-        var_dump($image);
+        //var_dump($image);
 
         $update = $db->query($sql);
 
-        var_dump($update);
+        //var_dump($update);
 
         if ($update){
             header('LOCATION: ' . VIEW_URL . 'user_account_update.php');
         }
 
     }
+
+
+    if (isset($_GET['updatepass'])) {
+        $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+        $id = $_SESSION['user'][3];
+
+        $sql =  "UPDATE users SET password = '$password', updated_at = NOW() WHERE id = '$id'";
+
+        //var_dump($sql);
+
+        //var_dump($image);
+
+        $update = $db->query($sql);
+
+        //var_dump($update);
+
+        if ($update){
+         header('LOCATION: ' . VIEW_URL . 'user_account_update.php');
+        }
+
+    }
+
 
 
 //    $sql = "SELECT * FROM users WHERE email = '$email'";

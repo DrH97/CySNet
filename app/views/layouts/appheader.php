@@ -19,6 +19,7 @@
 <!--    <link type="text/css" rel="stylesheet" href="../../../assets/css/main.css" />-->
     <!-- jquery plugin -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="<?php echo ASSETS . 'js/vendor/jquery-3.2.1.min.js'?>"></script>
     <!-- custom font plugin -->
     <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
 

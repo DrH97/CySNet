@@ -1,8 +1,6 @@
 <?php
-include_once '../app/start.php';
-include VIEW_ROOT . 'layouts/appheader.php';
+include 'adminnavbar.php';
 
-session_start();
 if (null !== ($_SESSION['admin'][0])) { ?>
 
     <script src="<?php echo '../assets/js/fusioncharts.js'; ?>"></script>
@@ -18,10 +16,7 @@ if (null !== ($_SESSION['admin'][0])) { ?>
     include("fusioncharts.php");
 
     $totalUsers = 0;
-
-    $adminq = $db->query("SELECT * FROM admins");
-
-    $admindeets = $adminq->fetch_assoc();
+    $totalitems = 0;
 
 //    version 1
 //    $usersAnalytics = $db->query("SELECT EXTRACT(YEAR FROM created_at) AS year,
@@ -33,13 +28,18 @@ if (null !== ($_SESSION['admin'][0])) { ?>
                         MONTHNAME(created_at) AS month, COUNT(id) AS registeredUsers
                         FROM users GROUP BY MONTH(created_at)");
 
+    $productAnalytics = $db->query("SELECT EXTRACT(YEAR FROM created_at) AS year, 
+                        MONTHNAME(created_at) AS month,
+                        EXTRACT(DAY FROM created_at) AS day, COUNT(id) AS uploadedproducts
+                        FROM hardware_products GROUP BY DAY(created_at) LIMIT 7");
+
     //var_dump($usersAnalytics->fetch_assoc());
 
-    $arrayData = array(
+    $arrayData = $arrayData2 = array(
         "chart" => array(
-            "caption" => "Number of users Registered Per Month",
+            "caption" => "Number of Users Registered per Month",
             "subaCaption" => "Months",
-            "captionFontSize" => "24",
+            "captionFontSize" => "18",
             "refreshinterval" => "5",
             "xAxisName" => "Month",
             "yAxisName" => "Users",
@@ -51,7 +51,16 @@ if (null !== ($_SESSION['admin'][0])) { ?>
         )
     );
 
-    $arrayData["data"] = array();
+    $arrayData2 = array(
+        "chart" => array(
+            "caption" => "Number of Products Uploaded Per Day",
+            "xAxisName" => "Day",
+            "yAxisName" => "Products",
+        )
+    );
+
+    $arrayData["data"] = $arrayData2['data'] = array();
+
 
     while ($usersRow = mysqli_fetch_array($usersAnalytics)) {
         //var_dump($usersRow);
@@ -62,59 +71,30 @@ if (null !== ($_SESSION['admin'][0])) { ?>
         );
     }
 
-    $encodedData = json_encode($arrayData);
+    while ($productsRow = mysqli_fetch_array($productAnalytics)) {
+        //var_dump($productsRow);
+        array_push($arrayData2["data"], array(
+                "label" => $productsRow['day'],
+                "value" => $productsRow["uploadedproducts"]
+            )
+        );
+    }
 
+    $encodedData = json_encode($arrayData);
+    $encodedData2 = json_encode($arrayData2);
     //var_dump($encodedData);
 
-    $chart = new FusionCharts("doughnut3D", "Users", 600, 300, "user-chart", "json", "$encodedData");
+    $chart = new FusionCharts("column3D", "Users", 400, 300, "user-chart", "json", "$encodedData");
     $chart->render();
+    $chart2 = new FusionCharts("line", "Products", 400, 300, "products-chart", "json", "$encodedData2");
+    $chart2->render();
 
     foreach ($usersAnalytics as $userrs)
         $totalUsers += $userrs['registeredUsers'];
+    foreach ($productAnalytics as $prods)
+        $totalitems += $prods['uploadedproducts'];
 
     ?>
-
-    <style>
-        header {
-            background: rgba(255, 255, 255, 0.8);
-        }
-
-        table {
-            padding-top: 0em;
-            width: 100%;
-            height: auto;
-            text-align: center;
-        }
-
-    </style>
-
-
-    <body>
-
-    <!-- TOP NAVIGATION BAR -->
-    <header>
-
-        <a href="<?php echo BASE_URL; ?>" id="title">TechCrowd <span id="subtitle">ADMIN</span></a>
-        <div id="links">
-            <a href="#" style="color: black;background-color: skyblue;">Verify</a>
-            <a href="<?php echo BASE_URL . 'auth/auth.php?logout=true' ?>" id="logout">Log out</a>
-        </div>
-        <div class="account">
-            <p><?php echo $admindeets['firstname'] . ' ' . $admindeets['lastname']; ?></p>
-            <img src="<?php echo ASSETS . 'images/favicon.ico'; ?>"/>
-        </div>
-
-    </header>
-
-    <!-- PROFILE BOX -->
-    <div class="profile-box" style="width: 0;">
-        <!--        <center>-->
-        <!--            <div>-->
-        <!--<!--                <img src="{!! asset('images/defaultprofile.png') !!}" />-->
-        <!--<!--                <h3>John Doe</h3>-->
-        <!--            </div>-->
-        <!--        </center>-->
-    </div>
 
     <!-- CONTENT -->
     <div class="content">
@@ -140,7 +120,7 @@ if (null !== ($_SESSION['admin'][0])) { ?>
                 <tr>
                     <td><?php echo $totalUsers; ?></td>
                     <td>43</td>
-                    <td>421</td>
+                    <td><?php echo $totalitems; ?></td>
                     <td>378</td>
                     <td>14</td>
                     <td>8</td>
@@ -150,7 +130,8 @@ if (null !== ($_SESSION['admin'][0])) { ?>
 
             </table>
 
-            <center><div id="user-chart"></div></center>
+            <caenter style="float: left;"><div id="user-chart"></div></caenter>
+            <caenter><div id="products-chart"></div></caenter>
 
         </div>
 
@@ -187,6 +168,16 @@ if (null !== ($_SESSION['admin'][0])) { ?>
 
 
     <script>
+
+        function navToggleFunction() {
+            var x = document.getElementById("min-nav");
+            if (x.className === "minNav") {
+                x.className += " responsive";
+            } else {
+                x.className = "minNav";
+            }
+        }
+
         function openTabs(evt, tabName) {
             // Declare all variables
             var i, tabcontent, tablinks;

@@ -8,7 +8,7 @@ include VIEW_ROOT . '/layouts/navbar.php';
 <div class="description">
 
     <center>
-        <div>
+        <div class="search">
             <form method="get" action="#">
                 <input type="search" placeholder="Hey there, Who are you looking for?">
                 <select>
@@ -40,6 +40,111 @@ include VIEW_ROOT . '/layouts/navbar.php';
     <div id="pro" class="tabcontent">
 
         <!-- repairers card -->
+        <div class="r-card">
+            <div class="image">
+                <img src="<?php echo ASSETS . 'images/sample.jpg'?>" />
+            </div>
+            <div class="more">
+                <h3>Name of person</h3>
+                <div>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                </div>
+                <p>0705 XXX 548</p>
+                <div class="bottom">
+                    <p style="background-color: green;">Available</p>
+                    <button id="aboutBtn">About Repairer</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="r-card">
+            <div class="image">
+                <img src="<?php echo ASSETS . 'images/sample.jpg'?>" />
+            </div>
+            <div class="more">
+                <h3>Name of person</h3>
+                <div>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                </div>
+                <p>0705 XXX 548</p>
+                <div class="bottom">
+                    <p style="background-color: green;">Available</p>
+                    <button id="aboutBtn">About Repairer</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="r-card">
+            <div class="image">
+                <img src="<?php echo ASSETS . 'images/sample.jpg'?>" />
+            </div>
+            <div class="more">
+                <h3>Name of person</h3>
+                <div>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                </div>
+                <p>0705 XXX 548</p>
+                <div class="bottom">
+                    <p style="background-color: green;">Available</p>
+                    <button id="aboutBtn">About Repairer</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="r-card">
+            <div class="image">
+                <img src="<?php echo ASSETS . 'images/sample.jpg'?>" />
+            </div>
+            <div class="more">
+                <h3>Name of person</h3>
+                <div>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                </div>
+                <p>0705 XXX 548</p>
+                <div class="bottom">
+                    <p style="background-color: green;">Available</p>
+                    <button id="aboutBtn">About Repairer</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="r-card">
+            <div class="image">
+                <img src="<?php echo ASSETS . 'images/sample.jpg'?>" />
+            </div>
+            <div class="more">
+                <h3>Name of person</h3>
+                <div>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                </div>
+                <p>0705 XXX 548</p>
+                <div class="bottom">
+                    <p style="background-color: green;">Available</p>
+                    <button id="aboutBtn">About Repairer</button>
+                </div>
+            </div>
+        </div>
+
         <div class="r-card">
             <div class="image">
                 <img src="<?php echo ASSETS . 'images/sample.jpg'?>" />

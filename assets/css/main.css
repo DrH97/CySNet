@@ -6,6 +6,10 @@ html {
     background-color: white;
 }
 
+*{
+    transition: all .5s ease;
+}
+
 body {
     width: inherit;
     height: inherit;
@@ -56,6 +60,12 @@ header {
     z-index: 3;
 }
 
+/* smaller navbar on scroll*/
+header.sticky{
+    height: 2.5em;
+    background-color: black;
+}
+
 @media screen and (max-width: 780px) {
     header {
         display: none;
@@ -78,10 +88,27 @@ header #title {
     margin-left: 0.8em;
 }
 
+header.sticky #title{
+    width: auto;
+    height: inherit;
+    float: left;
+    display: block;
+    color: White;
+    text-align: center;
+    padding: .3em 16px;
+    text-decoration: none;
+    font-size: 1.5em;
+    margin-left: 0.8em;
+}
+
 header #links {
     float: left;
     height: inherit;
     display: inline;
+}
+
+header.sticky #links{
+    height: inherit;
 }
 
 header #links a {
@@ -95,12 +122,19 @@ header #links a {
     font-size: 1.2em;
 }
 
+header.sticky #links a{
+    text-align: center;
+    padding: 10px 16px 14px 16px;
+    text-decoration: none;
+    font-size: 1.0rem;
+}
+
 
 /* Change the color of links on hover */
 
 header #links a:hover {
     background-color: skyblue;
-    color: black;
+    color: white;
 }
 
 header .account {
@@ -108,6 +142,11 @@ header .account {
     float: right;
     display: inline-flex;
     padding-top: 0.5em;
+}
+
+header.sticky .account{
+    padding-top: 0;
+    background-color: white;
 }
 
 header .account:hover {
@@ -126,12 +165,24 @@ header .account p {
     margin-right: 1em;
 }
 
+header.sticky .account p{
+    margin-right: 1em;
+}
+
 header .account img {
     width: 3em;
     height: 3em;
     border-radius: 50%;
     margin-right: 2.5em;
 }
+
+header.sticky .account img{
+    /*display: none;*/
+    width: 1.8em;
+    height: 1.8em;
+    margin: 0.5em 2em 0 0;
+}
+
 
 
 /* SHOP */
@@ -143,7 +194,12 @@ header .account img {
     width: 100%;
     height: auto;
     background-color: skyblue;
-    padding: 5em 0em 1em 0em;
+    padding: 4em 0em 0em 0em;
+}
+
+.description.sticky {
+    background-color: skyblue;
+    padding: 2.5em 0em 0em 0em;
 }
 
 .description div {
@@ -154,11 +210,11 @@ header .account img {
 
 .description div input[type="search"] {
     width: 55%;
-    height: 3em;
+    height: 2.5em;
     border-style: none;
     color: black;
     font-size: 1em;
-    padding: 1em;
+    padding: .5em;
     background: rgba(255, 255, 255, 0.2);
 }
 
@@ -166,12 +222,19 @@ header .account img {
     background: rgba(255, 255, 255, 0.7);
 }
 
+.description div input[type="search"]:focus,
+.description div select:focus,
+.description div input[type='submit']:focus{
+    background: rgba(255, 255, 255, 1);
+}
+
 .description div select {
     width: 30%;
-    height: 4em;
+    height: 3em;
     border-style: none;
     font-size: 0.8em;
     background: rgba(255, 255, 255, 0.2);
+    padding: 0;
 }
 
 .description div select:hover {
@@ -180,16 +243,26 @@ header .account img {
 
 .description div input[type='submit'] {
     width: 10%;
-    height: 4em;
+    height: 3em;
     border-style: none;
     font-size: 0.8em;
     background: rgba(255, 255, 255, 0.2);
 }
 
 .description div input[type='submit']:hover {
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.8);
 }
 
+.search.sticky{
+    position: fixed;
+    top: 2.5em;
+    left: 15%;
+    z-index: 3;
+    background-color: rgba(30,144,255,.1);
+    border: 2px solid skyblue;
+    transition: all 0.5s ease;
+    box-shadow: 0 0 5px black;
+}
 
 /* content */
 
@@ -212,12 +285,12 @@ header .account img {
     }
     
     .description div input[type="search"] {
-        width: 100%;
+        width: 48%;
         margin: 0.2em
     }
     
     .description div select {
-        width: 100%;
+        width: 48%;
         height: 4em;
         margin: 0.2em;
     }
@@ -238,6 +311,67 @@ header .account img {
     
 }
 
+@media only screen and (max-width: 500px) {
+
+    .description div {
+        width: 90%;
+        display: block;
+    }
+
+    .description div input[type="search"] {
+        width: 100%;
+        margin: 0.2em;
+    }
+
+    .description div select {
+        width: 100%;
+        height: 4em;
+        margin: 0.2em;
+    }
+
+    .description div input[type='submit'],
+    description div input[type='submit']:hover {
+        width: 50%;
+        margin: 0.2em;
+    }
+
+    .content {
+        height: auto;
+        width: 100%;
+        padding: 0 0 1em 0;
+        margin: auto;
+        background-color: transparent;
+    }
+
+}
+
+/* for error displays */
+.error{
+    width: 90vw;
+    margin: 5px auto;
+    background-color: rgba(250,50,50,.8);
+    border: 1px double red;
+    overflow: hidden;
+    padding: 5px;
+    transition: all .5s ease;
+}
+
+.inform{
+    width: 90vw;
+    margin: 5px auto;
+    background-color: rgba(50,50,250,.8);
+    border: 1px double blue;
+    overflow: hidden;
+    padding: 5px;
+    transition: all .5s ease;
+}
+
+.message{
+    float: left;
+    width: 89%;
+    margin: 5px 0 0px 5px;
+    overflow: hidden;
+}
 
 /* for hardware items card */
 
@@ -255,7 +389,7 @@ header .account img {
 }
 
 .h-card:hover {
-    box-shadow: 0px 0px 20px royalblue;
+    box-shadow: 0px 5px 5px grey;
 }
 
 .h-card .image {
@@ -263,6 +397,7 @@ header .account img {
     min-width: 10em;
     height: 10em;
     position: relative;
+    box-shadow: 0 0 50px #dddddd;
 }
 
 .h-card .image img {
@@ -301,8 +436,8 @@ header .account img {
 }
 
 .h-card .more p {
-    height: 8em;
-    overflow-y: scroll;
+    height: 6em;
+    overflow-y: auto;
     margin: 5px;
     padding: 0;
     font-size: 0.95em;
@@ -432,7 +567,7 @@ header .account img {
 #repair-tab.sticky {
     width: 100%;
     position: fixed;
-    top: 4em;
+    top: 2em;
     left: 0;
     background-color: #F4f4f4;
 }
@@ -590,7 +725,7 @@ header .account img {
     /* Enable scroll if needed */
     background-color: rgb(0, 0, 0);
     /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.5);
     /* Black w/ opacity */
 }
 
@@ -599,7 +734,7 @@ header .account img {
 
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto;
+    margin: 10% auto;
     /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
@@ -607,14 +742,26 @@ header .account img {
     /* Could be more or less, depending on screen size */
 }
 
+@media screen and(max-width: 400px) {
+    .modal-content {
+
+        margin: 10% auto;
+        /* 15% from the top and centered */
+        padding: 10px;
+        border: 1px solid #888;
+        width: 100%;
+        /* Could be more or less, depending on screen size */
+    }
+}
 
 /* The Close Button */
 
 .close {
     color: #aaa;
     float: right;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
+    z-index: 10;
 }
 
 .close:hover,
@@ -745,7 +892,6 @@ table th {
 
 
 /* Change the color of log-out on hover */
-
 header #links #logout:hover {
     background-color: tomato;
     color: white;
@@ -755,7 +901,7 @@ header #links #logout:hover {
 /* profile-box */
 
 .profile-box {
-    padding-top: 5em;
+    padding-top: 4em;
     height: auto;
     width: 100%;
     background-color: skyblue;
@@ -933,7 +1079,7 @@ div.tab button.active {
 /* store tab */
 
 .tabcontent .upload {
-    width: 50%;
+    width: 90%;
     height: auto;
     display: block;
     margin: auto;
@@ -946,8 +1092,8 @@ div.tab button.active {
     margin-top: 0;
 }
 
-.tabcontent .upload input[type='text'],
-.tabcontent .upload input[type='number'], textarea {
+.tabcontent .upload input[type='text'], .tabcontent .upload select,
+.tabcontent .upload input[type='number'], textarea, select {
     width: 80%;
     height: auto;
     padding: 1em 1em;
@@ -994,8 +1140,8 @@ div.tab button.active {
 .switch {
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 34px;
+    width: 50px;
+    height: 27px;
 }
 
 .switch input {
@@ -1017,13 +1163,14 @@ div.tab button.active {
 .slider:before {
     position: absolute;
     content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
+    height: 21px;
+    width: 21px;
+    left: 3px;
+    bottom: 3px;
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
+    box-shadow: 1px 1px 5px grey;
 }
 
 input:checked+.slider {
@@ -1035,9 +1182,9 @@ input:focus+.slider {
 }
 
 input:checked+.slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
+    -webkit-transform: translateX(24px);
+    -ms-transform: translateX(24px);
+    transform: translateX(24px);
 }
 
 
