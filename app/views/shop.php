@@ -1,23 +1,33 @@
 <?php
 include VIEW_ROOT . 'layouts/navbar.php';
 
-$hardwareitems = $db->query("SELECT * FROM hardware_products");
+$totalHProducts = $db->query("SELECT COUNT(*) as total from hardware_products")->fetch_assoc()['total'];
 $sellersdeets = $db->query("SELECT * FROM users");
+
+//$totalHProducts = 1000;
+
+$paginator = new Paginator();
+$paginator->total = $totalHProducts;
+$paginator->paginate();
+
+$firstlimit = ($paginator->currentPage - 1)*$paginator->itemsPerPage;
+
+$hardwareitems = $db->query("SELECT * FROM hardware_products LIMIT $firstlimit,  $paginator->itemsPerPage");
 
 if (!empty($_GET['search'])) {
     $searchq = $_GET['search'];
     $searchq = preg_replace("#[^0-9a-z]#i", "", $searchq);
 
-    $query = $db->query("SELECT * FROM hardware_products WHERE productname LIKE '%$searchq%' OR description LIKE '%$searchq%'");
+    $query = $db->query("SELECT * FROM hardware_products WHERE productname LIKE '%$searchq%' OR description LIKE '%$searchq%' LIMIT $firstlimit,  $paginator->itemsPerPage");
     if(isset($_GET['cat'])) {
         $cat = $_GET['cat'];
-        $query = $db->query("SELECT * FROM hardware_products WHERE categoryid = $cat AND productname LIKE '%$searchq%' OR description LIKE '%$searchq%'");
+        $query = $db->query("SELECT * FROM hardware_products WHERE categoryid = $cat AND productname LIKE '%$searchq%' OR description LIKE '%$searchq%' LIMIT $firstlimit,  $paginator->itemsPerPage");
 //        ?><!--<p>--><?php //var_dump("SELECT * FROM hardware_products WHERE categoryid = $cat AND  productname LIKE '%$searchq%' OR description LIKE '%$searchq%'"); ?><!--</p>--><?php
     }
 
     $count = mysqli_num_rows($query);
     if ($count == 0) { ?>
-        <script>alert("There were no products found.. try different parameters..")</script>
+        <script>alert('There were no products found.. try different parameters..');</script>
         <?php
     } else {
 
@@ -26,9 +36,14 @@ if (!empty($_GET['search'])) {
 }
 
 function setseller($db, $sid){
-    $sellers = mysqli_fetch_assoc($db->query("SELECT * FROM users WHERE id = $sid"));
+//    $sellers =
+    return mysqli_fetch_assoc($db->query("SELECT * FROM users WHERE id = $sid"));
     //$seller =
-    return $sellers/*['firstname'].' '.$sellers['lastname']*/;
+//    return $sellers/*['firstname'].' '.$sellers['lastname']*/;
+}
+
+function error($error){
+    ?><style>errors(<?php echo $error; ?>); </style><?php
 }
 
 ?>
@@ -103,8 +118,8 @@ function setseller($db, $sid){
     </center>
 </div>
 
-<div class="error" id="error"><p class="message">Some Error Here!!! sdfnjskdf jksd fs dfkj sdkjf kjsd fkj</p><span class="close" id="errorspan" onclick="alert('Asdad');">&cross;</span></div>
-<div class="inform" id="info"><p class="message">Some Info Here...asdasdasdasd asdasd asd ndajk sdja sdj ajksd asjk dakjs d askd akj</p><span class="close" id="infospan" onclick="alert('Asdad');">&cross;</span></div>
+<div class="error" id="error" style="display: none;"><p class="message" id="errormess">Some Error Here!!! sdfnjskdf jksd fs dfkj sdkjf kjsd fkj</p><span class="close" id="errorspan" onclick="alert('Asdad');">&cross;</span></div>
+<div class="inform" id="info" style="display: none;"><p class="message" id="infomess">Some Info Here...asdasdasdasd asdasd asd ndajk sdja sdj ajksd asjk dakjs d askd akj</p><span class="close" id="infospan" onclick="alert('Asdad');">&cross;</span></div>
 
 <!-- CONTENT -->
 <div class="content">
@@ -126,7 +141,7 @@ function setseller($db, $sid){
             </div>
             <div class="bottom">
                 <button id="sellerBtn" onclick="setSeller(<?php echo $item['sellerid']; ?>, '<?php echo $sellers['firstname'].' '.$sellers['lastname']; ?>', '<?php echo $sellers['gender']; ?>')">About Seller</button>
-                <button id="cart">Add to cart</button>
+                <button id="cart" onclick="errors('asdasdasd')">Add to cart</button>
             </div>
         </div>
     </div>
@@ -304,6 +319,49 @@ function setseller($db, $sid){
 
 </div>
 
+<div class="pagination">
+    <?php echo $paginator->pageNumbers(); ?>
+</div>
+<div class="itemsselector"><?php echo $paginator->itemsPerPage(); ?></div>
+<!--    --><?php //var_dump($paginator->pageNumbers()); ?>
+
+<style>
+    .itemsselector{
+        position: fixed;
+        right: 0;
+        bottom: 0px;
+        width: 100px;
+    }
+    .pagination{
+        margin-left: 45%;
+        width: 11%;
+        display: inline-block;
+    }
+    .pagination li{
+        padding: 15px 5px 0 5px;
+        float: left;
+        list-style: none;
+        transition: all 0s ease;
+    }
+
+    .pagination li a:hover{
+        font-size: 1.1rem;
+        transition: all 0s ease;
+    }
+
+    .pagination li a.current{
+        color: dodgerblue;
+        font-size: 1.4rem;
+        padding-top: -5px;
+    }
+
+    .paginate{
+        box-shadow: 0 0 5px 1px skyblue;
+    }
+
+</style>
+
+
 <?php include 'layouts/footer.php'; ?>
 
 <!-- end of content div -->
@@ -313,14 +371,14 @@ function setseller($db, $sid){
 <script>
 
     var errorspan = document.getElementById("errorspan");
-    var error = document.getElementById("error");
+//    var error = document.getElementById("error");
     var infospan = document.getElementById("infospan");
-    var info = document.getElementById("info");
+//    var info = document.getElementById("info");
 
-    error.onclick = function() {
+    errorspan.onclick = function() {
         error.style.display = "none";
     };
-    info.onclick = function() {
+    infospan.onclick = function() {
         info.style.display = "none";
     };
 
@@ -331,7 +389,7 @@ function setseller($db, $sid){
     var btn = document.getElementById("sellerBtn");
 
     // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
+    var spanmodal = document.getElementsByClassName("close")[2];
 
     // When the user clicks on the button, open the modal
 //    btn.onclick = function() {
@@ -339,7 +397,7 @@ function setseller($db, $sid){
 //    };
 
     // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
+    spanmodal.onclick = function() {
         modal.style.display = "none";
     };
 
@@ -359,8 +417,21 @@ function setseller($db, $sid){
         modal.style.display = "block";
     }
 
+    function errors(error) {
+        var errors = document.getElementById("error");
+        var errorsmess = document.getElementById("errormess");
+        errors.style.display = "block";
+        errorsmess.innerHTML = error;
+    }
+
+    function info(info) {
+        var infos = document.getElementById("info");
+        var infosmess = document.getElementById("infomess");
+        infos.style.display = "block";
+        infosmess.innerHTML = info;
+    }
+
     function getSeller() {
         return sellerid;
     }
 </script>
-

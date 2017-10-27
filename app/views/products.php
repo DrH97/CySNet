@@ -77,6 +77,7 @@ if (isset($_GET['addprod'])){
                 $image = time() . basename($_FILES["itemimage"]["name"]);
                 //echo "The file " . $image . " has been uploaded.";
                 $_FILES = null;
+                unset($_FILES);
 
             } else {
                 ?> <script> <?php echo "Sorry, there was an error uploading your file."; ?></script> <?php

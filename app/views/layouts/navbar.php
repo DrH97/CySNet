@@ -1,8 +1,9 @@
 <?php require 'appheader.php';
 session_start();
+include APP_ROOT . '/paginator.php';
 ?>
 <!-- TOP NAVIGATION BAR -->
-    <header>
+    <header style="ospacity: 0">
 
         <a href="?It'sTechCrowdYooo" id="title">TechCrowd</a>
         <div id="links">
@@ -16,7 +17,7 @@ session_start();
             <a href="<?php echo BASE_URL . 'auth/login.php'?>" style="padding: 10px; margin-top: -10px; text-decoration: none;"><p>LOGIN</p></a>
         <?php } else { ?>
 
-            <a style="height: 100%; margin-top: -8px; padding-top: 5px; text-decoration: none; display: inline-flex;">
+            <a id="account-sign" style="height: 100%; margin-top: -8px; padding-top: 5px; text-decoration: none; display: inline-flex;">
                 <p><?php echo $_SESSION['user'][2]; ?></p>
                 <img src="<?php echo ASSETS . 'images/defaultprofile.png'; ?>"/>
                 <div class="pointer" style="width: 25px; height: 25px; position: fixed; top: 20px; right: 5px;"></div>
@@ -122,7 +123,7 @@ session_start();
 <script>
 
     $(document).on('scroll', function () {
-        if ($(this).scrollTop() > 50 && $(this).width() > 780){
+        if ($(this).scrollTop() > 1 && $(this).width() > 780){
             $('header').addClass('sticky');
             $('.search').addClass('sticky');
 //            $('.description').addClass('sticky');
@@ -133,7 +134,7 @@ session_start();
         }
     });
 
-    var dropdown = document.getElementById('account');
+    var dropdown = document.getElementById('account-sign');
     var accdrop = document.getElementById('account-drop');
 
     dropdown.onmouseover = function(){

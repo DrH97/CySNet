@@ -1,7 +1,44 @@
 <?php
 include_once '../start.php';
 include VIEW_ROOT . '/layouts/navbar.php';
-//var_dump(VIEW_ROOT . 'layouts/navbar.php');
+
+//$repairersdeets = $db->query("SELECT * FROM users");
+//
+//$repairers = $db->query("SELECT * FROM repairers");
+//
+//if (!empty($_GET['search'])) {
+//$searchq = $_GET['search'];
+//$searchq = preg_replace("#[^0-9a-z]#i", "", $searchq);
+//
+//$query = $db->query("SELECT * FROM repairers WHERE name LIKE '%$searchq%' OR description LIKE '%$searchq%'");
+//
+//if(isset($_GET['cat'])) {
+//$cat = $_GET['cat'];
+//$query = $db->query("SELECT * FROM repairers WHERE categoryid = $cat AND name LIKE '%$searchq%' OR description LIKE '%$searchq%'");
+////        ?><!--<!--<p>-->--><?php ////var_dump("SELECT * FROM hardware_products WHERE categoryid = $cat AND  productname LIKE '%$searchq%' OR description LIKE '%$searchq%'"); ?><!--<!--</p>-->--><?php
+//}
+//
+//$count = mysqli_num_rows($query);
+//if ($count == 0) { ?>
+<!--    <script>alert('There were no repairers found.. try different parameters..');</script>-->
+<!--    --><?php
+//} else {
+//
+//    $repairers = $query;
+//}
+//}
+//
+//function setrepairer($db, $rid){
+////    $sellers =
+//    return mysqli_fetch_assoc($db->query("SELECT * FROM users WHERE id = $rid"));
+//    //$seller =
+////    return $sellers/*['firstname'].' '.$sellers['lastname']*/;
+//}
+
+function error($error){
+    ?><style>errors(<?php echo $error; ?>); </style><?php
+}
+
 ?>
 
 <!-- DESCRIPTION -->
@@ -39,6 +76,7 @@ include VIEW_ROOT . '/layouts/navbar.php';
     <!-- PRO TAB -->
     <div id="pro" class="tabcontent">
 
+        <?php for ($i=0; $i<5; $i++): ?>
         <!-- repairers card -->
         <div class="r-card">
             <div class="image">
@@ -55,116 +93,14 @@ include VIEW_ROOT . '/layouts/navbar.php';
                 </div>
                 <p>0705 XXX 548</p>
                 <div class="bottom">
-                    <p style="background-color: green;">Available</p>
+<!--                    <p style="background-color: green;">Available</p>-->
                     <button id="aboutBtn">About Repairer</button>
                 </div>
             </div>
         </div>
 
-        <div class="r-card">
-            <div class="image">
-                <img src="<?php echo ASSETS . 'images/sample.jpg'?>" />
-            </div>
-            <div class="more">
-                <h3>Name of person</h3>
-                <div>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                </div>
-                <p>0705 XXX 548</p>
-                <div class="bottom">
-                    <p style="background-color: green;">Available</p>
-                    <button id="aboutBtn">About Repairer</button>
-                </div>
-            </div>
-        </div>
+        <?php endfor; ?>
 
-        <div class="r-card">
-            <div class="image">
-                <img src="<?php echo ASSETS . 'images/sample.jpg'?>" />
-            </div>
-            <div class="more">
-                <h3>Name of person</h3>
-                <div>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                </div>
-                <p>0705 XXX 548</p>
-                <div class="bottom">
-                    <p style="background-color: green;">Available</p>
-                    <button id="aboutBtn">About Repairer</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="r-card">
-            <div class="image">
-                <img src="<?php echo ASSETS . 'images/sample.jpg'?>" />
-            </div>
-            <div class="more">
-                <h3>Name of person</h3>
-                <div>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                </div>
-                <p>0705 XXX 548</p>
-                <div class="bottom">
-                    <p style="background-color: green;">Available</p>
-                    <button id="aboutBtn">About Repairer</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="r-card">
-            <div class="image">
-                <img src="<?php echo ASSETS . 'images/sample.jpg'?>" />
-            </div>
-            <div class="more">
-                <h3>Name of person</h3>
-                <div>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                </div>
-                <p>0705 XXX 548</p>
-                <div class="bottom">
-                    <p style="background-color: green;">Available</p>
-                    <button id="aboutBtn">About Repairer</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="r-card">
-            <div class="image">
-                <img src="<?php echo ASSETS . 'images/sample.jpg'?>" />
-            </div>
-            <div class="more">
-                <h3>Name of person</h3>
-                <div>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                </div>
-                <p>0705 XXX 548</p>
-                <div class="bottom">
-                    <p style="background-color: green;">Available</p>
-                    <button id="aboutBtn">About Repairer</button>
-                </div>
-            </div>
-        </div>
 
 
         <!-- loop to display all expert repairers -->
@@ -176,110 +112,30 @@ include VIEW_ROOT . '/layouts/navbar.php';
     <!-- STUDENT TAB -->
     <div id="student" class="tabcontent">
 
-        <div class="r-card">
-            <div class="image">
-                <img src="<?php echo ASSETS . 'images/sample.jpg'?>" />
-            </div>
-            <div class="more">
-                <h3>Name of person</h3>
-                <div>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
+        <?php for ($i=0; $i<5; $i++): ?>
+            <!-- repairers card -->
+            <div class="r-card">
+                <div class="image">
+                    <img src="<?php echo ASSETS . 'images/sample.jpg'?>" />
                 </div>
-                <p>0705 XXX 548</p>
-                <div class="bottom">
-                    <p style="background-color: green;">Available</p>
-                    <button id="aboutBtn">About Repairer</button>
+                <div class="more">
+                    <h3>Name of person</h3>
+                    <div>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    </div>
+                    <p>0705 XXX 548</p>
+                    <div class="bottom">
+                        <!--                    <p style="background-color: green;">Available</p>-->
+                        <button id="aboutBtn">About Repairer</button>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="r-card">
-            <div class="image">
-                <img src="<?php echo ASSETS . 'images/sample.jpg'?>" />
-            </div>
-            <div class="more">
-                <h3>Name of person</h3>
-                <div>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                </div>
-                <p>0705 XXX 548</p>
-                <div class="bottom">
-                    <p style="background-color: green;">Available</p>
-                    <button id="aboutBtn">About Repairer</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="r-card">
-            <div class="image">
-                <img src="<?php echo ASSETS . 'images/sample.jpg'?>" />
-            </div>
-            <div class="more">
-                <h3>Name of person</h3>
-                <div>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                </div>
-                <p>0705 XXX 548</p>
-                <div class="bottom">
-                    <p style="background-color: green;">Available</p>
-                    <button id="aboutBtn">About Repairer</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="r-card">
-            <div class="image">
-                <img src="<?php echo ASSETS . 'images/sample.jpg'?>" />
-            </div>
-            <div class="more">
-                <h3>Name of person</h3>
-                <div>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                </div>
-                <p>0705 XXX 548</p>
-                <div class="bottom">
-                    <p style="background-color: green;">Available</p>
-                    <button id="aboutBtn">About Repairer</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="r-card">
-            <div class="image">
-                <img src="<?php echo ASSETS . 'images/sample.jpg'?>" />
-            </div>
-            <div class="more">
-                <h3>Name of person</h3>
-                <div>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                </div>
-                <p>0705 XXX 548</p>
-                <div class="bottom">
-                    <p style="background-color: green;">Available</p>
-                    <button id="aboutBtn">About Repairer</button>
-                </div>
-            </div>
-        </div>
+        <?php endfor; ?>
 
 
         <!-- loop to display student repairers -->

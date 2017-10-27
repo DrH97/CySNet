@@ -63,7 +63,7 @@ header {
 /* smaller navbar on scroll*/
 header.sticky{
     height: 2.5em;
-    background-color: black;
+    background-color: rgba(0,0,0, .9);
 }
 
 @media screen and (max-width: 780px) {
@@ -349,21 +349,23 @@ header.sticky .account img{
 .error{
     width: 90vw;
     margin: 5px auto;
-    background-color: rgba(250,50,50,.8);
+    background-color: rgba(250,50,50,.4);
     border: 1px double red;
     overflow: hidden;
     padding: 5px;
     transition: all .5s ease;
+    border-radius: 5px;
 }
 
 .inform{
     width: 90vw;
     margin: 5px auto;
-    background-color: rgba(50,50,250,.8);
+    background-color: rgba(100,150,250,.4);
     border: 1px double blue;
     overflow: hidden;
     padding: 5px;
     transition: all .5s ease;
+    border-radius: 5px;
 }
 
 .message{
@@ -567,9 +569,10 @@ header.sticky .account img{
 #repair-tab.sticky {
     width: 100%;
     position: fixed;
-    top: 2em;
+    top: 5.5em;
     left: 0;
     background-color: #F4f4f4;
+    display: none;
 }
 
 #pro,

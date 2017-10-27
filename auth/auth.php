@@ -104,6 +104,7 @@ if (isset($_GET['adminlogin'])){
         $course = $_POST['course'];
         $year = $_POST['year'];
         $admno = $_POST['admno'];
+
 //        $image = '';
 
         $id = $_SESSION['user'][3];
@@ -111,6 +112,10 @@ if (isset($_GET['adminlogin'])){
         $sql =  "UPDATE users SET username = '', firstname = '$firstname', lastname = '$lastname', institution = '$institution',
                 course = '$course', year = '$year', admno = '$admno', updated_at = NOW() WHERE id = '$id'";
 
+        if ($admno == '' || $admno == 0) {
+            $sql =  "UPDATE users SET username = '', firstname = '$firstname', lastname = '$lastname', institution = '$institution',
+                course = '$course', year = '$year', updated_at = NOW() WHERE id = '$id'";
+        }
         var_dump($sql);
 
         if (isset($_POST['password-sign'])) {
@@ -118,7 +123,15 @@ if (isset($_GET['adminlogin'])){
             $sql = "UPDATE users SET username = '', firstname = '$firstname', lastname = '$lastname',
                                      institution = '$institution', course = '$course', year = '$year', admno = '$admno', 
                                       password = '$password', updated_at = NOW() WHERE id = '$id'";
+
+            if ($admno == '' || $admno == 0) {
+                $sql =  "UPDATE users SET username = '', firstname = '$firstname', lastname = '$lastname',
+                                     institution = '$institution', course = '$course', year = '$year',
+                                      password = '$password', updated_at = NOW() WHERE id = '$id'";
+            }
         }
+
+        //var_dump($_FILES);
 
         if (isset($_FILES['profile_image']['name'])) {
             $target_dir = "../public/uploads/";
@@ -130,7 +143,7 @@ if (isset($_GET['adminlogin'])){
             $imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
             //var_dump($imageFileType);
             // Check if image file is a actual image or fake image
-            if (isset($_POST["submit"])) {
+            if (!empty($_FILES)) {
                 $check = getimagesize($_FILES["profile_image"]["tmp_name"]);
                 if ($check !== false) {
                     echo "File is an image - " . $check["mime"] . ".";
@@ -170,11 +183,22 @@ if (isset($_GET['adminlogin'])){
                     $sql =  "UPDATE users SET username = '', firstname = '$firstname', lastname = '$lastname', institution = '$institution',
                                 course = '$course', year = '$year', admno = '$admno', image = '$image', updated_at = NOW() WHERE id = '$id'";
 
+                    if ($admno == '' || $admno == 0) {
+                        $sql =  "UPDATE users SET username = '', firstname = '$firstname', lastname = '$lastname', institution = '$institution',
+                                course = '$course', year = '$year', image = '$image', updated_at = NOW() WHERE id = '$id'";
+                    }
+
                     if (isset($_POST['password-sign'])) {
                         $password = password_hash($_POST['password-sign'], PASSWORD_BCRYPT);
                         $sql = "UPDATE users SET username = '', firstname = '$firstname', lastname = '$lastname',
                                  institution = '$institution', course = '$course', year = '$year', admno = '$admno', 
                                   password = '$password', image = '$image', updated_at = NOW() WHERE id = '$id'";
+
+                        if ($admno == '' || $admno == 0) {
+                            $sql =  "UPDATE users SET username = '', firstname = '$firstname', lastname = '$lastname',
+                                 institution = '$institution', course = '$course', year = '$year', 
+                                  password = '$password', image = '$image', updated_at = NOW() WHERE id = '$id'";
+                        }
                     }
 
                 } else {
