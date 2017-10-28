@@ -1,5 +1,6 @@
 <?php //require 'appheader.php'; ?>
 
+<center>For Students, By Students...</center>
 <!-- FOOTER -->
 <div id='particle'>
 

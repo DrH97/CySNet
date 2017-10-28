@@ -1,6 +1,9 @@
 <?php require 'appheader.php';
 session_start();
 
+if (!isset($_SESSION['user']))
+    header("LOCATION: " . BASE_URL . 'auth/login.php');
+
 $id = $_SESSION['user']['3'];
 $userq = $db->query("SELECT * FROM users WHERE id = '$id'");
 

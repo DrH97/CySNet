@@ -4,6 +4,9 @@ include VIEW_ROOT . 'layouts/appheader.php';
 
 session_start();
 
+if (!isset($_SESSION['admin']))
+    header("LOCATION: " . BASE_URL . 'auth/adminlogin.php');
+
 $adminq = $db->query("SELECT * FROM admins");
 
 $admindeets = $adminq->fetch_assoc();
@@ -47,11 +50,7 @@ $admindeets = $adminq->fetch_assoc();
         <a href="<?php echo BASE_URL; ?>" id="min-title">TechCrowd</a>
         <a href="admin.php">Verify</a>
         <a href="adminsettings.php">Settings</a>
-        <a href="<?php echo BASE_URL . 'auth/auth.php?logout=true' ?>" id="logout">Log out</a>
-<!--        <a href="#">-->
-<!--            <p>--><?php //echo $admindeets['firstname'] . ' ' . $admindeets['lastname']; ?><!--</p>-->
-<!--<!--            <img src="--><?php ////echo ASSETS . 'images/favicon.ico'; ?><!--<!--"/>-->
-<!--        </a>-->
+        <a href="<?php echo BASE_URL . 'auth/auth.php?logout=true'; ?>" id="logout">Log out</a>
         <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="navToggleFunction()">&#9776;</a>
     </div>
 

@@ -403,8 +403,8 @@ header.sticky .account img{
 }
 
 .h-card .image img {
-    width: 100%;
-    height: 100%;
+    /*width: 100%;*/
+    /*height: 100%;*/
     position: absolute;
     top: 0;
 }
@@ -1020,7 +1020,6 @@ div.tab button.active {
         border-radius: 50%;
     }
     div.tab {
-        overflow-x: scrol;
         display: inline-flex;
         padding-left: 20%;
     }
@@ -1036,7 +1035,6 @@ div.tab button.active {
         border-radius: 50%;
     }
     div.tab {
-        overflow-x: scrol;
         display: inline-flex;
         padding-left: 15%;
     }
@@ -1246,7 +1244,7 @@ input:checked+.slider:before {
 .tabcontent .view {
     width: auto;
     display: inline-flex;
-    height: 3.5em;
+    sheight: 3.5em;
     background-color: gainsboro;
     padding: 0.4em 1em;
     margin: 0.5em;
@@ -1286,12 +1284,11 @@ input:checked+.slider:before {
 
 @media only screen and (max-width: 768px) {
     .tabcontent .view {
-        width: 100%;
+        width: 85%;
         display: inline-block;
-        height: 3.5em;
         background-color: gainsboro;
         padding: 0.4em 1em;
-        margin: 0.5em;
+        margin: 0 auto;
     }
 }
 

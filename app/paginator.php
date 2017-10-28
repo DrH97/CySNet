@@ -21,7 +21,7 @@ class Paginator {
         public function __construct()
         {
         	//set default values
-        	$this->itemsPerPage = 5;
+        	$this->itemsPerPage = 15;
 			$this->range        = 2;
 			$this->currentPage  = 1;		
 			$this->total		= 0;

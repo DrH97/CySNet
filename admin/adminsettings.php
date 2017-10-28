@@ -1,6 +1,11 @@
 <?php
 include 'adminnavbar.php';
-if (null !== ($_SESSION['admin'][0])) { ?>
+//
+//if (!isset($_SESSION['admin'])) {
+//    header("LOCATION: " . BASE_URL . 'auth/adminlogin.php');
+//} else {
+
+    ?>
 
     <!-- CONTENT -->
     <div class="content">
@@ -115,8 +120,5 @@ if (null !== ($_SESSION['admin'][0])) { ?>
     </body>
 
     <?php include_once VIEW_ROOT . 'layouts/footer.php';
-
-} else {
-    header("LOCATION: " . BASE_URL . 'auth/adminlogin.php');
-}
+//}
 ?>

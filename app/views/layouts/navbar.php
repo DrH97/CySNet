@@ -123,7 +123,7 @@ include APP_ROOT . '/paginator.php';
 <script>
 
     $(document).on('scroll', function () {
-        if ($(this).scrollTop() > 1 && $(this).width() > 780){
+        if ($(this).scrollTop() > 20 && $(this).width() > 780){
             $('header').addClass('sticky');
             $('.search').addClass('sticky');
 //            $('.description').addClass('sticky');

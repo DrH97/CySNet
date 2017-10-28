@@ -129,8 +129,8 @@ function error($error){
         ?>
     <!-- hardware items card -->
     <div class="h-card">
-        <div class="image">
-            <img src="<?php echo BASE_URL . 'public/uploads/hardwareproducts/' . $item['image']; ?>" />
+        <div class="image" style='background-image: url("<?php echo BASE_URL . 'public/uploads/hardwareproducts/' . $item['image']; ?>"); background-size: cover; overflow: hidden;'>
+            <img src="<?php echo BASE_URL . 'public/uploads/hardwareproducts/' . $item['image']; ?>" style="opacity: 0;"/>
             <h3><?php echo $item['productname']; ?></h3>
         </div>
         <div class="more">
@@ -146,115 +146,6 @@ function error($error){
         </div>
     </div>
     <?php endwhile; ?>
-
-    <div class="h-card">
-        <div class="image">
-            <img src="<?php echo ASSETS . 'images/sample.jpg'?>" />
-            <h3>Name of hardware item</h3>
-        </div>
-        <div class="more">
-            <p>description this is a sample description of this hardware item. description this is a sample description of this hardware item. description this is a sample description of this hardware item.description this is a sample description of this hardware item</p>
-            <div class="price-quantity">
-                <p style='color:coral;' id='price'>KSH <span style='color:orangered'><b>1200</b></span></p>
-                <p style='color:green;' id='quantity'><b>7</b> in stock</p>
-            </div>
-            <div class="bottom">
-                <button id="sellerBtn">About Seller</button>
-                <button id="cart">Add to cart</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="h-card">
-        <div class="image">
-            <img src="<?php echo ASSETS . 'images/sample.jpg'?>" />
-            <h3>Name of hardware item</h3>
-        </div>
-        <div class="more">
-            <p>description this is a sample description of this hardware item. description this is a sample description of this hardware item. description this is a sample description of this hardware item.description this is a sample description of this hardware item</p>
-            <div class="price-quantity">
-                <p style='color:coral;' id='price'>KSH <span style='color:orangered'><b>1200</b></span></p>
-                <p style='color:green;' id='quantity'><b>7</b> in stock</p>
-            </div>
-            <div class="bottom">
-                <button id="sellerBtn">About Seller</button>
-                <button id="cart">Add to cart</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="h-card">
-        <div class="image">
-            <img src="<?php echo ASSETS . 'images/sample.jpg'?>" />
-            <h3>Name of hardware item</h3>
-        </div>
-        <div class="more">
-            <p>description this is a sample description of this hardware item. description this is a sample description of this hardware item. description this is a sample description of this hardware item.description this is a sample description of this hardware item</p>
-            <div class="price-quantity">
-                <p style='color:coral;' id='price'>KSH <span style='color:orangered'><b>1200</b></span></p>
-                <p style='color:green;' id='quantity'><b>7</b> in stock</p>
-            </div>
-            <div class="bottom">
-                <button id="sellerBtn">About Seller</button>
-                <button id="cart">Add to cart</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="h-card">
-        <div class="image">
-            <img src="<?php echo ASSETS . 'images/sample.jpg'?>" />
-            <h3>Name of hardware item</h3>
-        </div>
-        <div class="more">
-            <p>description this is a sample description of this hardware item. description this is a sample description of this hardware item. description this is a sample description of this hardware item.description this is a sample description of this hardware item</p>
-            <div class="price-quantity">
-                <p style='color:coral;' id='price'>KSH <span style='color:orangered'><b>1200</b></span></p>
-                <p style='color:green;' id='quantity'><b>7</b> in stock</p>
-            </div>
-            <div class="bottom">
-                <button id="sellerBtn">About Seller</button>
-                <button id="cart">Add to cart</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="h-card">
-        <div class="image">
-            <img src="<?php echo ASSETS . 'images/sample.jpg'?>" />
-            <h3>Name of hardware item</h3>
-        </div>
-        <div class="more">
-            <p>description this is a sample description of this hardware item. description this is a sample description of this hardware item. description this is a sample description of this hardware item.description this is a sample description of this hardware item</p>
-            <div class="price-quantity">
-                <p style='color:coral;' id='price'>KSH <span style='color:orangered'><b>1200</b></span></p>
-                <p style='color:green;' id='quantity'><b>7</b> in stock</p>
-            </div>
-            <div class="bottom">
-                <button id="sellerBtn">About Seller</button>
-                <button id="cart">Add to cart</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="h-card">
-        <div class="image">
-            <img src="<?php echo ASSETS . 'images/sample.jpg'?>" />
-            <h3>Name of hardware item</h3>
-        </div>
-        <div class="more">
-            <p>description this is a sample description of this hardware item. description this is a sample description of this hardware item. description this is a sample description of this hardware item.description this is a sample description of this hardware item</p>
-            <div class="price-quantity">
-                <p style='color:coral;' id='price'>KSH <span style='color:orangered'><b>1200</b></span></p>
-                <p style='color:green;' id='quantity'><b>7</b> in stock</p>
-            </div>
-            <div class="bottom">
-                <button id="sellerBtn">About Seller</button>
-                <button id="cart">Add to cart</button>
-            </div>
-        </div>
-    </div>
-
 
     <!-- loop to display hardware items, happens here -->
 
@@ -406,7 +297,7 @@ function error($error){
         if (event.target === modal) {
             modal.style.display = "none";
         }
-    }
+    };
 
     function setSeller(id, name, gender) {
         sellerid = id;
