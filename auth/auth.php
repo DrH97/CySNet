@@ -6,6 +6,8 @@
     $image = null;
 
     if (isset($_GET['login'])){
+
+
         $email = $_POST['email'];
         $password = $_POST['password'];
 
@@ -22,12 +24,13 @@
                 $_SESSION['user'][2] = $userpass['lastname'];
                 $_SESSION['user'][3] = $userpass['id'];
 
+                echo "asdasd";
                 header("LOCATION: ../index.php");
 
             } else {
-                header("LOCATION: " . BASE_URL . 'auth/login.php');
-                ?><script>alert("Wrong password or username");</script> <?php
-
+                //header("LOCATION: " . BASE_URL . 'auth/login.php');
+                echo "<script>window.location = 'login.php';</script>";
+                ?><script></script> <?php
             }
         }
     }

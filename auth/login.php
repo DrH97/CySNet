@@ -17,13 +17,15 @@ require VIEW_ROOT . 'layouts/appheader.php'; ?>
             text-align: center;
         }
 
-        div.tab {
+        div.tabl {
             overflow: hidden;
             border: 1px solid #ccc;
             background-color: transparent;
-            padding: 0 32.6% 0 32.6%;
-            margin-top: 2em;
+            /*padding: 0 32.6% 0 32.6%;*/
+            width: 40%;
+            margin: 0em 30%;
             border-style: none;
+            display: inline-flex;
         }
 
         .tabcontent {
@@ -31,28 +33,30 @@ require VIEW_ROOT . 'layouts/appheader.php'; ?>
         }
         /* Style the buttons inside the tab */
 
-        div.tab button {
+        div.tabl button {
             background-color: inherit;
-            float: left;
+            /*float: left;*/
             border: none;
             outline: none;
             cursor: pointer;
-            padding: 14px 16px;
+            padding: 10px 16px;
+            width: 35%;
             transition: 0.3s;
             color: white;
-            margin: 0 1em;
+            margin: 0 7.5%;
             border: 1px solid white;
         }
         /* Change background color of buttons on hover */
 
-        div.tab button:hover {
+
+        div.tabl button:hover {
             color: dodgerblue;
             background-color: white;
             border: 1px solid dodgerblue;
         }
         /* Create an active/current tablink class */
 
-        div.tab button.active {
+        div.tabl button.active {
             color: white;
             background-color: dodgerblue;
             border-style: none;
@@ -78,31 +82,45 @@ require VIEW_ROOT . 'layouts/appheader.php'; ?>
                 font-size: 1em;
             }
 
-            div.tab {
+            div.tabl {
                 overflow: hidden;
                 border-bottom: 1px solid #ccc;
                 background-color: transparent;
+                padding: 0;
+                width: 40%;
                 margin-top: 2em;
                 border-style: none;
             }
 
-            div.tab button {
+            div.tabl button {
                 background-color: inherit;
-                float: left;
+                /*float: left;*/
                 border: none;
                 outline: none;
                 cursor: pointer;
                 padding: 4px 8px;
+                width: 50%;
                 transition: 0.3s;
                 color: white;
-                margin: 0 1em;
+                smargin: 0 1em;
                 border: 1px solid white;
             }
 
             .tabcontent{
-                width: 100%;
+                swidth: 100%;
             }
 
+        }
+
+        @media only screen and (max-width: 575px){
+            div.tabl {
+                width: 100%;
+                margin: 0;
+            }
+            div.tabl button {
+                width: 50%;
+                margin: 0;
+            }
         }
 
     </style>
@@ -122,9 +140,9 @@ require VIEW_ROOT . 'layouts/appheader.php'; ?>
     <h2>Hey there, welcome to <span style="font-size: 1.2em;"><b>TechCrowd</b></span> :)</h2>
 
     <!-- TABS -->
-    <div class="tab">
-        <button class="tablinks" onclick="openTabs(event, 'login')" id="defaultOpen">LOGIN</button>
-        <button class="tablinks" onclick="openTabs(event, 'signup')"><b>CREATE NEW ACCOUNT</b></button>
+    <div class="tabl">
+        <button class="tablinks" onclick="openTabs(event, 'login')" id="defaultOpen"><span  class="fa fa-fw fa-sign-in"></span><br>LOGIN</button>
+        <button class="tablinks" onclick="openTabs(event, 'signup')"><span  class="fa fa-fw fa-users"></span><br>CREATE NEW ACCOUNT</button>
     </div>
 
     <!-- LOGIN -->
@@ -141,8 +159,8 @@ require VIEW_ROOT . 'layouts/appheader.php'; ?>
                     Remember Me
                 </label><br><br>
 
-                <input type="submit" value="LOG IN"><br><br>
-
+                <input type="submit" value="LOG IN" onclick="logUser()"><br><br>
+                <div  id="loginb"> </div>
                 <a href="">
                     Forgot Your Password?
                 </a>
@@ -163,7 +181,7 @@ require VIEW_ROOT . 'layouts/appheader.php'; ?>
                     <input id="lastname" name="lastname" type="text" placeholder="Last Name" required>
                 </div><br>
                 <div>
-                    <label style="margin-right: 2em;">Gender:  </label>
+                    <label style="margin-right: 2em;">Gender:  </label><br>
                     <input id="male" type="radio" name="gender" value="Male" required><label for="male" style="margin-right: 2em;">Male</label><span><i href=""></i></span>
                     <input id="female" type="radio" name="gender" value="Female" required><label for="female">Female</label>
                 </div><br>
@@ -206,6 +224,21 @@ require VIEW_ROOT . 'layouts/appheader.php'; ?>
 
     // Get the element with id="defaultOpen" and click on it
     document.getElementById("defaultOpen").click();
+
+    function logUser() {
+        $('#loginb').html('<center><img src="<?php echo ASSETS . '/images/!.gif'; ?>"/></center>');
+        $.ajax({
+            type: 'post',
+            url: 'auth.php?login=true',
+            data: {
+                'email': $('#email'),
+                'password': $('#password')
+            },
+            success: function (succ) {
+                $('#loginb').html(succ);
+            }
+        });
+    }
 </script>
 
 <?php include VIEW_ROOT . 'layouts/footer.php'; ?>

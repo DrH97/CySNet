@@ -2,19 +2,27 @@
 session_start();
 include APP_ROOT . '/paginator.php';
 ?>
+
+<style>
+    span {
+        transition: none;
+    }
+</style>
+
 <!-- TOP NAVIGATION BAR -->
     <header style="ospacity: 0">
 
         <a href="?It'sTechCrowdYooo" id="title">TechCrowd</a>
         <div id="links">
             <a class="tablinks" href=" <?php echo BASE_URL; ?> " id="defaultOpen">Shop</a>
-            <a id="repairs" class="tablinks" href="<?php echo VIEW_URL . 'repairs.php'; ?>" >Repairs</a>
-            <a id="mycart" class="tablinks" href="<?php echo VIEW_URL . 'mycart.php' ?>">MyCart</a>
+            <a id="repairs" class="tablinks" href="<?php echo VIEW_URL . 'repairs.php'; ?>" >Repairs<span class="fa fa-fw fa-wrench"></span></a>
+            <a id="mycart" class="tablinks" href="<?php echo VIEW_URL . 'mycart.php' ?>">MyCart<span class="fa fa-fw fa-shopping-cart"></span></a>
+
         </div>
         <div class="account" id="account">
             <!-- Authentication Links -->
         <?php if(!isset($_SESSION['user'][0])) { ?>
-            <a href="<?php echo BASE_URL . 'auth/login.php'?>" style="padding: 10px; margin-top: -10px; text-decoration: none;"><p>LOGIN</p></a>
+            <a href="<?php echo BASE_URL . 'auth/login.php'?>" style="padding: 10px; margin-top: -10px; text-decoration: none;"><p>LOGIN<span class="fa fa-fw fa-sign-in pull-right"></p></a>
         <?php } else { ?>
 
             <a id="account-sign" style="height: 100%; margin-top: -8px; padding-top: 5px; text-decoration: none; display: inline-flex;">
@@ -84,13 +92,14 @@ include APP_ROOT . '/paginator.php';
 
 <div id="account-drop" class="account-drop">
     <a href="<?php echo VIEW_URL . 'user_account.php'?>">
+
         <div>
-            My account
+            My account<span class="fa fa-fw fa-user pull-right">
         </div>
     </a>
     <a href="<?php echo BASE_URL . 'auth/auth.php?logout=true' ?>">
         <div>
-            Logout
+            Logout<span class="fa fa-fw fa-sign-out pull-right">
         </div>
     </a>
 </div>
@@ -123,7 +132,7 @@ include APP_ROOT . '/paginator.php';
 <script>
 
     $(document).on('scroll', function () {
-        if ($(this).scrollTop() > 20 && $(this).width() > 780){
+        if ($(this).width() > 780 && $(this).scrollTop() > 20){
             $('header').addClass('sticky');
             $('.search').addClass('sticky');
 //            $('.description').addClass('sticky');

@@ -14,15 +14,27 @@ $firstlimit = ($paginator->currentPage - 1)*$paginator->itemsPerPage;
 
 $hardwareitems = $db->query("SELECT * FROM hardware_products LIMIT $firstlimit,  $paginator->itemsPerPage");
 
-if (!empty($_GET['search'])) {
+if (isset($_GET['search'])) {
     $searchq = $_GET['search'];
     $searchq = preg_replace("#[^0-9a-z]#i", "", $searchq);
 
     $query = $db->query("SELECT * FROM hardware_products WHERE productname LIKE '%$searchq%' OR description LIKE '%$searchq%' LIMIT $firstlimit,  $paginator->itemsPerPage");
     if(isset($_GET['cat'])) {
         $cat = $_GET['cat'];
-        $query = $db->query("SELECT * FROM hardware_products WHERE categoryid = $cat AND productname LIKE '%$searchq%' OR description LIKE '%$searchq%' LIMIT $firstlimit,  $paginator->itemsPerPage");
-//        ?><!--<p>--><?php //var_dump("SELECT * FROM hardware_products WHERE categoryid = $cat AND  productname LIKE '%$searchq%' OR description LIKE '%$searchq%'"); ?><!--</p>--><?php
+        $query = $db->query("SELECT * FROM (SELECT * FROM hardware_products WHERE categoryid = $cat ) AS subq WHERE productname LIKE '%$searchq%' OR description LIKE '%$searchq%' LIMIT $firstlimit,  $paginator->itemsPerPage");
+        //var_dump($query);
+
+        $count = mysqli_num_rows($query);
+        if ($count == 0) {
+            $query = $db->query("SELECT * FROM hardware_products WHERE categoryid = $cat LIMIT $firstlimit,  $paginator->itemsPerPage");
+
+            $count = mysqli_num_rows($query);
+            if ($count != 0) { ?>
+                <script>alert('There were no products found.. Here are products in the same category...');</script>
+                <?php
+            }
+        }
+
     }
 
     $count = mysqli_num_rows($query);
@@ -140,7 +152,7 @@ function error($error){
                 <p style='color:green;' id='quantity'><b><?php echo $item['quantity']; ?></b> in stock</p>
             </div>
             <div class="bottom">
-                <button id="sellerBtn" onclick="setSeller(<?php echo $item['sellerid']; ?>, '<?php echo $sellers['firstname'].' '.$sellers['lastname']; ?>', '<?php echo $sellers['gender']; ?>')">About Seller</button>
+                <button id="sellerBtn" onclick="setSeller(<?php echo $item['sellerid']; ?>, '<?php echo $sellers['firstname'].' '.$sellers['lastname']; ?>', '<?php echo $sellers['year']; ?>', '<?php echo $sellers['mobile']; ?>', '<?php echo $sellers['email']; ?>')">About Seller</button>
                 <button id="cart" onclick="errors('asdasdasd')">Add to cart</button>
             </div>
         </div>
@@ -178,27 +190,27 @@ function error($error){
             </center>
 
             <table>
-                <tr>
-                    <td class="info">Gender:</td>
-                    <td id="sellergender">Male</td>
-                </tr>
-                <tr>
-                    <td class="info">Institution:</td>
-                    <td>Strathmore University</td>
-                </tr>
-                <tr>
-                    <td class="info">Course:</td>
-                    <td>Bachelors in Informatics and Computer Science</td>
-                </tr>
+<!--                <tr>-->
+<!--                    <td class="info">Gender:</td>-->
+<!--                    <td id="sellergender">Male</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td class="info">Institution:</td>-->
+<!--                    <td>Strathmore University</td>-->
+<!--                </tr>-->
+
                 <tr>
                     <td class="info">Year:</td>
-                    <td>2</td>
+                    <td id="modalyear">2</td>
                 </tr>
                 <tr>
-                    <td class="info">Admission number:</td>
-                    <td>095242</td>
+                    <td class="info">Number:</td>
+                    <td id="modalmobile">+254 700 000 000</td>
                 </tr>
-
+                <tr>
+                    <td class="info">Contact Email:</td>
+                    <td id="modalemail">jdoe@gmail.com</td>
+                </tr>
 
             </table>
 
@@ -299,13 +311,29 @@ function error($error){
         }
     };
 
-    function setSeller(id, name, gender) {
+    function setSeller(id, name, year, mobile, email) {
         sellerid = id;
         sellername = name;
-        sellergender = gender;
+        selleryear = year;
+        sellermobile = mobile;
+        selleremail = email;
+
+//        if (checkEmpty(year))
+//            selleryear = null;
+//
+//        if (checkEmpty(mobile))
+//            sellermobile = null;
+//
+//        if (checkEmpty(email))
+//            selleremail = null;
+
         document.getElementById("modalhead").innerHTML = sellername;
-        document.getElementById("sellergender").innerHTML = sellergender;
+        document.getElementById("modalyear").innerHTML = selleryear;
+        document.getElementById("modalmobile").innerHTML = sellermobile;
+        document.getElementById("modalemail").innerHTML = selleremail;
+
         modal.style.display = "block";
+
     }
 
     function errors(error) {
@@ -322,7 +350,8 @@ function error($error){
         infosmess.innerHTML = info;
     }
 
-    function getSeller() {
-        return sellerid;
-    }
+//    function checkEmpty(seller) {
+//
+//        return seller===0? true false;
+//    }
 </script>

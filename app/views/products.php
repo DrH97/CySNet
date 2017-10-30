@@ -26,6 +26,19 @@ if (isset($_GET['addcat'])) {
 
 }
 
+if (isset($_GET['removeprod'])){
+    $itemid = $_GET['id'];
+    //var_dump($itemid);
+
+    $sql = "DELETE FROM hardware_products WHERE id = $itemid";
+
+    $delete = $db->query($sql);
+
+    if ($delete){
+        header('LOCATION: ' . VIEW_URL . 'user_account.php');
+    }
+}
+
 if (isset($_GET['addprod'])){
     $itemname = $_POST['itemname'];
     $itemdescription = $_POST['itemdescription'];
