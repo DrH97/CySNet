@@ -1279,10 +1279,14 @@ input:checked+.slider:before {
 .tabcontent .view {
     width: auto;
     display: inline-flex;
-    sheight: 3.5em;
-    background-color: gainsboro;
+    height: 3.5em;
+    background-color: #f3f3f3;
     padding: 0.4em 1em;
     margin: 0.5em;
+}
+
+.tabcontent .view:hover{
+    box-shadow: 0 0 3px gainsboro;
 }
 
 .tabcontent .view img {

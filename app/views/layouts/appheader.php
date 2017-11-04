@@ -25,6 +25,22 @@
     <script src="<?php echo ASSETS . 'js/vendor/jquery-3.2.1.min.js'?>"></script>
     <!-- custom font plugin -->
     <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+    <!-- chart.js cdn -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.js"></script>
+    
+    <style>
+        header {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        table {
+            padding-top: 0em;
+            width: 100%;
+            height: auto;
+            text-align: center;
+        }
+
+    </style>
 
 </head>
 

@@ -12,20 +12,6 @@ $adminq = $db->query("SELECT * FROM admins");
 $admindeets = $adminq->fetch_assoc();
 ?>
 
-    <style>
-        header {
-            background: rgba(255, 255, 255, 0.8);
-        }
-
-        table {
-            padding-top: 0em;
-            width: 100%;
-            height: auto;
-            text-align: center;
-        }
-
-    </style>
-
 
     <body>
 
