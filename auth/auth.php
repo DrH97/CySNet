@@ -28,9 +28,10 @@
                 header("LOCATION: ../index.php");
 
             } else {
-                //header("LOCATION: " . BASE_URL . 'auth/login.php');
-                echo "<script>window.location = 'login.php';</script>";
-                ?><script></script> <?php
+                echo "asdasd2";
+                header("LOCATION: " . BASE_URL . 'auth/login.php');
+//                echo "<script>window.location = 'login.php';</script>";
+//                ?><!--<script></script> --><?php
             }
         }
     }
@@ -55,8 +56,7 @@ if (isset($_GET['adminlogin'])){
             header("LOCATION: ../admin/admin.php");
 
         } else {
-            header("LOCATION: " . BASE_URL . 'auth/adminlogin.php');
-            ?><script>alert("Wrong password or username");</script> <?php
+            echo "Failed to log in";
 
         }
     }

@@ -226,7 +226,7 @@ require VIEW_ROOT . 'layouts/appheader.php'; ?>
     document.getElementById("defaultOpen").click();
 
     function logUser() {
-        $('#loginb').html('<center><img src="<?php echo ASSETS . '/images/!.gif'; ?>"/></center>');
+        $('#loginb').html('<center><img src="<?php echo ASSETS . '/images/dolphin.gif'; ?>"/></center>');
         $.ajax({
             type: 'post',
             url: 'auth.php?login=true',
@@ -234,10 +234,21 @@ require VIEW_ROOT . 'layouts/appheader.php'; ?>
                 'email': $('#email'),
                 'password': $('#password')
             },
-            success: function (succ) {
-                $('#loginb').html(succ);
-            }
+//            success: function (succ) {
+//                $('#loginb').html(succ);
+//            }
+        }).done(function( msg ) {
+            alert( "message: " + msg );
         });
+
+//        $.ajax({
+//            method: "POST",
+//            url: "some.php",
+//            data: { name: "John", location: "Boston" }
+//        })
+//            .done(function( msg ) {
+//                alert( "Data Saved: " + msg );
+//            });
     }
 </script>
 

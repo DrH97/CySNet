@@ -62,7 +62,7 @@ include APP_ROOT . '/paginator.php';
         background-color: white;
         border-bottom-left-radius: 10px;
         box-shadow: 0 1px 5px skyblue;
-        z-index: 3;
+        z-index: 6;
         text-align: center;
         opacity: .7;
     }

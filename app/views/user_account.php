@@ -560,7 +560,7 @@ if (isset($_GET['removeprod'])){
 
     //for sticky tab bar
     // Cache selectors outside callback for performance.
-    var $window = $(window),
+    let $window = $(window),
         $stickyEl = $('.tab'),
         elTop = $stickyEl.offset().top;
 
@@ -571,7 +571,7 @@ if (isset($_GET['removeprod'])){
 
     function openTabs(evt, tabName) {
         // Declare all variables
-        var i, tabcontent, tablinks;
+        let i, tabcontent, tablinks;
 
         // Get all elements with class="tabcontent" and hide them
         tabcontent = document.getElementsByClassName("tabcontent");
@@ -595,7 +595,7 @@ if (isset($_GET['removeprod'])){
 
     function removeProduct(id, name) {
         x = alert("Are you sure you want to remove " + name + "?");
-        $('#remove').html('<center><img src="<?php echo ASSETS . '/images/!.gif'; ?>"/></center>');
+        $('#action').html('<center><img src="<?php echo ASSETS . '/images/dolphin.gif'; ?>"/></center>');
 
         window.location = "<?php echo '?removeprod=true&id='; ?>" + id;
 

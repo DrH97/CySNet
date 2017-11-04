@@ -153,7 +153,7 @@ function error($error){
             </div>
             <div class="bottom">
                 <button id="sellerBtn" onclick="setSeller(<?php echo $item['sellerid']; ?>, '<?php echo $sellers['firstname'].' '.$sellers['lastname']; ?>', '<?php echo $sellers['year']; ?>', '<?php echo $sellers['mobile']; ?>', '<?php echo $sellers['email']; ?>')">About Seller</button>
-                <button id="cart" onclick="errors('asdasdasd')">Add to cart</button>
+                <button id="cartbutton" onclick="info('Product added to cart')">Add to cart</button>
             </div>
         </div>
     </div>
@@ -274,15 +274,15 @@ function error($error){
 <script>
 
     var errorspan = document.getElementById("errorspan");
-//    var error = document.getElementById("error");
+    var error = document.getElementById("error");
     var infospan = document.getElementById("infospan");
-//    var info = document.getElementById("info");
+    var info1 = document.getElementById("info");
 
     errorspan.onclick = function() {
         error.style.display = "none";
     };
     infospan.onclick = function() {
-        info.style.display = "none";
+        info1.style.display = "none";
     };
 
     // Get the modal
@@ -344,14 +344,13 @@ function error($error){
     }
 
     function info(info) {
+//        $('#cartbutton').html('<center><img src="<?php //echo ASSETS . '/images/dolphin.gif'; ?>//"/></center>');
         var infos = document.getElementById("info");
         var infosmess = document.getElementById("infomess");
         infos.style.display = "block";
         infosmess.innerHTML = info;
+        
     }
 
-//    function checkEmpty(seller) {
-//
-//        return seller===0? true false;
-//    }
+
 </script>
