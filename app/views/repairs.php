@@ -73,37 +73,58 @@ function error($error){
     </div>
 
 
-    <!-- PRO TAB -->
+    <!-- PROFESSIONAL TAB -->
     <div id="pro" class="tabcontent">
 
-        <?php for ($i=0; $i<5; $i++): ?>
-        <!-- repairers card -->
-        <div class="r-card">
-            <div class="image">
-                <img src="<?php echo ASSETS . 'images/sample.jpg'?>" />
-            </div>
-            <div class="more">
-                <h3>Name of person</h3>
-                <div>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                </div>
-                <p>0705 XXX 548</p>
-                <div class="bottom">
-<!--                    <p style="background-color: green;">Available</p>-->
-                    <button id="aboutBtn">About Repairer</button>
-                </div>
-            </div>
-        </div>
+        <?php
+            
+                $sql = "SELECT * FROM users WHERE repairer='2'";
+                
+                $result = $db->query($sql);
 
-        <?php endfor; ?>
+                        if($result != null){
+
+                            if(mysqli_num_rows($result) > 0){
+
+                                while($row = mysqli_fetch_array($result)){ ?>
+        
+                                    <!-- repairers card -->
+                                    <div class="r-card">
+                                        <div class="image">
+                                            <img src="<?php echo ASSETS . 'images/sample.jpg'; ?>" />
+                                        </div>
+                                        <div class="more">
+                                            <h3><?php echo $row['repairername']; ?></h3>
+                                            <div>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                            </div>
+                                            <p><?php echo $row['mobile']; ?></p>
+                                            <div class="bottom">
+                                                <button id="aboutBtn">About Repairer</button>
+                                            </div>
+                                        </div>
+                                    </div>
+        
+            <?php
+        
+                                // Free result set
+                                mysqli_free_result($result);
+
+                            }
+
+                        } else{
+                            echo "<center><h4 style='width: 70%;'>No professional repairers at the moment. Try again later</h4></center>";
+                        }            
+            
+            ?>
 
 
 
-        <!-- loop to display all expert repairers -->
+        <!-- loops to display all expert repairers here -->
 
 
     </div>
@@ -142,10 +163,6 @@ function error($error){
 
 
     </div>
-
-
-
-
 
 
 
