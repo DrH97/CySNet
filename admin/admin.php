@@ -4,9 +4,12 @@
 
     require_once VIEW_ROOT . 'layouts/appheader.php';
 
-    include('report.php');
+    include 'report.php';
     
     ?>
+
+<div class="error" id="error" style="display: none;"><p class="message" id="errormess">Some Error Here!!! sdfnjskdf jksd fs dfkj sdkjf kjsd fkj</p><span class="close" id="errorspan" onclick="alert('Asdad');">&cross;</span></div>
+<div class="inform" id="info" style="display: none;"><p class="message" id="infomess">Some Info Here...asdasdasdasd asdasd asd ndajk sdja sdj ajksd asjk dakjs d askd akj</p><span class="close" id="infospan" onclick="alert('Asdad');">&cross;</span></div>
 
     <!-- CONTENT -->
     <div class="content">

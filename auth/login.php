@@ -134,6 +134,10 @@ require VIEW_ROOT . 'layouts/appheader.php'; ?>
 
 </header>
 
+<div class="error" id="error" style="display: none;"><p class="message" id="errormess">Some Error Here!!! sdfnjskdf jksd fs dfkj sdkjf kjsd fkj</p><span class="close" id="errorspan" onclick="alert('Asdad');">&cross;</span></div>
+<div class="inform" id="info" style="display: none;"><p class="message" id="infomess">Some Info Here...asdasdasdasd asdasd asd ndajk sdja sdj ajksd asjk dakjs d askd akj</p><span class="close" id="infospan" onclick="alert('Asdad');">&cross;</span></div>
+
+
 <!-- CONTENT -->
 <div class="content">
 
@@ -159,7 +163,7 @@ require VIEW_ROOT . 'layouts/appheader.php'; ?>
                     Remember Me
                 </label><br><br>
 
-                <input type="submit" value="LOG IN" onclick="logUser()"><br><br>
+                <input type="button" value="LOG IN" onclick="logUser()"><br><br>
                 <div  id="loginb"> </div>
                 <a href="">
                     Forgot Your Password?
@@ -174,7 +178,7 @@ require VIEW_ROOT . 'layouts/appheader.php'; ?>
     <div id="signup" class="tabcontent">
 
         <center>
-            <form method="post" action="auth.php?register=true">
+            <form method="post" action="sauth.php?register=true">
 
                 <div>
                     <input id="firstname" name="firstname" type="text" placeholder="First Name" required autofocus><br>
@@ -225,21 +229,58 @@ require VIEW_ROOT . 'layouts/appheader.php'; ?>
     // Get the element with id="defaultOpen" and click on it
     document.getElementById("defaultOpen").click();
 
+    var errorspan = document.getElementById("errorspan");
+    var error = document.getElementById("error");
+    var infospan = document.getElementById("infospan");
+    var info1 = document.getElementById("info");
+
+    errorspan.onclick = function() {
+        error.style.display = "none";
+    };
+    infospan.onclick = function() {
+        info1.style.display = "none";
+    };
+
     function logUser() {
-        $('#loginb').html('<center><img src="<?php echo ASSETS . '/images/dolphin.gif'; ?>"/></center>');
+        $('#loginb').html('<center><img style="width: 20px;" src="<?php echo ASSETS . '/images/loader.gif'; ?>" /></center>');
+
         $.ajax({
             type: 'post',
             url: 'auth.php?login=true',
             data: {
-                'email': $('#email'),
-                'password': $('#password')
+                'email': $('#email').val(),
+                'password': $('#password').val()
             },
-//            success: function (succ) {
+            success: function (succ) {
+
+                if (succ === '1'){
+                    window.location = "../index.php";
+                } else {
+                    errors(succ);
+                    $('#loginb').html('');
+                }
+
 //                $('#loginb').html(succ);
-//            }
-        }).done(function( msg ) {
-            alert( "message: " + msg );
+            }
+//        }).done(function( msg ) {
+//            alert( "message: " + msg );
         });
+
+        function errors(error) {
+            var errors = document.getElementById("error");
+            var errorsmess = document.getElementById("errormess");
+            errors.style.display = "block";
+            errorsmess.innerHTML = error;
+        }
+
+        function info(info) {
+//        $('#cartbutton').html('<center><img src="<?php //echo ASSETS . '/images/dolphin.gif'; ?>//"/></center>');
+            var infos = document.getElementById("info");
+            var infosmess = document.getElementById("infomess");
+            infos.style.display = "block";
+            infosmess.innerHTML = info;
+
+        }
 
 //        $.ajax({
 //            method: "POST",

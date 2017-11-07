@@ -1,4 +1,21 @@
-<?php include 'adminnavbar.php'; ?>
+<?php include 'adminnavbar.php';
+
+if (isset($_GET['removecat'])){
+    $catid = $_GET['id'];
+    //var_dump($itemid);
+
+    $sql = "DELETE FROM categories WHERE id = $catid";
+
+    $delete = $db->query($sql);
+
+    if ($delete){
+        echo "<script>
+                $('#remove').html('');
+        </script>";
+    }
+}
+
+?>
 
 <!-- CONTENT -->
 <div class="content">
@@ -25,12 +42,11 @@
 
         <?php $categories = $db->query("SELECT * FROM categories"); ?>
 
-        <table>
+        <table style="width: 50%; margin: auto;">
             <tr>
                 <th>Id</th>
                 <th>Category</th>
-                <th>Edit</th>
-                <th>Remove</th>
+                <th>Action</th>
             </tr>
 
             <?php foreach ($categories as $cat): ?>
@@ -42,8 +58,7 @@
                 <td>
                     <?php echo $cat['category']; ?>
                 </td>
-                <td>edit</td>
-                <td><input type='checkbox' name='remove' value='#'></td>
+                <td><span class="fa fa-fw fa-edit" style="color: green;" onclick="editProduct()"></span>     <span class="fa fa-fw fa-trash-o"  style="color: red;" onclick="removeCat('<?php echo $cat['id']; ?>', '<?php echo $cat['category']; ?>')"></span></td>
             </tr>
 
             <?php endforeach; ?>
@@ -79,8 +94,7 @@
                     <th>Image</th>
                     <th>Name</th>
                     <th>Mobile</th>                    
-                    <th><b>Edit</b></th>
-                    <th><b>Remove</b></th>
+                    <th><b>Actionsit</b></th>
                 </tr>
 
                 <?php foreach ($pros as $cat): ?>
@@ -90,16 +104,15 @@
                         <?php echo $cat['id']; ?>
                     </td>
                     <td>
-                        <?php echo BASE_URL . 'public/uploads/' . $cat['image']; ?>
+                        <img src="<?php echo BASE_URL . 'public/uploads/' . $cat['image']; ?>">
                     </td>
                     <td>
                         <?php echo $cat['name']; ?>
                     </td>
                     <td>
                         <?php echo $cat['mobile']; ?>
-                    </td>                    
-                    <td>edit</td>
-                    <td><input type='checkbox' name='remove' value='#'></td>
+                    </td>
+                    <td><span class="fa fa-fw fa-edit" style="color: green;" onclick="editProduct()"></span>     <span class="fa fa-fw fa-trash-o"  style="color: red;" onclick="removeProduct('<?php echo $cat['id']; ?>', '<?php echo $cat['productname']; ?>')"></span></td>
                 </tr>
 
                 <?php endforeach; ?>
@@ -115,7 +128,15 @@
 
 
 <script>
-    function navToggleFunction() {
+
+    function removeCat(id, name) {
+        x = alert("Are you sure you want to remove " + name + "?");
+        $('#action').html('<center><img src="<?php echo ASSETS . '/images/dolphin.gif'; ?>"/></center>');
+
+        window.location = "<?php echo '?removecat=true&id='; ?>" + id;
+    }
+
+        function navToggleFunction() {
         var x = document.getElementById("min-nav");
         if (x.className === "minNav") {
             x.className += " responsive";

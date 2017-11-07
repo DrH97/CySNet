@@ -1,15 +1,23 @@
 <?php
 require_once '../start.php';
+//$res = 0;
+
 include VIEW_ROOT . 'layouts/usernavbar.php';
 
 $id = $_SESSION['user']['3'];
 $userq = $db->query("SELECT * FROM users WHERE id = '$id'");
 
+$sellerq = $db->query("SELECT * FROM sellers WHERE sellerid = '$id'");
+
 $userdeets = $userq->fetch_assoc();
+
+$sellerdeets = $userq->fetch_assoc();
 
 $usersprod = $db->query("SELECT * FROM hardware_products WHERE sellerid = '$id'");
 
 $userproddeets = $usersprod->fetch_assoc();
+
+$res = $userproddeets;
 
 if (isset($_GET['removeprod'])){
     $itemid = $_GET['id'];
@@ -26,6 +34,8 @@ if (isset($_GET['removeprod'])){
     }
 }
 
+
+
 ?>
 
     <script>
@@ -33,7 +43,8 @@ if (isset($_GET['removeprod'])){
         r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);
     </script>
 
-
+<div class="error" id="error" style="display: none; width: 100%;"><p class="message" id="errormess">Some Error Here!!! sdfnjskdf jksd fs dfkj sdkjf kjsd fkj</p><span class="close" id="errorspan">&cross;</span></div>
+<div class="inform" id="info" style="display: none;"><p class="message" id="infomess">Some Info Here...asdasdasdasd asdasd asd ndajk sdja sdj ajksd asjk dakjs d askd akj</p><span class="close" id="infospan">&cross;</span></div>
 
 <!-- CONTENT -->
 <div class="content">
@@ -45,7 +56,6 @@ if (isset($_GET['removeprod'])){
         <button class="tablinks" onclick="openTabs(event, 'store')">STORE</button>
         <button class="tablinks" onclick="openTabs(event, 'repairs')">REPAIRS</button>
     </div>
-
 
     <!-- ABOUT -->
     <div id="about" class="tabcontent"">
@@ -72,24 +82,41 @@ if (isset($_GET['removeprod'])){
             <tr>
                 <td class="info">Admission number:</td>
                 <td><?php if ($userdeets['admno'] > 0) echo $userdeets['admno'];
-                        else echo 'Unkown admission number'; ?></td>
+                        else echo 'Unkown admission number'; ?>
+                </td>
             </tr>
-
-
         </table>
-
     </div>
 
 
     <!-- RATING -->
     <div id="rating" class="tabcontent">
 
-        <h3>Your rating as rated by customers</h3>
-        <span class="fa fa-star checked fa-2x"></span>
-        <span class="fa fa-star checked fa-2x"></span>
-        <span class="fa fa-star checked fa-2x"></span>
-        <span class="fa fa-star fa-2x"></span>
-        <span class="fa fa-star fa-2x"></span>
+        <?php if ($sellerdeets['rating'])
+        { ?>
+            <h3>Your rating as rated by customers</h3>
+            <?php for ($i = 1; $i <= 5; $i++) {
+                if ($sellerdeets['rating'] >= $i) { ?>
+                    <span class="fa fa-star schecked fa-2x"></span>
+                    <!--<img style="width: 15px;" src="--><?php //echo ASSETS . 'images/star.png'; ?><!--" alt="">-->
+                <?php } elseif ($sellerdeets['rating'] > ($i - 1) && $sellerdeets['rating'] < $i) { ?>
+                    <span class="fa fa-star-half-o schecked fa-2x"></span>
+                    <!--<img style="width: 15px;" src="--><?php //echo ASSETS . 'images/star_half.png'; ?><!--" alt="">-->
+                <?php } else { ?>
+                    <span class="fa fa-star-o fa-2x"></span>
+                    <!--<img style="width: 15px;" src="--><?php //echo ASSETS . 'images/star_off.png'; ?><!--" alt="">-->
+                <?php }
+            }
+        }
+        else { ?>
+            No rating or reviews yet
+        <?php }
+        ?>
+<!--        <span class="fa fa-star checked fa-2x"></span>-->
+<!--        <span class="fa fa-star checked fa-2x"></span>-->
+<!--        <span class="fa fa-star checked fa-2x"></span>-->
+<!--        <span class="fa fa-star fa-2x"></span>-->
+<!--        <span class="fa fa-star fa-2x"></span>-->
 
     </div>
 
@@ -403,7 +430,7 @@ if (isset($_GET['removeprod'])){
 
     <!-- STORE -->
     <div id="store" class="tabcontent">
-        <div class="upload">
+        <div id="upload" class="upload">
             <form method="post" action="products.php?addprod=true" enctype="multipart/form-data">
                 <h4>Upload to sell hardware</h4>
 
@@ -476,25 +503,118 @@ if (isset($_GET['removeprod'])){
             </form>
         </div>
 
+        <div id="editupload" class="upload" style="display: none;">
+            <?php
+            $res;
+            if (isset($_GET['editprod'])) {
+                $itemid = $_GET['itemid'];
+
+                $sql = "SELECT * FROM hardware_products WHERE id = $itemid";
+                //var_dump($image);
+
+                $result = $db->query($sql);
+
+                if ($result) {
+                    $res = $result->fetch_assoc();
+                    var_dump($res);
+                    //header('Location: user_account.php');
+                    //return;
+                }
+            }
+            ?>
+            <form method="post" action="products.php?editprod=true" enctype="multipart/form-data">
+                <h4>Update hardware item</h4>
+
+                <input name="edititemid" hidden value="<?php echo $res['id']; ?>">
+
+                <div class="box">Click
+                    <input type="file" name="edititemimage" id="file-2" class="inputfile inputfile-2" data-multiple-caption="{count} files selected" maultiple/>
+                    <label for="file-2"> <span> <img width="100px" src="<?php echo BASE_URL . 'public/uploads/hardwareproducts/' . $res['image']; ?>"></span></label>
+                    to edit
+                </div>
+
+                <span class="input input--fumi">
+					<input value="<?php echo $res['productname']; ?>" class="input__field input__field--fumi" type="text" id="input-23" name="edititemname" required/>
+					<label class="input__label input__label--fumi" for="input-23">
+						<i class="fa fa-fw fa-gavel icon icon--fumi"></i>
+						<span class="input__label-content input__label-content--fumi">Hardware name</span>
+					</label>
+				</span>
+
+                <span class="input input--fumi">
+<!--					<input class="input__field input__field--fumi" type="text" id="input-23" />-->
+                    <select name="edititemcat" class="input__field input__field--fumi" id="input-23">
+                        <option disabled="disabled">Category</option>
+                        <?php
+                        $categories = $db->query("SELECT * FROM categories");
+                        $count = 0;
+                        while($cat = $categories->fetch_assoc()):
+                            $count = $count + 1;
+                            ?>
+                            <option <?php if ($count == $res['categoryid']){ echo 'selected'; } ?> value="<?php echo $cat['id']; ?>"><?php echo $cat['category']; ?></option>
+                        <?php endwhile; ?>
+                    </select>
+					<label class="input__label input__label--fumi" for="input-23">
+						<i class="fa fa-fw fa-bars icon icon--fumi"></i>
+						<span class="input__label-content input__label-content--fumi"></span>
+					</label>
+				</span>
+
+                <!--                <input type="file" name="itemimage" required><br><br>-->
+                <!--                <input type="text" placeholder="Hardware name" name="itemname" required><br>-->
+                <!--                <select>-->
+                <!--                    <option selected disabled="disabled">Category</option>-->
+                <!--                    --><?php
+                //                    $categories = $db->query("SELECT * FROM categories");
+                //
+                //                    while($cat = $categories->fetch_assoc()):
+                //                    ?>
+                <!--                    <option value="--><?php //echo $cat['id']; ?><!--">--><?php //echo $cat['category']; ?><!--</option>-->
+                <!--                    --><?php //endwhile; ?>
+                <!--                </select>-->
+
+                <textarea class="input__field--fumi" style="background: white; padding: 2%;" rows="10" cols="52" placeholder="Enter hardware description as list" name="edititemdescription" required><?php echo $res['description']; ?></textarea><br><br>
+
+                <span class="input input--fumi">
+                    <input value="<?php echo $res['price']; ?>" id="input-23" class="input__field input__field--fumi" type="number" name="edititemprice" required>
+                    <!--					<input class="input__field input__field--fumi" type="text" id="input-23" />-->
+					<label class="input__label input__label--fumi" for="input-23">
+						<i class="fa fa-fw fa-money icon icon--fumi"></i>
+						<span class="input__label-content input__label-content--fumi">Price in KES</span>
+					</label>
+				</span>
+
+                <span class="input input--fumi">
+                    <input value="<?php echo $res['quantity']; ?>" class="input__field input__field--fumi" type="number" name="edititemquantity" required>
+                    <!--					<input class="input__field input__field--fumi" type="text" id="input-23" />-->
+					<label class="input__label input__label--fumi" for="input-23">
+						<i class="fa fa-fw fa-bitbucket icon icon--fumi"></i>
+						<span class="input__label-content input__label-content--fumi">Quantity</span>
+					</label>
+				</span>
+                <!--                <input type="number" placeholder="Price in KES" name="itemprice" required><br>-->
+                <!--                <input type="number" placeholder="Quantity in stock" name="itemquantity" required><br>-->
+                <input type="submit" name="submititem">
+            </form>
+        </div>
+
         <!-- separator line -->
         <br>
-        <h3>Here's your uploaded items</h3>
+        <h3 id="action">Here's your uploaded items</h3>
         <hr>
 
-        <!-- display table of upload items here -->
-        <form method='post' action='#'>
-            <?php
-                $categories = $db->query("SELECT * FROM hardware_products WHERE sellerid = $id");
-
-            ?>
-            <div style="width: 100%;overflow-x: auto;">
+    <!-- display table of upload items here -->
+        <?php
+            $categories = $db->query("SELECT * FROM hardware_products WHERE sellerid = $id");
+        ?>
+        <div style="width: 100%;overflow-x: auto;">
             <table style="padding: 0;">
                 <tr>
                     <th>Image</th>
                     <th>Hardware Description</th>
                     <th>Price</th>
                     <th>Quantity</th>
-                    <th id="action">Actions</th>
+                    <th>Actions</th>
                 </tr>
 
                 <?php foreach ($categories as $cat): ?>
@@ -503,16 +623,15 @@ if (isset($_GET['removeprod'])){
                     <td><?php echo $cat['description']; ?></td>
                     <td><?php echo $cat['price']; ?></td>
                     <td><?php echo $cat['quantity']; ?></td>
-                    <td><span class="fa fa-fw fa-edit" style="color: green;" onclick="editProduct()"></span>     <span class="fa fa-fw fa-trash-o"  style="color: red;" onclick="removeProduct('<?php echo $cat['id']; ?>', '<?php echo $cat['productname']; ?>')"></span></td>
+                    <td><span class="fa fa-fw fa-edit" style="color: green;" onclick="editProduct('<?php echo $cat['id']; ?>')"></span>     <span class="fa fa-fw fa-trash-o"  style="color: red;" onclick="removeProduct('<?php echo $cat['id']; ?>', '<?php echo $cat['productname']; ?>')"></span></td>
                 </tr>
                 <?php endforeach; ?>
             </table>
-            </div>
-        </form>
-
-
-
+        </div>
+        <a href="#store" id="storemove"></a>
     </div>
+
+
 
 
     <!-- REPAIRS -->
@@ -536,17 +655,9 @@ if (isset($_GET['removeprod'])){
             </label> <br>
 
             <input type="submit" value="MAKE ME AVAILABLE" name="submit">
-
         </form>
-
     </div>
 
-
-
-
-
-
-</div>
 
 <script src="<?php echo ASSETS . 'js/custom-file-input.js'; ?>"></script>
 
@@ -591,11 +702,11 @@ if (isset($_GET['removeprod'])){
     }
 
     // Get the element with id="defaultOpen" and click on it
-    window.onload.document.getElementById("defaultOpen").click();
+    window.onload(document.getElementById("defaultOpen").click());
 
     function removeProduct(id, name) {
         x = alert("Are you sure you want to remove " + name + "?");
-        $('#action').html('<center><img src="<?php echo ASSETS . '/images/dolphin.gif'; ?>"/></center>');
+        $('#action').html('<center><img style="width: 20px;" src="<?php echo ASSETS . '/images/loader.gif'; ?>" /></center>');
 
         window.location = "<?php echo '?removeprod=true&id='; ?>" + id;
 
@@ -612,6 +723,32 @@ if (isset($_GET['removeprod'])){
 //                $('#remove').html(succ);
 //            }
 //        });
+    }
+
+    function editProduct(id) {
+        $('#action').html('<center><img style="width: 30px;" src="<?php echo ASSETS . '/images/loader.gif'; ?>" /></center>');
+        //info("Edited product Succesfully");
+
+        $.ajax({
+            type: 'get',
+            url: 'user_account.php?editprod=true',
+            data: {
+                'itemid': id
+            },
+            success: function (succ) {
+//                info(succ);
+                $('#action').html('Here\'s your uploaded items');
+
+                document.getElementById('upload').style.display = "none";
+                document.getElementById('editupload').style.display = "block";
+
+                document.getElementById('storemove').click();
+
+//                $('#upload').css.display = "none";
+//                $('#editupload').css.display = "none";
+            }
+        });
+
     }
 
 </script>
@@ -651,6 +788,27 @@ if (isset($_GET['removeprod'])){
             }
         }
     })();
+
+    function info(info) {
+//        $('#cartbutton').html('<center><img src="<?php //echo ASSETS . '/images/dolphin.gif'; ?>//"/></center>');
+        var infos = document.getElementById("info");
+        var infosmess = document.getElementById("infomess");
+        infos.style.display = "block";
+        infosmess.innerHTML = info;
+
+    }
+
+    var errorspan = document.getElementById("errorspan");
+    var error = document.getElementById("error");
+    var infospan = document.getElementById("infospan");
+    var info1 = document.getElementById("info");
+
+    errorspan.onclick = function() {
+        error.style.display = "none";
+    };
+    infospan.onclick = function() {
+        info1.style.display = "none";
+    };
 </script>
 
 </body>

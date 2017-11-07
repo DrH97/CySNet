@@ -14,25 +14,26 @@
         $sql = "SELECT * FROM users WHERE email = '$email'";
 
         $loginresult = $db->query($sql);
+        $loginresult = mysqli_fetch_assoc($loginresult);
 
         if($loginresult != null){
             //var_dump($loginresult);
-            $userpass = $loginresult->fetch_assoc();
+            $userpass = $loginresult;
             if (password_verify($password, $userpass['password'])){
                 $_SESSION['user'][0] = $userpass['email'];
                 $_SESSION['user'][1] = $userpass['firstname'];
                 $_SESSION['user'][2] = $userpass['lastname'];
                 $_SESSION['user'][3] = $userpass['id'];
 
-                echo "asdasd";
-                header("LOCATION: ../index.php");
+                echo true;
+                //header("LOCATION: ../index.php");
 
             } else {
-                echo "asdasd2";
-                header("LOCATION: " . BASE_URL . 'auth/login.php');
-//                echo "<script>window.location = 'login.php';</script>";
-//                ?><!--<script></script> --><?php
+                echo "Password or email incorrect...";
+                //header("LOCATION: " . BASE_URL . 'auth/login.php');
             }
+        } else {
+            echo "Sorry, not registered! Please register first...";
         }
     }
 
@@ -44,7 +45,8 @@ if (isset($_GET['adminlogin'])){
 
     $loginresult = $db->query($sql);
 
-    if($loginresult != null){
+    if($loginresult != null ){
+        echo count($loginresult);
         //var_dump($loginresult);
         $userpass = $loginresult->fetch_assoc();
         if (password_verify($password, $userpass['password'])){
@@ -84,7 +86,7 @@ if (isset($_GET['adminlogin'])){
 
             var_dump($reg);
         } else {
-            ?><script>alert("User with email already exists");</script> <?php
+            echo "User with email already exists";
         }
 
         header("LOCATION: " . BASE_URL . 'auth/login.php');
@@ -243,25 +245,4 @@ if (isset($_GET['adminlogin'])){
 
     }
 
-
-
-//    $sql = "SELECT * FROM users WHERE email = '$email'";
-//    // var_dump($sql);
-//
-//    $registerresult = $db->query($sql);
-//
-//    if($registerresult->num_rows == 0){
-//        //var_dump($registerresult);
-//        $sql = "INSERT INTO users (username, firstname, lastname, gender, mobile, email, password, created_at)
-//                    VALUES ('','$firstname', '$lastname', '$gender', .$mobile, '$email', '$password', NOW())";
-//
-//        $reg = $db->query($sql);
-//
-//        var_dump($reg);
-//    } else {
-//        ?><!--<script>alert("User with email already exists");</script> --><?php
-//    }
-//
-//    header("LOCATION: " . BASE_URL . 'auth/login.php');
-//}
 ?>

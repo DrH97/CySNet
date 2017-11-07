@@ -1,8 +1,8 @@
 <?php
+
 include VIEW_ROOT . 'layouts/navbar.php';
 
 $totalHProducts = $db->query("SELECT COUNT(*) as total from hardware_products")->fetch_assoc()['total'];
-$sellersdeets = $db->query("SELECT * FROM users");
 
 //$totalHProducts = 1000;
 
@@ -12,21 +12,21 @@ $paginator->paginate();
 
 $firstlimit = ($paginator->currentPage - 1)*$paginator->itemsPerPage;
 
-$hardwareitems = $db->query("SELECT * FROM hardware_products LIMIT $firstlimit,  $paginator->itemsPerPage");
+$hardwareitems = $db->query("SELECT * FROM hardware_products WHERE quantity > 0 LIMIT $firstlimit,  $paginator->itemsPerPage");
 
 if (isset($_GET['search'])) {
     $searchq = $_GET['search'];
     $searchq = preg_replace("#[^0-9a-z]#i", "", $searchq);
 
-    $query = $db->query("SELECT * FROM hardware_products WHERE productname LIKE '%$searchq%' OR description LIKE '%$searchq%' LIMIT $firstlimit,  $paginator->itemsPerPage");
+    $query = $db->query("SELECT * FROM hardware_products WHERE quantity > 0 && productname LIKE '%$searchq%' OR description LIKE '%$searchq%' LIMIT $firstlimit,  $paginator->itemsPerPage");
     if(isset($_GET['cat'])) {
         $cat = $_GET['cat'];
-        $query = $db->query("SELECT * FROM (SELECT * FROM hardware_products WHERE categoryid = $cat ) AS subq WHERE productname LIKE '%$searchq%' OR description LIKE '%$searchq%' LIMIT $firstlimit,  $paginator->itemsPerPage");
+        $query = $db->query("SELECT * FROM (SELECT * FROM hardware_products WHERE categoryid = $cat ) AS subq WHERE productname LIKE '%$searchq%' OR description LIKE '%$searchq%'  && quantity > 0 LIMIT $firstlimit,  $paginator->itemsPerPage");
         //var_dump($query);
 
         $count = mysqli_num_rows($query);
-        if ($count == 0) {
-            $query = $db->query("SELECT * FROM hardware_products WHERE categoryid = $cat LIMIT $firstlimit,  $paginator->itemsPerPage");
+        if ($count < 1) {
+            $query = $db->query("SELECT * FROM hardware_products WHERE quantity > 0 AND categoryid = $cat LIMIT $firstlimit,  $paginator->itemsPerPage");
 
             $count = mysqli_num_rows($query);
             if ($count != 0) { ?>
@@ -133,6 +133,7 @@ function error($error){
 <div class="error" id="error" style="display: none;"><p class="message" id="errormess">Some Error Here!!! sdfnjskdf jksd fs dfkj sdkjf kjsd fkj</p><span class="close" id="errorspan" onclick="alert('Asdad');">&cross;</span></div>
 <div class="inform" id="info" style="display: none;"><p class="message" id="infomess">Some Info Here...asdasdasdasd asdasd asd ndajk sdja sdj ajksd asjk dakjs d askd akj</p><span class="close" id="infospan" onclick="alert('Asdad');">&cross;</span></div>
 
+
 <!-- CONTENT -->
 <div class="content">
 
@@ -152,8 +153,8 @@ function error($error){
                 <p style='color:green;' id='quantity'><b><?php echo $item['quantity']; ?></b> in stock</p>
             </div>
             <div class="bottom">
-                <button id="sellerBtn" onclick="setSeller(<?php echo $item['sellerid']; ?>, '<?php echo $sellers['firstname'].' '.$sellers['lastname']; ?>', '<?php echo $sellers['year']; ?>', '<?php echo $sellers['mobile']; ?>', '<?php echo $sellers['email']; ?>')">About Seller</button>
-                <button id="cartbutton" onclick="info('Product added to cart')">Add to cart</button>
+                <button id="sellerBtn" onclick="setSeller(<?php echo $item['sellerid']; ?>, '<?php echo $sellers['firstname'].' '.$sellers['lastname']; ?>', '<?php echo $sellers['year']; ?>', '<?php echo $sellers['mobile']; ?>', '<?php echo $sellers['email']; ?>', '<?php echo $sellers['rating']; ?>')">About Seller</button>
+                <button type="submit" id="cartbutton" onclick="addcart(<?php echo $item['id']; ?>)">Add to cart</button>
             </div>
         </div>
     </div>
@@ -172,18 +173,56 @@ function error($error){
             <span class="close">&times;</span>
 
             <h3>About Seller</h3>
-
+<!--            --><?php
+//                if ($reviews = $db->query('SELECT * FROM ratings WHERE sellerid = '<script>sellerid</script>) !== false) {
+//                $score = 0;
+//                $count = 0;
+//                foreach ($reviews as $review) {
+//                $score += $review['rating'];
+//                $count++;
+//                }
+//                $product['review_score'] = round($score/$count, 1);
+//                if (!$product_view) {
+//                $link = $GLOBALS['seo']->buildURL('prod', $product['product_id'], '&') . '#reviews';
+//                } else {
+//                $link = '#reviews';
+//                }
+//                $score = number_format(($score/$count), 1);
+//                if ($product_view) {
+//                $GLOBALS['smarty']->assign('LANG_REVIEW_INFO', sprintf($GLOBALS['language']->catalogue['review_info'], $score, $count, $link));
+//                } else {
+//                $product['review_info'] = sprintf($GLOBALS['language']->catalogue['review_info'], $score, $count, $link);
+//                }
+//                unset($score, $count);
+//                } else {
+//                $product['review_score'] = false;
+//                }
+//            ?>
             <center>
                 <div class="person">
                     <img src="<?php echo ASSETS . 'images/defaultprofile.png'?>">
                     <div>
                         <h3 id="modalhead"></h3>
-                        <div>
-                            <span class="fa fa-star checked fa-2x"></span>
-                            <span class="fa fa-star checked fa-2x"></span>
-                            <span class="fa fa-star checked fa-2x"></span>
-                            <span class="fa fa-star fa-2x"></span>
-                            <span class="fa fa-star fa-2x"></span>
+                        <div id="modalrating">
+<!--                            --><?php //if ($product['review_score'])
+//                            {
+//                                for ($i = 1; $i <= 5; $i++) {
+//                                    if ($product['review_score'] >= $i) { ?>
+<!--                                        <span class="fa fa-star schecked fa-2x"></span>-->
+<!--                                        <img style="width: 15px;" src="--><?php //echo ASSETS . 'images/star.png'; ?><!--" alt="">-->
+<!--                                    --><?php //} elseif ($product['review_score'] > ($i - 1) && $product['review_score'] < $i) { ?>
+<!--                                        <span class="fa fa-star-half-o schecked fa-2x"></span>-->
+<!--                                        <img style="width: 15px;" src="--><?php //echo ASSETS . 'images/star_half.png'; ?><!--" alt="">-->
+<!--                                    --><?php //} else { ?>
+<!--                                        <span class="fa fa-star-o fa-2x"></span>-->
+<!--                                        <img style="width: 15px;" src="--><?php //echo ASSETS . 'images/star_off.png'; ?><!--" alt="">-->
+<!--                                    --><?php //}
+//                                }
+//                            }
+//                            else { ?>
+<!--                                No rating-->
+<!--                            --><?php //}
+//                                ?>
                         </div>
                     </div>
                 </div>
@@ -311,12 +350,49 @@ function error($error){
         }
     };
 
-    function setSeller(id, name, year, mobile, email) {
+    function setSeller(id, name, year, mobile, email, rating) {
         sellerid = id;
         sellername = name;
         selleryear = year;
         sellermobile = mobile;
         selleremail = email;
+        sellerrating = rating;
+
+        $.ajax({
+            type: 'get',
+            url: '<?php echo BASE_URL;?>?seller=true',
+            data: {
+                'sellerid': id
+            },
+            success: function (succ) {
+                document.getElementById("modalrating").innerHTML = '';
+                //info(succ);
+                if (succ > 0)
+                    for (i=0; i<5; i++){
+                        if (succ >= i) {
+                            document.getElementById("modalrating").innerHTML += '<span class="fa fa-star schecked fa-2x"></span>';
+                        } else if (succ > (i - 1) && succ < i){
+                            document.getElementById("modalrating").innerHTML += '<span class="fa fa-star-half-o schecked fa-2x"></span>';
+                        } else {
+                            document.getElementById("modalrating").innerHTML += '<span class="fa fa-star-o schecked fa-2x"></span>';
+                        }
+                    }
+                else
+                    document.getElementById("modalrating").innerHTML = 'Be the first to rate this seller';
+
+                document.getElementById("modalhead").innerHTML = sellername;
+                document.getElementById("modalyear").innerHTML = selleryear;
+                document.getElementById("modalmobile").innerHTML = sellermobile;
+                document.getElementById("modalemail").innerHTML = selleremail;
+//                document.getElementById("modalrating").innerHTML = succ;
+
+                modal.style.display = "block";
+//                info(succ);
+//                $('#mycart').html('MyCart<span class="fa fa-fw fa-shopping-cart"></span>');
+            }
+        });
+
+
 
 //        if (checkEmpty(year))
 //            selleryear = null;
@@ -326,13 +402,6 @@ function error($error){
 //
 //        if (checkEmpty(email))
 //            selleremail = null;
-
-        document.getElementById("modalhead").innerHTML = sellername;
-        document.getElementById("modalyear").innerHTML = selleryear;
-        document.getElementById("modalmobile").innerHTML = sellermobile;
-        document.getElementById("modalemail").innerHTML = selleremail;
-
-        modal.style.display = "block";
 
     }
 
@@ -349,8 +418,25 @@ function error($error){
         var infosmess = document.getElementById("infomess");
         infos.style.display = "block";
         infosmess.innerHTML = info;
-        
+
     }
 
+    function addcart(id) {
+        $('#mycart').html('<center><img style="width: 20px;" src="<?php echo ASSETS . '/images/loader.gif'; ?>" /></center>');
+        //info("Added to cart");
+
+        $.ajax({
+            type: 'get',
+            url: '<?php echo VIEW_URL; ?>cart.php?cart=1',
+            data: {
+                'itemid': id
+            },
+            success: function (succ) {
+                info(succ);
+                $('#mycart').html('MyCart<span class="fa fa-fw fa-shopping-cart"></span>');
+            }
+        });
+
+    }
 
 </script>

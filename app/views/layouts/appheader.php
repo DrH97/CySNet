@@ -27,6 +27,8 @@
     <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
     <!-- chart.js cdn -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.js"></script>
+<!--    <!--    fallback chart.js -->
+<!--    <script src="--><?php //echo ASSETS . 'js/chart.min.js'?><!--"></script>-->
     
     <style>
         header {
@@ -45,3 +47,33 @@
 </head>
 
 <body>
+
+<script>
+    function errors(error) {
+        var errors = document.getElementById("error");
+        var errorsmess = document.getElementById("errormess");
+        errors.style.display = "block";
+        errorsmess.innerHTML = error;
+    }
+
+    function info(info) {
+//        $('#cartbutton').html('<center><img src="<?php //echo ASSETS . '/images/dolphin.gif'; ?>//"/></center>');
+        var infos = document.getElementById("info");
+        var infosmess = document.getElementById("infomess");
+        infos.style.display = "block";
+        infosmess.innerHTML = info;
+
+    }
+
+//    var errorspan = document.getElementById("errorspan");
+//    var error = document.getElementById("error");
+//    var infospan = document.getElementById("infospan");
+//    var info1 = document.getElementById("info");
+//
+//    errorspan.onclick = function() {
+//        error.style.display = "none";
+//    };
+//    infospan.onclick = function() {
+//        info1.style.display = "none";
+//    };
+</script>

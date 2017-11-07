@@ -1,6 +1,7 @@
 <?php //require 'appheader.php'; ?>
-
+<div style="position: fixed; bottom: 0; z-index: -1;">
 <center>For Students, By Students...</center>
+</div>
 <!-- FOOTER -->
 <div id='particle'>
 

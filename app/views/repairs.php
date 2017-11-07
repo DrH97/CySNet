@@ -15,7 +15,7 @@ include VIEW_ROOT . '/layouts/navbar.php';
 //if(isset($_GET['cat'])) {
 //$cat = $_GET['cat'];
 //$query = $db->query("SELECT * FROM repairers WHERE categoryid = $cat AND name LIKE '%$searchq%' OR description LIKE '%$searchq%'");
-////        ?><!--<!--<p>-->--><?php ////var_dump("SELECT * FROM hardware_products WHERE categoryid = $cat AND  productname LIKE '%$searchq%' OR description LIKE '%$searchq%'"); ?><!--<!--</p>-->--><?php
+////        ?><!--<!--<p>--><?php ////var_dump("SELECT * FROM hardware_products WHERE categoryid = $cat AND  productname LIKE '%$searchq%' OR description LIKE '%$searchq%'"); ?><!--<!--</p>--><?php
 //}
 //
 //$count = mysqli_num_rows($query);
@@ -46,9 +46,9 @@ function error($error){
 
     <center>
         <div class="search">
-            <form method="get" action="#">
-                <input type="search" placeholder="Hey there, Who are you looking for?">
-                <select>
+            <form method="get" action="<?php echo VIEW_URL . 'repairs.php'; ?>">
+                <input name="search" type="search" placeholder="Hey there, Who are you looking for?">
+                <select disabled>
                     <option selected disabled="disabled">Category</option>
                     <option value="Cables">Cables</option>
                     <option value="Hard drive">Hard drive</option>
@@ -68,7 +68,7 @@ function error($error){
 
     <!-- TABS -->
     <div class="tab" id='repair-tab'>
-        <button class="tablinks" onclick="openTabs(event, 'pro')" id="defaultOpen">PROFESSIONALS</button>
+        <button class="tablinks" onclick="openTabs(event, 'pro')" id="rtdefaultOpen">PROFESSIONALS</button>
         <button class="tablinks" onclick="openTabs(event, 'student')">STUDENTS</button>
     </div>
 
@@ -78,47 +78,80 @@ function error($error){
 
         <?php
             
-                $sql = "SELECT * FROM users WHERE repairer='2'";
-                
-                $result = $db->query($sql);
+            $sql = "SELECT * FROM users WHERE repairer = 2";
 
-                        if($result != null){
+            $result = $db->query($sql);
 
-                            if(mysqli_num_rows($result) > 0){
+            if (isset($_GET['search'])) {
+                $searchq = $_GET['search'];
+                $searchq = preg_replace("#[^0-9a-z]#i", "", $searchq);
 
-                                while($row = mysqli_fetch_array($result)){ ?>
-        
-                                    <!-- repairers card -->
-                                    <div class="r-card">
-                                        <div class="image">
-                                            <img src="<?php echo ASSETS . 'images/sample.jpg'; ?>" />
-                                        </div>
-                                        <div class="more">
-                                            <h3><?php echo $row['repairername']; ?></h3>
-                                            <div>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star checked"></span>
-                                                <span class="fa fa-star"></span>
-                                                <span class="fa fa-star"></span>
-                                            </div>
-                                            <p><?php echo $row['mobile']; ?></p>
-                                            <div class="bottom">
-                                                <button id="aboutBtn">About Repairer</button>
-                                            </div>
-                                        </div>
-                                    </div>
-        
-            <?php
-        
-                                // Free result set
-                                mysqli_free_result($result);
+                $query = $db->query("SELECT * FROM (SELECT * FROM users WHERE repairer = 2 ) AS subq WHERE username LIKE '%$searchq%' OR lastname LIKE '%$searchq%' OR email LIKE '%$searchq%' OR mobile LIKE '%$searchq%' OR institution LIKE '%$searchq%' OR firstname LIKE '%$searchq%'");
+//                if(isset($_GET['cat'])) {
+//                    $cat = $_GET['cat'];
+//                    $query = $db->query("SELECT * FROM (SELECT * FROM hardware_products WHERE categoryid = $cat ) AS subq WHERE productname LIKE '%$searchq%' OR description LIKE '%$searchq%'  && quantity > 0 LIMIT $firstlimit,  $paginator->itemsPerPage");
+//                    //var_dump($query);
+//
+//                    $count = mysqli_num_rows($query);
+//                    if ($count < 1) {
+//                        $query = $db->query("SELECT * FROM hardware_products WHERE quantity > 0 AND categoryid = $cat LIMIT $firstlimit,  $paginator->itemsPerPage");
+//
+//                        $count = mysqli_num_rows($query);
+//                        if ($count != 0) { ?>
+<!--                            <script>alert('There were no products found.. Here are products in the same category...');</script>-->
+<!--                        --><?php
+//                        }
+//                    }
+//
+//                }
 
-                            }
+                $count = mysqli_num_rows($query);
+                if ($count == 0) { ?>
+                    <script>alert('There were no repairers found.. try different parameters..');</script>
+                    <?php
+                } else {
 
-                        } else{
-                            echo "<center><h4 style='width: 70%;'>No professional repairers at the moment. Try again later</h4></center>";
-                        }            
+                    $result = $query;
+                }
+            }
+
+            if($result != null) {
+
+                if (mysqli_num_rows($result) > 0) {
+
+                    while ($row = $result->fetch_assoc()) {
+                        ?>
+                        <!-- repairers card -->
+                        <div class="r-card">
+                            <div class="image">
+                                <img src="<?php echo ASSETS . 'images/'. $row['image']; ?>"/>
+                            </div>
+                            <div class="more">
+                                <h3><?php echo $row['username']; ?></h3>
+                                <div>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star checked"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </div>
+                                <p><?php echo $row['mobile']; ?></p>
+                                <div class="bottom">
+                                    <button id="aboutBtn">About Repairer</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <?php
+
+                    }
+                    // Free result set
+                    mysqli_free_result($result);
+
+                } else {
+                    echo "<center><h4 style='width: 70%;'>No professional repairers at the moment. Try again later</h4></center>";
+                }
+            }
             
             ?>
 
@@ -247,7 +280,7 @@ function error($error){
     }
 
     // Get the element with id="defaultOpen" and click on it
-   // document.getElementById("defaultOpen").click();
+   window.onload(document.getElementById("rtdefaultOpen").click());
 
 
     // Get the modal

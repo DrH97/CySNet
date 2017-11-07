@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 04, 2017 at 10:46 AM
--- Server version: 10.1.25-MariaDB
--- PHP Version: 5.6.31
+-- Generation Time: Nov 07, 2017 at 12:18 PM
+-- Server version: 10.1.22-MariaDB
+-- PHP Version: 7.1.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `techcrowd2`
 --
+CREATE DATABASE IF NOT EXISTS `techcrowd2` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `techcrowd2`;
 
 -- --------------------------------------------------------
 
@@ -89,16 +91,7 @@ INSERT INTO `categories` (`id`, `category`, `created_at`, `updated_at`) VALUES
 (7, 'Flash disk', '2017-10-25 21:24:20', NULL),
 (8, 'Memory card', '2017-10-25 21:24:35', NULL),
 (9, 'computer', '2017-10-31 13:01:10', NULL),
-(10, 'dert', '2017-11-04 07:57:53', NULL),
-(11, 'soda', '2017-11-04 09:16:53', NULL),
-(12, 'soda', '2017-11-04 09:17:58', NULL),
-(13, '', '2017-11-04 09:18:52', NULL),
-(14, '', '2017-11-04 09:20:16', NULL),
-(15, '', '2017-11-04 09:22:04', NULL),
-(16, '', '2017-11-04 09:22:34', NULL),
-(17, '', '2017-11-04 09:24:42', NULL),
-(18, '', '2017-11-04 09:24:58', NULL),
-(19, '', '2017-11-04 09:28:42', NULL);
+(10, 'dert', '2017-11-04 07:57:53', NULL);
 
 -- --------------------------------------------------------
 
@@ -125,7 +118,7 @@ CREATE TABLE `hardware_products` (
 --
 
 INSERT INTO `hardware_products` (`id`, `code`, `productname`, `description`, `categoryid`, `image`, `quantity`, `price`, `sellerid`, `created_at`, `updated_at`) VALUES
-(9, '', 'Kaneki', 'jkk', 1, '1508876647Kaneki-wallpaper-10792862.jpg', 4, 890, 6, '2017-10-24 20:24:07', NULL),
+(9, '', 'Kaneki', 'jkk', 1, '1508876647Kaneki-wallpaper-10792862.jpg', 214, 890, 6, '2017-10-24 20:24:07', '2017-11-05 23:00:54'),
 (10, '', 'Wierd spoon', 'dmasdm', 3, '1508859764fire_background_dark_lines_47328_3840x2160.jpg', 9, 99, 3, '2017-10-24 21:18:28', NULL),
 (13, '', 'iPhone charger', 'Data Cable\r\n\r\niPhone Charger\r\n\r\nFast Charging', 1, '1509099153download (1).jpg', 5, 500, 5, '2017-10-27 10:12:33', NULL),
 (14, '', 'Wireless Mouse', 'Wireless Mouse\r\n\r\nRechargeable\r\n\r\nBluetooth Technology\r\n\r\nUp to 10m range', 1, '1509151027weyes.jpg', -6, 1800, 5, '2017-10-28 00:37:07', NULL),
@@ -165,7 +158,8 @@ CREATE TABLE `professionals` (
 INSERT INTO `professionals` (`id`, `name`, `image`, `mobile`, `created_at`) VALUES
 (6, 'IBM repairs', '84-1024x554.jpg', 1874625275, '2017-11-04 00:00:00'),
 (7, 'Nora fixers', '84-1024x554.jpg', 183531266, '2017-11-04 12:24:42'),
-(9, 'TechRepair', 'grass cubes.jpg', 974258412, '2017-11-04 12:28:42');
+(9, 'TechRepair', 'grass cubes.jpg', 974258412, '2017-11-04 12:28:42'),
+(10, 'maslkd', 'defaultprofile.png', 19023, '2017-11-04 23:49:27');
 
 -- --------------------------------------------------------
 
@@ -232,7 +226,7 @@ CREATE TABLE `sellers` (
 INSERT INTO `sellers` (`id`, `sellerid`, `sellername`, `verified`, `rating`) VALUES
 (1001, 14, 'Boniface Shibwabu', 0, 37),
 (1002, 15, 'Lindsey Karani', 0, 12),
-(1003, 3, 'Benjamin Mpaka', 0, 22),
+(1003, 3, 'Benjamin Mpaka', 0, 2.5),
 (1004, 4, 'Mtoto Mtundu', 0, 4);
 
 -- --------------------------------------------------------
@@ -271,12 +265,12 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `firstname`, `lastname`, `gender`, `institution`, `course`, `year`, `admno`, `seller`, `repairer`, `deniedverification`, `activerepairer`, `mobile`, `email`, `password`, `image`, `rating`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'just_j', 'jane', 'jinyweso', 'female', 'Strathmore University', 'BBIT', 2, 98243, 1, 2, 0, 1, 1234355343, 'josenabz1@gmail.com', '$2y$10$z6mMT1ojm9GXqqoLQnkwTeX0MQOMpWvujvU7WFVATMsov.cBhP7L2', '1508598703Harley_Quinn-wallpaper-10932474.jpg', '0', NULL, '2017-09-20 07:52:29', NULL),
-(3, 'another_j', 'james', 'jambo', 'male', 'Strathmore University', 'BICS', 2, 92879, 0, 1, 0, 1, 70321354, 'j@j.j', '$2y$10$cW77fXvrJbbPVGCzn7Jbhu8lvwj6Z7TXgCuMdQb61qL5CUbeoCtAm', '1508962422fire_background_dark_lines_47328_3840x2160.jpg', '0', NULL, '2017-10-21 07:59:28', '2017-10-28 01:22:55'),
+(3, 'another_j', 'james', 'jambo', 'male', 'Strathmore University', 'BICS', 2, 92879, 1, 1, 0, 1, 70321354, 'j@j.j', '$2y$10$cW77fXvrJbbPVGCzn7Jbhu8lvwj6Z7TXgCuMdQb61qL5CUbeoCtAm', '1508962422fire_background_dark_lines_47328_3840x2160.jpg', '0', NULL, '2017-10-21 07:59:28', '2017-10-28 01:22:55'),
 (4, 'just_a', 'anna', 'ajuma', 'Female', 'Strathmore University', 'Business Administration', 4, 90242, 1, 1, 0, 1, 71234578, 'a@a.a', '$2y$10$jotZLGuWr4bnRpZetfHZguYaAwWGPbwNmwwdMSCsE/KIUY/NQTJDa', '1508598703Harley_Quinn-wallpaper-10932474.jpg', '0', NULL, '2017-10-21 08:15:11', '2017-10-21 15:11:43'),
 (5, 'DrH', 'Dr', 'H', 'Male', 'Self Employed', 'Advanced IT', 3, 97432, 1, 2, 0, 1, 673452734, 'josenabz@gmail.com', '$2y$10$IMctpZQ6EviJqbcdJpTBOewLvkoK1SksjjW5IPX0dfcZdQt/SeyL2', '1508598703Harley_Quinn-wallpaper-10932474.jpg', '0', NULL, '2017-10-22 22:39:15', '2017-10-27 10:33:34'),
 (6, 'VSOL', 'Lynn', 'Sabwa', 'Female', 'Strathmore University', 'Hospitality', 2, 96385, 1, 2, 0, 0, 712849129, 'lynnsabwa@gmail.com', '$2y$10$Z4Egg8LhVMVJTq4nQC6LXe0AmMzQWmUkJQCdXZBLlW3wJWkWgfNmG', '1508598703Harley_Quinn-wallpaper-10932474.jpg', '0', NULL, '2017-10-23 07:01:08', NULL),
 (14, 'BigBro', 'Bro', 'Jon', 'Female', 'Strathmore University', 'Computer Science', 1, 95707, 1, 1, 0, 0, 75432821, 'bjon@gmail.com', '$2y$10$Hqq.Eg7h6wUEHLQu9O8.Uu0QfY6arCPWnDCKE0RItWXUt6nAdv6IW', '1508598703Harley_Quinn-wallpaper-10932474.jpg', NULL, NULL, '2017-10-29 16:03:36', NULL),
-(15, 'bleh1', 'bleh', 'blehish', 'Female', 'Strathmore University', 'Accounting', 2, 94555, 0, 0, 0, 0, 0, 'bleh@gmail.com', '$2y$10$DCdJmDEwuKvjcVQgfe7XF.FRJJ3SFBCJvAPvfSmv9UW.fcWXVFfQS', '1508598703Harley_Quinn-wallpaper-10932474.jpg', NULL, NULL, '2017-10-30 10:48:16', NULL);
+(15, 'bleh1', 'bleh', 'blehish', 'Female', 'Strathmore University', 'Accounting', 2, 94555, 1, 1, 1, 0, 0, 'bleh@gmail.com', '$2y$10$DCdJmDEwuKvjcVQgfe7XF.FRJJ3SFBCJvAPvfSmv9UW.fcWXVFfQS', '1508598703Harley_Quinn-wallpaper-10932474.jpg', NULL, NULL, '2017-10-30 10:48:16', NULL);
 
 --
 -- Indexes for dumped tables
@@ -372,17 +366,17 @@ ALTER TABLE `cart`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `hardware_products`
 --
 ALTER TABLE `hardware_products`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT for table `professionals`
 --
 ALTER TABLE `professionals`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `ratings`
 --
