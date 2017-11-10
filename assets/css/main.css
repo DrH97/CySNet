@@ -57,13 +57,13 @@ header {
     display: inline-block;
     border-bottom: 2px solid skyblue;
     position: fixed;
-    z-index: 6;
+    z-index: 4;
 }
 
 /* smaller navbar on scroll*/
 header.sticky{
     height: 2.5em;
-    background-color: rgba(0,0,0, .9);
+    background-color: white;
 }
 
 @media screen and (max-width: 780px) {
@@ -93,7 +93,7 @@ header.sticky #title{
     height: inherit;
     float: left;
     display: block;
-    color: White;
+    color: black;
     text-align: center;
     padding: .3em 16px;
     text-decoration: none;
@@ -205,21 +205,26 @@ header.sticky .account img{
 .description div {
     width: 70%;
     height: auto;
-    display: inline-block;
+    display: inline-block;   
 }
 
-.description div input[type="search"] {
+.description div input[type="search"]{
     width: 55%;
     height: 2.5em;
     border-style: none;
     color: black;
     font-size: 1em;
     padding: .5em;
-    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.5);
 }
 
-.description div input[type="search"]:hover {
-    background: rgba(255, 255, 255, 0.7);
+.description div input[type='submit']{
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.description div input[type="search"]:hover, .description div input[type='submit']:hover{
+    background: rgba(255, 255, 255, 0.8);
 }
 
 .description div input[type="search"]:focus,
@@ -233,12 +238,13 @@ header.sticky .account img{
     height: 3em;
     border-style: none;
     font-size: 0.8em;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.5);
     padding: 0;
+    border-radius: 5px;
 }
 
 .description div select:hover {
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.8);
 }
 
 .description div input[type='submit'] {
@@ -246,6 +252,7 @@ header.sticky .account img{
     height: 3em;
     border-style: none;
     font-size: 0.8em;
+    border-radius: 5px;
     background: rgba(255, 255, 255, 0.2);
 }
 
@@ -253,15 +260,20 @@ header.sticky .account img{
     background: rgba(255, 255, 255, 0.8);
 }
 
+.search{
+    padding: 0.2em 0 0.2em 0;
+}
+
 .search.sticky{
     position: fixed;
     top: 2.5em;
     left: 15%;
     z-index: 3;
-    background-color: rgba(30,144,255,.1);
+    background-color: rgba(30,144,255,.5);
     border: 2px solid skyblue;
     transition: all 0.5s ease;
     box-shadow: 0 0 5px black;
+    padding: 0.2em 0 0.2em 0;
 }
 
 /* content */
@@ -560,6 +572,88 @@ header.sticky .account img{
 /* REPAIRS */
 
 
+/* for instant repairer */
+
+.instant{
+    width: 20em;
+    height: auto;
+    padding: 1em;
+    margin: 1em;   
+}
+
+.instant p{
+    margin: 10px;   
+}
+
+.instant .i-repairer{
+    padding: 1em;
+    border: 1px solid gainsboro;    
+}
+
+.instant .i-repairer:hover{
+    box-shadow: 0 0 5px gainsboro;    
+}
+
+.instant .i-repairer img{
+    width: 10em;
+    height: 10em;
+    border-radius: 50%;   
+}
+
+.instant .i-repairer button{
+    border: 1px solid darkgray; 
+    background-color: inherit;
+    padding: 5px 10px;
+    color: darkslategray;
+    margin-bottom: 1em;
+}
+
+.instant .i-repairer button:hover{    
+    border: 1px solid skyblue; 
+    color: white;
+    background-color: skyblue;
+    transition: all 0.50s ease-in-out;
+}
+
+.below{
+    margin-top: 1.5em;   
+}
+
+.below button{
+    border: 1px solid darkgray; 
+    background-color: inherit;
+    padding: 5px 10px;
+    color: darkslategray;
+    margin-bottom: 1em;
+}
+
+.below button:hover{
+    background-color: gainsboro;
+    color: black;
+    transition: all 0.50s ease-in-out;
+}
+
+.below p{
+    margin: 5px;
+}
+
+.below p:hover{
+    color: dodgerblue;
+}
+
+.below i{
+    color: skyblue;
+}
+
+.below div{
+    cursor: pointer;
+}
+
+#toggle{
+    display: none;
+}
+
+
 /* for repairers card */
 
 #repair-tab {
@@ -600,12 +694,12 @@ header.sticky .account img{
     float: left;
     height: auto;
     display: inline-flex;
-    box-shadow: 0px 0px 10px gray;
+    border: 1px solid gainsboro;
     margin: 0.8em;
 }
 
 .r-card:hover {
-    box-shadow: 0px 0px 20px royalblue;
+    box-shadow: 0px 0px 5px gray;
 }
 
 .r-card .image {
@@ -1286,13 +1380,14 @@ input:checked+.slider:before {
 }
 
 .tabcontent .view:hover{
-    box-shadow: 0 0 3px gainsboro;
+    box-shadow: 0 0 3px lightgray;
 }
 
 .tabcontent .view img {
     width: 3em;
     height: 3em;
     padding-top: 3px;
+    border-radius: 10px;
 }
 
 .tabcontent .view p {

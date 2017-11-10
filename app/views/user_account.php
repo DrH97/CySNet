@@ -58,7 +58,8 @@ if (isset($_GET['removeprod'])){
     </div>
 
     <!-- ABOUT -->
-    <div id="about" class="tabcontent"">
+    <div id="about" class="tabcontent">
+                                       
         <table style="width:100%; overflow: scroll;">
             <tr>
                 <td class="info">Gender:</td>
@@ -86,6 +87,7 @@ if (isset($_GET['removeprod'])){
                 </td>
             </tr>
         </table>
+                                
     </div>
 
 
@@ -425,11 +427,25 @@ if (isset($_GET['removeprod'])){
             color: #00aeef;
         }
     }
+    
+    .notification{
+        background-color: peachpuff;
+        border-radius: 10px;
+        color: black;
+        padding: 5px 10px;
+        width: auto;
+    }
 
 </style>
+    
+    <?php include('notifications.php'); ?>
 
     <!-- STORE -->
     <div id="store" class="tabcontent">
+        
+        <?php echo $sellerNotif; ?>
+        <div id='sellerNotif'></div>
+        
         <div id="upload" class="upload">
             <form method="post" action="products.php?addprod=true" enctype="multipart/form-data">
                 <h4>Upload to sell hardware</h4>
@@ -631,15 +647,18 @@ if (isset($_GET['removeprod'])){
         <a href="#store" id="storemove"></a>
     </div>
 
-
+</div>
 
 
     <!-- REPAIRS -->
-    <div id="repairs" class="tabcontent">
+   <div id="repairs" class="tabcontent">
+       
+       <?php echo $repairerNotif; ?>
+       <div id='repairerNotif'></div>
 
         <form method="post" action="#">
 
-            <h3>Register as a repairer.</h3>
+            <h3>Register as a repairer.</h3>           
 
             <!-- Rounded switch -->
             <label class="switch">
@@ -662,6 +681,7 @@ if (isset($_GET['removeprod'])){
 <script src="<?php echo ASSETS . 'js/custom-file-input.js'; ?>"></script>
 
 <script>
+    
 
     function repairer() {
         document.getElementById("repairset").setAttribute("disabled", true);
@@ -709,20 +729,6 @@ if (isset($_GET['removeprod'])){
         $('#action').html('<center><img style="width: 20px;" src="<?php echo ASSETS . '/images/loader.gif'; ?>" /></center>');
 
         window.location = "<?php echo '?removeprod=true&id='; ?>" + id;
-
-        //$('#remove').html(succ);
-
-//        $.ajax({
-//            type: 'post',
-//            url: 'auth.php?login=true',
-//            data: {
-//                'id': $('#email'),
-//                'password': $('#password')
-//            },
-//            success: function (succ) {
-//                $('#remove').html(succ);
-//            }
-//        });
     }
 
     function editProduct(id) {
@@ -754,7 +760,9 @@ if (isset($_GET['removeprod'])){
 </script>
 
 <script src="<?php echo ASSETS . 'js/classie.js'; ?>"></script>
+    
 <script>
+    
     (function() {
         // trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
         if (!String.prototype.trim) {
@@ -790,7 +798,6 @@ if (isset($_GET['removeprod'])){
     })();
 
     function info(info) {
-//        $('#cartbutton').html('<center><img src="<?php //echo ASSETS . '/images/dolphin.gif'; ?>//"/></center>');
         var infos = document.getElementById("info");
         var infosmess = document.getElementById("infomess");
         infos.style.display = "block";
@@ -809,6 +816,7 @@ if (isset($_GET['removeprod'])){
     infospan.onclick = function() {
         info1.style.display = "none";
     };
+    
 </script>
 
 </body>

@@ -94,7 +94,7 @@ if (isset($_GET['removecat'])){
                     <th>Image</th>
                     <th>Name</th>
                     <th>Mobile</th>                    
-                    <th><b>Actionsit</b></th>
+                    <th><b>Action</b></th>
                 </tr>
 
                 <?php foreach ($pros as $cat): ?>
@@ -135,8 +135,9 @@ if (isset($_GET['removecat'])){
 
         window.location = "<?php echo '?removecat=true&id='; ?>" + id;
     }
+    
 
-        function navToggleFunction() {
+    function navToggleFunction() {        
         var x = document.getElementById("min-nav");
         if (x.className === "minNav") {
             x.className += " responsive";

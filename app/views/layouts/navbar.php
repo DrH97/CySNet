@@ -60,15 +60,12 @@ include APP_ROOT . '/paginator.php';
         top: 40px;
         right: 0;
         background-color: white;
-        border-bottom-left-radius: 10px;
-        box-shadow: 0 1px 5px skyblue;
-        z-index: 6;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        margin-right: 0.5em;
+        box-shadow: 0 0 8px darkgray;
         text-align: center;
-        opacity: .7;
-    }
-
-    .account-drop:hover{
-        opacity: .9;
+        z-index: 5;
     }
 
     .account-drop a div{
@@ -85,9 +82,6 @@ include APP_ROOT . '/paginator.php';
         color: skyblue;
     }
 
-    /*.account:hover .account-drop{*/
-        /*display: block;*/
-    /*}*/
 </style>
 
 <div id="account-drop" class="account-drop">
@@ -131,18 +125,18 @@ include APP_ROOT . '/paginator.php';
 
 <script>
 
+    //make header and search sticky on scroll
     $(document).on('scroll', function () {
         if ($(this).width() > 780 && $(this).scrollTop() > 20){
             $('header').addClass('sticky');
             $('.search').addClass('sticky');
-//            $('.description').addClass('sticky');
         } else {
             $('header').removeClass('sticky');
             $('.search').removeClass('sticky');
-//            $('.description').removeClass('sticky');
         }
     });
 
+    //for the account drop
     var dropdown = document.getElementById('account-sign');
     var accdrop = document.getElementById('account-drop');
 
@@ -161,23 +155,8 @@ include APP_ROOT . '/paginator.php';
     dropdown.onmouseout = function(){
         accdrop.style.display = 'none';
     };
-
-
-//    function displayDrop() {
-//        var drop = document.getElementById('account-drop');
-//
-//        if (drop.style.display = 'none')
-//            drop.style.display = 'block';
-//        else if(drop.style.display = 'block')
-//            drop.style.display = 'none';
-//    }
-
-//    window.onclick = function(event) {
-//        if (event.target !== document.getElementById("account-drop")) {
-//            document.getElementById("account-drop").style.display = "none";
-//        }
-//    };
-
+    
+    
     //make navigation bar responsive
     function navToggleFunction() {
         var x = document.getElementById("min-nav");

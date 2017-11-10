@@ -2,59 +2,48 @@
 include_once '../start.php';
 include VIEW_ROOT . '/layouts/navbar.php';
 
-//$Quantity;
-
-//if(isset($_GET['cart'])){
-//    $Quantity = 1;
-//    //var_dump($_GET);
-//    if(isset($_SESSION['shopping_cart'])){
-//        $item_array_id = array_column($_SESSION['shopping_cart'], "item_id");
-//        //var_dump($item_array_id);
-//        if (!in_array($_GET['id'], $item_array_id)) {
-//            $Quantity = 1;
-//            $count = count($_SESSION['shopping_cart']);
-//            $item_array = array(
-//                'item_id' => $_GET['id'],
-//                'item_qty' => $Quantity
-//            );
-//            $_SESSION['shopping_cart'][$count] = $item_array;
-//            echo 'Success1';
-//        } else {
-//            $Quantity = $Quantity + 1;
-//            echo 'Success2';
-////            echo '<script>alert("Item already added")</script>';
-////            echo '<script>window.location = "index.php"</script>';
-//        }
-//
-//    } else {
-//        $item_array = array(
-//            'item_id' => $_GET['itemid'],
-//            'item_qty' => $Quantity
-//        );
-//        $_SESSION['shopping_cart'][0] = $item_array;
-//
-//        echo 'Success2';
-//    }
-//}
-//
-//if (isset($_GET['action'])) {
-//    if ($_GET['action'] == "remove") {
-//        foreach ($_SESSION['shopping_cart'] as $keys => $values) {
-//            if ($values['item_id'] == $_GET["id"]) {
-//                unset($_SESSION['shopping_cart'][$keys]);
-//                echo '<script>alert("Item removed!")</script>';
-//                echo '<script>window.location = "cart.php"</script>';
-//            }
-//        }
-//    }
-//
-//}
-//else {
-//    echo "action";
-//    //return true;
-//}
-
 ?>
+
+<style>
+
+    .payment{
+        display: none;
+        padding: 0.8em;
+    }
+    
+    .payment input[type='text']{
+        padding: 5px 10px;
+        background-color: inherit;
+        border: 1px solid darkslategray;
+    }
+    
+    .payment button, #proceed{
+        padding: 5px 10px;
+        background-color: inherit;
+        border: 1px solid darkslategray;
+        float: right;
+    }
+    
+    #proceed{        
+        margin-top: 0.5em;
+    }
+    
+    #proceed:hover{
+        background-color: tomato;
+        border: 1px solid tomato;
+        color: white;
+        transition: all 0.30s ease-in-out;
+    }
+    
+    .payment button:hover{
+        background-color: lime;
+        border: 1px solid lime;
+        color: white;
+        transition: all 0.30s ease-in-out;
+    }  
+    
+
+</style>
 
 <?php
 if (!isset($_SESSION['shopping_cart'])) {
@@ -124,14 +113,38 @@ if (!isset($_SESSION['shopping_cart'])) {
 
                         <?php } ?>
                     <?php }?>
-                    <td colspan="7" style="background: whitesmoke; text-align: right; padding: 10px;"><b style="margin-right: 20px;"><hr>GrandTotal KSh </b><input value="0" class="grandtotal" disabled style=" text-align: leftt; background: none; font-size: 1.1em; border: none; padding: 0; margin: 0; max-width: 50px;" id="grandtotal">/-</td>
+                    <td colspan="7" style="background: whitesmoke; text-align: right; padding: 10px;"><b style="margin-right: 20px;"><hr>GrandTotal: KSh </b><input value="0" class="grandtotal" disabled style=" text-align: leftt; background: none; font-size: 1.1em; border: none; padding: 0; margin: 0; max-width: 50px;" id="grandtotal">/-</td>
 
                 </tbody>
             </table>
+            
+            </form>
 
-            <input type="submit" value="PURCHASE ITEM(S)">
+            <button id="proceed" onclick="togglePayment()">PROCEED TO PAYMENT</button>
+            
+            <div id="payment" class="payment">
+                
+                <h4>Follow the steps below to complete MPESA payment</h4>
 
-        </form>
+                    <ol>
+                        <li>Go to M-PESA on your phone.</li>
+                        <li>Select Pay Bill option.</li>
+                        <li>Enter Business number XXXXXX.</li>
+                        <li>Leave the Account number blank.</li>
+                        <li>Enter the Amount KES XXXX.</li>
+                        <li>Enter your M-PESA PIN and Send.</li>
+                        <li>You will receive a confirmation SMS from M-PESA with a Confirmation Code.</li>
+                        <li>After you receive the confirmation SMS, enter your phone number and the Confirmation Code.</li>
+                        <li>Click on Complete.</li>
+                    </ol>
+
+                    <p style="margin: 0;">Enter the reference number received on your MPESA message:</p><br>
+                    <input type="text" name="confirmation" placeholder="Confirmation code">
+                
+                    <button type="submit" name="pay">PURCHASE</button>
+            
+            </div>
+        
 
     </div>
 
@@ -141,6 +154,20 @@ if (!isset($_SESSION['shopping_cart'])) {
 <!-- end of content div -->
 
 <script>
+    
+    //hide and show list of repairers
+    function togglePayment() {
+          var x = document.getElementById("payment");
+          //var y = document.getElementById("#");
+                    
+          if (x.style.display === "none") {
+               x.style.display = "block";
+               //y.innerHTML = "Hide repairers list";
+          } else {
+               x.style.display = "none";
+               //y.innerHTML = "Show repairers list";
+          }
+    }
 
     function removecart(id) {
 //        $('#action').html('<center><img style="width: 30px;" src="<?php //echo ASSETS . '/images/loader.gif'; ?>//" /></center>');

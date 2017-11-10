@@ -101,7 +101,7 @@
                 <form method='get' action='admin.php'>
                     <center>
                         <div class='view'>
-                            <img src='<?php echo ASSETS . ' images/defaultprofile.png '; ?>'/>
+                            <img src='<?php echo BASE_URL . 'public/uploads/' . $row['image']; ?>'/>
                             <p>
                                 <?php echo $sellerName; ?>
                             </p>
@@ -150,7 +150,7 @@
                 <form method='get' action='admin.php'>
                     <center>
                         <div class='view'>
-                            <img src='<?php echo ASSETS . ' images/defaultprofile.png '; ?>'/>
+                            <img src='<?php echo BASE_URL . 'public/uploads/' . $row['image']; ?>'/>
                             <p>
                                 <?php echo $repairerName; ?>
                             </p>
