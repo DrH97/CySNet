@@ -30,7 +30,7 @@
 
             } else {
                 echo "Password or email incorrect...";
-                //header("LOCATION: " . BASE_URL . 'auth/login.php');
+                header("LOCATION: " . BASE_URL . '9/login.php');
             }
         } else {
             echo "Sorry, not registered! Please register first...";
@@ -71,6 +71,8 @@ if (isset($_GET['adminlogin'])){
         $mobile = $_POST['mobile'];
         $email = $_POST['email-sign'];
         $password = password_hash($_POST['password-sign'], PASSWORD_BCRYPT);
+
+
 
         $sql = "SELECT * FROM users WHERE email = '$email'";
         // var_dump($sql);
@@ -126,7 +128,7 @@ if (isset($_GET['adminlogin'])){
         if (isset($_POST['password-sign'])) {
             $password = password_hash($_POST['password-sign'], PASSWORD_BCRYPT);
             $sql = "UPDATE users SET username = '', firstname = '$firstname', lastname = '$lastname',
-                                     institution = '$institution', course = '$course', year = '$year', admno = '$admno', 
+                                     institution = '$institution', course = '$course', year = '$year', admno = '$admno',
                                       password = '$password', updated_at = NOW() WHERE id = '$id'";
 
             if ($admno == '' || $admno == 0) {
@@ -196,12 +198,12 @@ if (isset($_GET['adminlogin'])){
                     if (isset($_POST['password-sign'])) {
                         $password = password_hash($_POST['password-sign'], PASSWORD_BCRYPT);
                         $sql = "UPDATE users SET username = '', firstname = '$firstname', lastname = '$lastname',
-                                 institution = '$institution', course = '$course', year = '$year', admno = '$admno', 
+                                 institution = '$institution', course = '$course', year = '$year', admno = '$admno',
                                   password = '$password', image = '$image', updated_at = NOW() WHERE id = '$id'";
 
                         if ($admno == '' || $admno == 0) {
                             $sql =  "UPDATE users SET username = '', firstname = '$firstname', lastname = '$lastname',
-                                 institution = '$institution', course = '$course', year = '$year', 
+                                 institution = '$institution', course = '$course', year = '$year',
                                   password = '$password', image = '$image', updated_at = NOW() WHERE id = '$id'";
                         }
                     }

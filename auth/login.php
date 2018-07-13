@@ -1,6 +1,7 @@
 <?php
 require '../app/start.php';
 require VIEW_ROOT . 'layouts/appheader.php'; ?>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 
@@ -123,6 +124,105 @@ require VIEW_ROOT . 'layouts/appheader.php'; ?>
             }
         }
 
+        .capbox {
+        	background-color: #92D433;
+        	border: #B3E272 0px solid;
+        	border-width: 0px 12px 0px 0px;
+        	display: inline-block;
+        	*display: inline; zoom: 1; /* FOR IE7-8 */
+        	padding: 8px 40px 8px 8px;
+        	}
+
+        .capbox-inner {
+        	font: bold 11px arial, sans-serif;
+        	color: #000000;
+        	background-color: #DBF3BA;
+        	margin: 5px auto 0px auto;
+        	padding: 3px;
+        	-moz-border-radius: 4px;
+        	-webkit-border-radius: 4px;
+        	border-radius: 4px;
+        	}
+
+        #CaptchaDiv {
+        	font: bold 17px verdana, arial, sans-serif;
+        	font-style: italic;
+        	color: #000000;
+        	background-color: #FFFFFF;
+        	padding: 4px;
+        	-moz-border-radius: 4px;
+        	-webkit-border-radius: 4px;
+        	border-radius: 4px;
+        	}
+
+        #CaptchaInput { margin: 1px 0px 1px 0px; width: 135px; }
+
+
+/* The message box is shown when the user clicks on the password field */
+#message {
+    display:none;
+    background: #f1f1f1;
+    color: #000;
+    position: relative;
+    padding: 20px;
+    margin-top: 10px;
+}
+
+#message p {
+    padding: 10px 35px;
+    font-size: 18px;
+}
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+    color: green;
+}
+
+.valid:before {
+    position: relative;
+    left: -35px;
+}
+
+/* Add a red text color and an "x" icon when the requirements are wrong */
+.invalid {
+    color: red;
+}
+
+.invalid:before {
+    position: relative;
+    left: -35px;
+}
+
+.capbox {
+	border: #B3E272 0px solid;
+	border-width: 0px 12px 0px 0px;
+	display: inline-block;
+	*display: inline; zoom: 1; /* FOR IE7-8 */
+	padding: 8px 40px 8px 8px;
+	}
+
+.capbox-inner {
+	font: bold 11px arial, sans-serif;
+	color: #000000;
+	margin: 5px auto 0px auto;
+	padding: 3px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	}
+
+#CaptchaDiv {
+	font: bold 17px verdana, arial, sans-serif;
+	font-style: italic;
+	color: #000000;
+	padding: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	}
+
+#CaptchaInput { margin: 1px 0px 1px 0px; width: 135px; }
+
     </style>
 
 <!-- TOP NAVIGATION BAR -->
@@ -132,6 +232,11 @@ require VIEW_ROOT . 'layouts/appheader.php'; ?>
         <a href="<?php echo BASE_URL; ?>" id="title">TechCrowd<span id="subtitle"> WELCOME</span></a>
     </center>
 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,500' rel='stylesheet' type='text/css'>
+
 </header>
 
 <div class="error" id="error" style="display: none;"><p class="message" id="errormess">Some Error Here!!! sdfnjskdf jksd fs dfkj sdkjf kjsd fkj</p><span class="close" id="errorspan" onclick="alert('Asdad');">&cross;</span></div>
@@ -139,7 +244,7 @@ require VIEW_ROOT . 'layouts/appheader.php'; ?>
 
 
 <!-- CONTENT -->
-<div class="content">
+<div class="content" style="background-color: skyblue;">
 
     <h2>Hey there, welcome to <span style="font-size: 1.2em;"><b>TechCrowd</b></span> :)</h2>
 
@@ -175,10 +280,11 @@ require VIEW_ROOT . 'layouts/appheader.php'; ?>
     </div>
 
     <!-- SIGNUP -->
-    <div id="signup" class="tabcontent">
+    <div id="signup" class="tabcontent" style="background-color: skyblue;">
 
         <center>
-            <form method="post" action="sauth.php?register=true">
+            <form method="post" action="auth.php?register=true"  onsubmit="return checkform(this);"
+>
 
                 <div>
                     <input id="firstname" name="firstname" type="text" placeholder="First Name" required autofocus><br>
@@ -192,10 +298,155 @@ require VIEW_ROOT . 'layouts/appheader.php'; ?>
                 <input id="mobile" type="number" placeholder="Mobile Number" name="mobile" required><br>
                 <input id="email-sign" type="email" placeholder="Email" name="email-sign" required><br>
                 <input id="password-sign" type="password" placeholder="Password" name="password-sign" required><br>
+
+                                <div id="message">
+                                  <p>Password must contain the following:</p>
+                                  <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+                                  <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+                                  <p id="number" class="invalid">A <b>number</b></p>
+                                  <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+                                </div>
                 <input id="password-confirm" type="password" placeholder="Re-type Password" name="password_confirmation" required><br><br>
+
+
+                <script>
+                var myInput = document.getElementById("password-sign");
+                var letter = document.getElementById("letter");
+                var capital = document.getElementById("capital");
+                var number = document.getElementById("number");
+                var length = document.getElementById("length");
+
+                // When the user clicks on the password field, show the message box
+                myInput.onfocus = function() {
+                    document.getElementById("message").style.display = "block";
+                }
+
+                // When the user clicks outside of the password field, hide the message box
+                myInput.onblur = function() {
+                    document.getElementById("message").style.display = "none";
+                }
+
+                // When the user starts to type something inside the password field
+                myInput.onkeyup = function() {
+                  // Validate lowercase letters
+                  var lowerCaseLetters = /[a-z]/g;
+                  if(myInput.value.match(lowerCaseLetters)) {
+                    letter.classList.remove("invalid");
+                    letter.classList.add("valid");
+                  } else {
+                    letter.classList.remove("valid");
+                    letter.classList.add("invalid");
+                  }
+
+                  // Validate capital letters
+                  var upperCaseLetters = /[A-Z]/g;
+                  if(myInput.value.match(upperCaseLetters)) {
+                    capital.classList.remove("invalid");
+                    capital.classList.add("valid");
+                  } else {
+                    capital.classList.remove("valid");
+                    capital.classList.add("invalid");
+                  }
+
+                  // Validate numbers
+                  var numbers = /[0-9]/g;
+                  if(myInput.value.match(numbers)) {
+                    number.classList.remove("invalid");
+                    number.classList.add("valid");
+                  } else {
+                    number.classList.remove("valid");
+                    number.classList.add("invalid");
+                  }
+
+                  // Validate length
+                  if(myInput.value.length >= 8) {
+                    length.classList.remove("invalid");
+                    length.classList.add("valid");
+                  } else {
+                    length.classList.remove("valid");
+                    length.classList.add("invalid");
+                  }
+                }
+                </script>
+
+                <br>
+<div class="capbox">
+
+<div id="CaptchaDiv"></div>
+
+<div class="capbox-inner">
+Type the above number:<br>
+
+<input type="hidden" id="txtCaptcha">
+<input type="text" name="CaptchaInput" id="CaptchaInput" size="15"><br>
+
+</div>
+</div>
+<br><br>
+
+            <!--    <div class="form-group">
+                         <div class="g-recaptcha" data-sitekey="6LfKURIUAAAAAO50vlwWZkyK_G2ywqE52NU7YO0S" data-callback="verifyRecaptchaCallback" data-expired-callback="expiredRecaptchaCallback"></div>
+                         <input class="form-control d-none" data-recaptcha="true" required data-error="Please complete the Captcha">
+                         <div class="help-block with-errors"></div>
+                     </div>
+
+
+               END CAPTCHA -->
+
+
                 <input type="submit" value="SIGN UP"><br>
 
             </form>
+
+            <script type="text/javascript">
+
+
+// Captcha Script
+
+function checkform(theform){
+var why = "";
+
+if(theform.CaptchaInput.value == ""){
+why += "- Please Enter CAPTCHA Code.\n";
+}
+if(theform.CaptchaInput.value != ""){
+if(ValidCaptcha(theform.CaptchaInput.value) == false){
+why += "- The CAPTCHA Code Does Not Match.\n";
+}
+}
+if(why != ""){
+alert(why);
+return false;
+}
+}
+
+var a = Math.ceil(Math.random() * 9)+ '';
+var b = Math.ceil(Math.random() * 9)+ '';
+var c = Math.ceil(Math.random() * 9)+ '';
+var d = Math.ceil(Math.random() * 9)+ '';
+var e = Math.ceil(Math.random() * 9)+ '';
+
+var code = a + b + c + d + e;
+document.getElementById("txtCaptcha").value = code;
+document.getElementById("CaptchaDiv").innerHTML = code;
+
+// Validate input against the generated number
+function ValidCaptcha(){
+var str1 = removeSpaces(document.getElementById('txtCaptcha').value);
+var str2 = removeSpaces(document.getElementById('CaptchaInput').value);
+if (str1 == str2){
+return true;
+}else{
+return false;
+}
+}
+
+// Remove the spaces from the entered and generated code
+function removeSpaces(string){
+return string.split(' ').join('');
+}
+</script>
+
         </center>
 
     </div>
@@ -292,5 +543,13 @@ require VIEW_ROOT . 'layouts/appheader.php'; ?>
 //            });
     }
 </script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script src="validator.js"></script>
+    <script src="contact.js"></script>
+
+
 
 <?php include VIEW_ROOT . 'layouts/footer.php'; ?>
